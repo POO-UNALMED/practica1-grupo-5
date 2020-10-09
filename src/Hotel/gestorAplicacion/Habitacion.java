@@ -1,4 +1,4 @@
-package Entidades;
+package gestorAplicacion;
 
 import java.util.Date;
 

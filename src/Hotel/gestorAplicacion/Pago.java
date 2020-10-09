@@ -1,4 +1,4 @@
-package Entidades;
+package gestorAplicacion;
 
 public class Pago {
 	private float valor;
