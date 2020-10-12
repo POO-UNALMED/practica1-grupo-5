@@ -3,12 +3,12 @@ package gestorAplicacion;
 public class Pago {
 	private float valor;
 	private boolean temporadaAlta;
-	private Cliente cliente;
+	private Reserva reserva;
 
-	public Pago(float valor, boolean temporadaAlta, Cliente cliente) {
+	public Pago(float valor, boolean temporadaAlta, Reserva reserva) {
 		this.valor = valor;
 		this.temporadaAlta = temporadaAlta;
-		this.cliente = cliente;
+		this.reserva = reserva;
 	}
 
 	public float getValor() {
@@ -27,12 +27,12 @@ public class Pago {
 		this.temporadaAlta = temporadaAlta;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public Reserva getReserva() {
+		return reserva;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
 	}
 
 }
