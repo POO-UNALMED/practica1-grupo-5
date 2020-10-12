@@ -7,14 +7,12 @@ public class Reserva {
 	private Date fecha;
 	private Cliente cliente;
 	private Habitacion habitacion;
-	private int costo;
+	private double costo = 0.1;
 
-	public Reserva(int numReserva, Date fecha, Cliente cliente, Habitacion habitacion, int costo) {
+	public Reserva(int numReserva, Date fecha, Cliente cliente, Habitacion habitacion) {
 		this.numReserva = numReserva;
 		this.fecha = fecha;
-		this.cliente = cliente;
-		this.habitacion = habitacion;
-		this.costo = costo;
+		this.reservarHabitacion(cliente, habitacion);
 	}
 
 	public int getNumReserva() {
@@ -49,12 +47,29 @@ public class Reserva {
 		this.habitacion = habitacion;
 	}
 
-	public int getCosto() {
+	public double getCosto() {
 		return costo;
 	}
 
-	public void setCosto(int costo) {
+	public void setCosto(double costo) {
 		this.costo = costo;
 	}
 
+	//METODOS ADICIONALES alias FUNCIONALIDADES
+	
+	public boolean verificarDispo(){
+		return habitacion.isDisponible();
+	}
+	
+	public String reservarHabitacion(Cliente cliente, Habitacion habitacion){
+		if (this.verificarDispo() == true) {
+			this.cliente = cliente;
+			this.habitacion = habitacion;
+			habitacion.setDisponible(false);
+			return "Reserva exitosa";
+		}
+		else {
+			return "Habitacion no disponible";
+		}
+	}
 }
