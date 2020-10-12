@@ -4,26 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Empleado extends Persona {
-	private String cargo;
 	private float salario;
 	private boolean activo;
-	private List<Cliente> lstCliente = new ArrayList<>();
+	private static List<Cliente> lstCliente = new ArrayList<>();
 
-	public Empleado(int cedula, String nombre, String cargo, float salario, boolean activo, List<Cliente> lstCliente) {
+	public Empleado(int cedula, String nombre, String cargo, float salario) {
 		super(cedula, nombre);
-		this.cargo = cargo;
 		this.salario = salario;
-		this.activo = activo;
-		this.lstCliente = lstCliente;
+		this.activo = true;
 	}
 
-	public String getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
 
 	public float getSalario() {
 		return salario;
@@ -45,8 +35,14 @@ public class Empleado extends Persona {
 		return lstCliente;
 	}
 
-	public void setLstCliente(List<Cliente> lstCliente) {
-		this.lstCliente = lstCliente;
+	public static  void setLstCliente(List<Cliente> lstCliente) {
+		Empleado.lstCliente = lstCliente;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,6 +1,8 @@
 package gestorAplicacion;
 
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Habitacion {
 	private int numero;
@@ -9,17 +11,17 @@ public class Habitacion {
 	private String tipo;
 	private int precioDia;
 	private boolean disponible;
-	private Cliente cliente;
+	private static List<Reserva> lstReserva = new ArrayList<>();
+	
 
-	public Habitacion(int numero, Date fechaInicial, Date fechaFin, String tipo, int precioDia, boolean disponible,
-			Cliente cliente) {
+	public Habitacion(int numero, Date fechaInicial, Date fechaFin, String tipo, int precioDia, boolean disponible) {
 		this.numero = numero;
 		this.fechaInicial = fechaInicial;
 		this.fechaFin = fechaFin;
 		this.tipo = tipo;
 		this.precioDia = precioDia;
 		this.disponible = disponible;
-		this.cliente = cliente;
+		
 	}
 
 	public int getNumero() {
@@ -70,12 +72,12 @@ public class Habitacion {
 		this.disponible = disponible;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public static List<Reserva> getLstReserva() {
+		return lstReserva;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public static void setLstReserva(List<Reserva> lstReserva) {
+		Habitacion.lstReserva = lstReserva;
 	}
 
 }
