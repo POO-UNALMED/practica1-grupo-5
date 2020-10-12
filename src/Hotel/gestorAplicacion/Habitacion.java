@@ -79,5 +79,6 @@ public class Habitacion {
 	public static void setLstReserva(List<Reserva> lstReserva) {
 		Habitacion.lstReserva = lstReserva;
 	}
-
+	
+	
 }
