@@ -5,30 +5,25 @@ import java.util.List;
 
 public class Cliente extends Persona {
 	
-	private static List<Reserva> lstReserva = new ArrayList<>();
+	private List<Reserva> lstReserva = new ArrayList<>();
 	public static int numClientes;
-	private boolean pazYSalvo;
+	private boolean pazYSalvo=true;
 	private static List<Pago> lstPago = new ArrayList<>();
-	private static List<Empleado> lstEmpleado = new ArrayList<>();
+	private Empleado empleado;
 
-	public Cliente(int cedula, String nombre,
-			boolean pazYSalvo) {
+	public Cliente(int cedula, String nombre,Empleado empleado) {
 		super(cedula, nombre);
-		this.pazYSalvo = pazYSalvo;
+		this.empleado=empleado;
 		numClientes++;
 	}
-
-	
 
 	public List<Reserva> getLstReserva() {
 		return lstReserva;
 	}
 
-	public static void setLstReserva(List<Reserva> lstReserva) {
+	public void setLstReserva(List<Reserva> lstReserva) {
 		Cliente.lstReserva = lstReserva;
 	}
-
-	
 
 	public boolean isPazYSalvo() {
 		return pazYSalvo;
@@ -38,7 +33,7 @@ public class Cliente extends Persona {
 		this.pazYSalvo = pazYSalvo;
 	}
 
-	public List<Pago> getLstPago() {
+	public static List<Pago> getLstPago() {
 		return lstPago;
 	}
 
@@ -46,20 +41,27 @@ public class Cliente extends Persona {
 		Cliente.lstPago = lstPago;
 	}
 
-	public List<Empleado> getLstEmpleado() {
-		return lstEmpleado;
+	public Empleado getEmpleado() {
+		return empleado;
 	}
 
-	public static void setLstEmpleado(List<Empleado> lstEmpleado) {
-		Cliente.lstEmpleado = lstEmpleado;
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
 	}
-
-
 
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public String pedirInfo(int opcion) {
+		return empleado.darInfo(opcion)
+	}
+	
+	public void pagarRecibo(int n) {
+		
+		
 	}
 
 }

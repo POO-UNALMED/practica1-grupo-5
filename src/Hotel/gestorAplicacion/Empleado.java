@@ -45,8 +45,10 @@ public class Empleado extends Persona {
 		return null;
 	}
 	
-	public void registrarCliente(Cliente c) {
+	public 	Cliente registrarCliente(int cedula, String nombre) {
+		Cliente c= new Cliente(cedula,nombre,this); 
 		lstCliente.add(c);
+		return c;
 	}
 	public String darInfo(int opcion) {
 		if(opcion==1) {
@@ -60,9 +62,8 @@ public class Empleado extends Persona {
 		}
 	}
 	
-	public void asignarHabitacion(Cliente c) {
-//		Reserva r= new Reserva();
-		
+	public String asignarReserva(Cliente c, Date fecha,Habitacion h) {
+		Reserva r= new Reserva(fecha,c,h);
 	} 
 
 }
