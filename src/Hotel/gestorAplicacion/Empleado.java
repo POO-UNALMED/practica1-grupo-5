@@ -50,18 +50,18 @@ public class Empleado extends Persona {
 	}
 	public String darInfo(int opcion) {
 		if(opcion==1) {
-			return "Las habitaciones Sencillas cuenta con capacidad para dos personas(1 cama, 1 baño);
+			return "Las habitaciones Sencillas cuenta con capacidad para dos personas(1 cama, 1 baño)";
 		}
 		else if(opcion==2) {
-			return "Las habitaciones Familiares cuenta con capacidad para 6 personas(3 camas, 2 baño);
+			return "Las habitaciones Familiares cuenta con capacidad para 6 personas(3 camas, 2 baño)";
 		}
 		else{
-			return "Las habitaciones Suits cuenta con capacidad para 6 personas(3 camas, 2 baño, 1 salon, 1 jacuzzy);
+			return "Las habitaciones Suits cuenta con capacidad para 6 personas(3 camas, 2 baño, 1 salon, 1 jacuzzy)";
 		}
 	}
 	
 	public void asignarHabitacion(Cliente c) {
-		Reserva r= new Reserva();
+//		Reserva r= new Reserva();
 		
 	} 
 
