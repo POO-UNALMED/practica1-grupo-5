@@ -3,24 +3,27 @@ package gestorAplicacion;
 import java.util.Date;
 
 public class Reserva {
-	private int numReserva;
+	private static int numReserva;
 	private Date fecha;
 	private Cliente cliente;
 	private Habitacion habitacion;
 	private double costo = 0.1;
 
-	public Reserva(int numReserva, Date fecha, Cliente cliente, Habitacion habitacion) {
-		this.numReserva = numReserva;
+	public Reserva() {
+		numReserva++;
+	}
+	public Reserva(Date fecha, Cliente cliente, Habitacion habitacion) {
 		this.fecha = fecha;
 		this.reservarHabitacion(cliente, habitacion);
+		numReserva++;
 	}
 
-	public int getNumReserva() {
+	public static int getNumReserva() {
 		return numReserva;
 	}
 
 	public void setNumReserva(int numReserva) {
-		this.numReserva = numReserva;
+		Reserva.numReserva = numReserva;
 	}
 
 	public Date getFecha() {
@@ -57,12 +60,12 @@ public class Reserva {
 
 	//METODOS ADICIONALES alias FUNCIONALIDADES
 	
-	public boolean verificarDispo(){
-		return habitacion.isDisponible();
+	public boolean verificarDispo(Habitacion habit){
+		return habit.isDisponible();
 	}
 	
 	public String reservarHabitacion(Cliente cliente, Habitacion habitacion){
-		if (this.verificarDispo() == true) {
+		if (this.verificarDispo(habitacion) == true) {
 			this.cliente = cliente;
 			this.habitacion = habitacion;
 			habitacion.setDisponible(false);

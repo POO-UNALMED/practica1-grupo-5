@@ -61,7 +61,7 @@ public class Empleado extends Persona {
 	}
 	
 	public void asignarHabitacion(Cliente c) {
-//		Reserva r= new Reserva();
+		Reserva r= new Reserva();
 		
 	} 
 
