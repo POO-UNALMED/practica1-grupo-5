@@ -9,11 +9,13 @@ public class Reserva {
 	private Habitacion habitacion;
 	private double costo;
 	private Pago pago;
+	private static int id;
 
-	public Reserva(int numReserva, Date fecha, Cliente cliente, Habitacion habitacion) {
-		this.numReserva = numReserva;
+	public Reserva(Date fecha, Cliente cliente, Habitacion habitacion) {
+		this.numReserva = id;
 		this.fecha = fecha;
 		this.reservarHabitacion(cliente, habitacion);
+		id++;
 	}
 
 	public int getNumReserva() {
@@ -55,6 +57,7 @@ public class Reserva {
 	public void setCosto(double costo) {
 		this.costo = costo;
 	}
+
 	public Pago getPago() {
 		return pago;
 	}
@@ -62,40 +65,37 @@ public class Reserva {
 	public void setPago(Pago pago) {
 		this.pago = pago;
 	}
-	
 
-	//METODOS ADICIONALES alias FUNCIONALIDADES
-	
-	public boolean verificarDispo(){
+	// METODOS ADICIONALES alias FUNCIONALIDADES
+
+	public boolean verificarDispo() {
 		return habitacion.isDisponible();
 	}
-	
-	public String reservarHabitacion(Cliente cliente, Habitacion habitacion){
+
+	public String reservarHabitacion(Cliente cliente, Habitacion habitacion) {
 		if (this.verificarDispo() == true) {
 			this.cliente = cliente;
 			this.habitacion = habitacion;
 			habitacion.setDisponible(false);
 			return "Reserva exitosa";
-		}
-		else {
+		} else {
 			return "Habitacion no disponible";
 		}
 	}
-	 public Pago establecerPago() {
-		 if(habitacion.getTipo()=="Sencilla") {
-			 costo=80000;
-			 pago=new Pago(costo,true,this);
-			 return pago;
-		 }
-		 else if (habitacion.getTipo()=="Familiar") {
-			 costo=195000;
-			 pago=new Pago(costo,true,this);
-			 return pago;
-		 }
-		 else{
-			 costo=350000;
-			 pago=new Pago(costo,true,this);
-			 return pago;
-		 }
-	 }
+
+	public Pago establecerPago() {
+		if (habitacion.getTipo() == "Sencilla") {
+			costo = 80000;
+			pago = new Pago(costo, true, this);
+			return pago;
+		} else if (habitacion.getTipo() == "Familiar") {
+			costo = 195000;
+			pago = new Pago(costo, true, this);
+			return pago;
+		} else {
+			costo = 350000;
+			pago = new Pago(costo, true, this);
+			return pago;
+		}
+	}
 }

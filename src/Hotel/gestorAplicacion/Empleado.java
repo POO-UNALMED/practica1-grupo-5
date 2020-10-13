@@ -69,7 +69,8 @@ public class Empleado extends Persona {
 
 	public void asignarHabitacion(Cliente c) {
 		@SuppressWarnings("unused")
-		Reserva r = new Reserva();
+		// Corregir parametros que se enviaran y borrar la linea de arriba cuando se use "r"
+		Reserva r = new Reserva(null, c, null);
 
 	}
 
