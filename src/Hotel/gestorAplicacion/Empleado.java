@@ -74,7 +74,6 @@ public class Empleado extends Persona {
 	}
 
 	public String comfirmarReserva(Reserva r) {
-		@SuppressWarnings("unused")
 		if(r.alquilarHabitacion()=="Reserva exitosa") {
 			return "Confirmacion exitosa";
 		}
