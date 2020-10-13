@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends Persona {
-
-	private static List<Reserva> lstReserva = new ArrayList<>();
+	
+	private List<Reserva> lstReserva = new ArrayList<>();
 	public static int numClientes;
-	private boolean pazYSalvo = true;
+	private boolean pazYSalvo=true;
 	private static List<Pago> lstPago = new ArrayList<>();
 	private Empleado empleado;
 
-	public Cliente(int cedula, String nombre, Empleado empleado) {
+	public Cliente(int cedula, String nombre,Empleado empleado) {
 		super(cedula, nombre);
-		this.empleado = empleado;
+		this.empleado=empleado;
 		numClientes++;
 	}
 
@@ -54,13 +54,15 @@ public class Cliente extends Persona {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	public String pedirInfo(int opcion) {
-		return empleado.darInfo(opcion);
+		return empleado.darInfo(opcion)
 	}
-
-	public void pagarRecibo(int n) {
-
+	
+	public String pagarRecibo() {
+		for(List<Reserva> l : lstReserva) {
+			l.getPago().generarRecibo();
+		}
 	}
 
 }

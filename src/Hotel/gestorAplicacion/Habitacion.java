@@ -10,7 +10,7 @@ public class Habitacion {
 	private Date fechaFin;
 	private String tipo;
 	private int precioDia;
-	private boolean disponible;
+	private boolean disponible=true;
 	private static List<Reserva> lstReserva = new ArrayList<>();
 	
 
