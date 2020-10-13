@@ -1,6 +1,7 @@
 package gestorAplicacion;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Empleado extends Persona {
@@ -61,10 +62,13 @@ public class Empleado extends Persona {
 	}
 
 	public String asignarReserva(Cliente c, Date fecha, Habitacion h) {
+		@SuppressWarnings("unused")
 		Reserva r = new Reserva(fecha, c, h);
+		return "";
 	}
 
 	public void asignarHabitacion(Cliente c) {
+		@SuppressWarnings("unused")
 		Reserva r = new Reserva();
 
 	}
