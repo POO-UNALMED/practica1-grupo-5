@@ -3,27 +3,29 @@ package gestorAplicacion;
 import java.util.Date;
 
 public class Reserva {
-	private int numReserva;
+	private static int numReserva;
 	private Date fecha;
 	private Cliente cliente;
 	private Habitacion habitacion;
-	private double costo;
+	private final static double costo=12;
 	private Pago pago;
-	private static int id;
+	private int id;
+	private boolean confirmacion=false;
 
 	public Reserva(Date fecha, Cliente cliente, Habitacion habitacion) {
-		this.numReserva = id;
+		numReserva++;
+		id=numReserva;
 		this.fecha = fecha;
-		this.reservarHabitacion(cliente, habitacion);
-		id++;
+		this.cliente=cliente;
+		this.habitacion=habitacion;
 	}
 
-	public int getNumReserva() {
+	public static int getNumReserva() {
 		return numReserva;
 	}
 
-	public void setNumReserva(int numReserva) {
-		this.numReserva = numReserva;
+	public static void setNumReserva(int numReserv) {
+		numReserva = numReserv;
 	}
 
 	public Date getFecha() {
@@ -54,16 +56,20 @@ public class Reserva {
 		return costo;
 	}
 
-	public void setCosto(double costo) {
-		this.costo = costo;
-	}
-
 	public Pago getPago() {
 		return pago;
 	}
 
 	public void setPago(Pago pago) {
 		this.pago = pago;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	// METODOS ADICIONALES alias FUNCIONALIDADES
@@ -72,10 +78,9 @@ public class Reserva {
 		return habitacion.isDisponible();
 	}
 
-	public String reservarHabitacion(Cliente cliente, Habitacion habitacion) {
+	public String alquilarHabitacion() {
 		if (this.verificarDispo() == true) {
-			this.cliente = cliente;
-			this.habitacion = habitacion;
+			confirmacion=true;
 			habitacion.setDisponible(false);
 			return "Reserva exitosa";
 		} else {
@@ -84,18 +89,17 @@ public class Reserva {
 	}
 
 	public Pago establecerPago() {
-		if (habitacion.getTipo() == "Sencilla") {
-			costo = 80000;
-			pago = new Pago(costo, true, this);
+		if (confirmacion) {
+			pago = new Pago(habitacion.valor(), true, this);
 			return pago;
-		} else if (habitacion.getTipo() == "Familiar") {
-			costo = 195000;
-			pago = new Pago(costo, true, this);
-			return pago;
-		} else {
-			costo = 350000;
+		}
+		else {
 			pago = new Pago(costo, true, this);
 			return pago;
 		}
+	}
+	public void cancelar() {
+		confirmacion=false;
+		this.establecerPago();
 	}
 }

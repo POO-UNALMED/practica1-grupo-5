@@ -44,13 +44,13 @@ public class Pago {
 	public String generarRecibo() {
 		if (temporadaAlta) {
 			this.pazYSalvo();
-			return "   Hotel POOderoso   \nCosto de la habitacion: " + reserva.getCosto()
+			return "   Hotel POOderoso   \nNumero de Reserva: "+reserva.getId()+"\nCosto de la habitacion: " + valor
 					+ "$\nValor por Temporada Alta: " + demanda + "\nValor Total a Pagar: "
-					+ (reserva.getCosto() + demanda) + "&\n   \nGracias por elegirnos \nVuelva pronto";
+					+ (valor + demanda) + "&\n   \nGracias por elegirnos \nVuelva pronto";
 		} else {
 			this.pazYSalvo();
-			return "   Hotel POOderoso   \nCosto de la habitacion: " + reserva.getCosto()
-					+ "$\nValor por Temporada Alta: 0$" + "\nValor Total a Pagar: " + reserva.getCosto()
+			return "   Hotel POOderoso   \nNumero de Reserva: "+reserva.getId()+"\nCosto de la habitacion: " + valor
+					+ "$\nValor por Temporada Alta: 0$" + "\nValor Total a Pagar: " + valor
 					+ "$\n   \nGracias por elegirnos \nVuelva pronto";
 		}
 	}

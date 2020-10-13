@@ -5,10 +5,9 @@ import java.util.List;
 
 public class Cliente extends Persona {
 
-	private static List<Reserva> lstReserva = new ArrayList<>();
+	private List<Reserva> lstReserva = new ArrayList<>();
 	public static int numClientes;
 	private boolean pazYSalvo = true;
-	private static List<Pago> lstPago = new ArrayList<>();
 	private Empleado empleado;
 
 	public Cliente(int cedula, String nombre, Empleado empleado) {
@@ -21,8 +20,8 @@ public class Cliente extends Persona {
 		return lstReserva;
 	}
 
-	public void setLstReserva(List<Reserva> lstReserva) {
-		Cliente.lstReserva = lstReserva;
+	public void setLstReserva(Reserva r) {
+		lstReserva.add(r);
 	}
 
 	public boolean isPazYSalvo() {
@@ -31,14 +30,6 @@ public class Cliente extends Persona {
 
 	public void setPazYSalvo(boolean pazYSalvo) {
 		this.pazYSalvo = pazYSalvo;
-	}
-
-	public static List<Pago> getLstPago() {
-		return lstPago;
-	}
-
-	public static void setLstPago(List<Pago> lstPago) {
-		Cliente.lstPago = lstPago;
 	}
 
 	public Empleado getEmpleado() {
@@ -59,11 +50,11 @@ public class Cliente extends Persona {
 		return empleado.darInfo(opcion);
 	}
 
-	public String pagarRecibo() {
+	public void pagarRecibo() {
 		for (Reserva l : lstReserva) {
-			l.getPago().generarRecibo();
+			Pago p=l.establecerPago();
+			p.generarRecibo();
 		}
-		return "";
 	}
 
 }

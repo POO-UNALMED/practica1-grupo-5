@@ -48,6 +48,7 @@ public class Empleado extends Persona {
 	public Cliente registrarCliente(int cedula, String nombre) {
 		Cliente c = new Cliente(cedula, nombre, this);
 		lstCliente.add(c);
+		System.out.println("Registro Exitoso");
 		return c;
 	}
 
@@ -60,18 +61,26 @@ public class Empleado extends Persona {
 			return "Las habitaciones Suits cuenta con capacidad para 6 personas(3 camas, 2 ba�o, 1 salon, 1 jacuzzy)";
 		}
 	}
-
+	
 	public String asignarReserva(Cliente c, Date fecha, Habitacion h) {
-		@SuppressWarnings("unused")
-		Reserva r = new Reserva(fecha, c, h);
-		return "";
+		if(h.isDisponible()) {
+			Reserva r = new Reserva(fecha, c, h);
+			c.setLstReserva(r);
+			return "Asignacion exitosa";
+		}
+		else {
+			return "La habitacion esta ocupado, debe elegir otra habitacion";
+		}
 	}
 
-	public void asignarHabitacion(Cliente c) {
+	public String comfirmarReserva(Reserva r) {
 		@SuppressWarnings("unused")
-		// Corregir parametros que se enviaran y borrar la linea de arriba cuando se use "r"
-		Reserva r = new Reserva(null, c, null);
-
+		if(r.alquilarHabitacion()=="Reserva exitosa") {
+			return "Confirmacion exitosa";
+		}
+		else {
+			return "Otro usuario comfirmo la habitacion";
+		}
 	}
 
 }

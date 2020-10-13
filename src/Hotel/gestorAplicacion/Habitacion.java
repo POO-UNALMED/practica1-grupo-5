@@ -14,12 +14,18 @@ public class Habitacion {
 	private static List<Reserva> lstReserva = new ArrayList<>();
 	
 
-	public Habitacion(int numero, Date fechaInicial, Date fechaFin, String tipo, int precioDia, boolean disponible) {
+	public Habitacion(int numero, Date fechaInicial, Date fechaFin, String tipo, boolean disponible) {
 		this.numero = numero;
 		this.fechaInicial = fechaInicial;
 		this.fechaFin = fechaFin;
 		this.tipo = tipo;
-		this.precioDia = precioDia;
+		if (tipo == "Sencilla") {
+			precioDia = 55000;
+		} else if (tipo == "Familiar") {
+			precioDia = 110000;
+		} else {
+			precioDia = 250000;
+		}
 		this.disponible = disponible;
 		
 	}
@@ -79,6 +85,8 @@ public class Habitacion {
 	public static void setLstReserva(List<Reserva> lstReserva) {
 		Habitacion.lstReserva = lstReserva;
 	}
-	
+	 public int valor() {
+		 return 0;
+	 }
 	
 }
