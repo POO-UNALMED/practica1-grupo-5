@@ -6,6 +6,7 @@ public class Main {
 
 	@SuppressWarnings({ "unused", "resource" })
 	public static void main(String[] args) throws InterruptedException {
+
 		Scanner sc = new Scanner(System.in);
 		System.out.println("       Bienvenido al Hotel El POOderoso");
 		System.out.println();
