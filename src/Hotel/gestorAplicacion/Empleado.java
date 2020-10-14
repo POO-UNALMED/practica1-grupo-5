@@ -8,11 +8,35 @@ public class Empleado extends Persona {
 	private float salario;
 	private boolean activo;
 	private static List<Cliente> lstCliente = new ArrayList<>();
+	private static List<Empleado> lstEmpleado = new ArrayList<>();
 
 	public Empleado(int cedula, String nombre, String cargo, float salario) {
 		super(cedula, nombre);
 		this.salario = salario;
 		this.activo = true;
+		lstEmpleado.add(this);
+	}
+
+	public static boolean EmpleadoExist(int cedula) {
+		boolean exist = false;
+		for (Empleado employee : lstEmpleado) {
+			if (employee.getCedula() == cedula) {
+				exist = true;
+				break;
+			}
+		}
+		return exist;
+	}
+
+	public static Empleado EmpleadoPorCedula(int cedula) {
+		Empleado Empleado = null;
+		for (Empleado empleado : lstEmpleado) {
+			if (empleado.getCedula() == cedula) {
+				Empleado = empleado;
+				break;
+			}
+		}
+		return Empleado;
 	}
 
 	public float getSalario() {
@@ -61,23 +85,21 @@ public class Empleado extends Persona {
 			return "Las habitaciones Suits cuenta con capacidad para 6 personas(3 camas, 2 ba�o, 1 salon, 1 jacuzzy)";
 		}
 	}
-	
+
 	public String asignarReserva(Cliente c, Date fecha, Habitacion h) {
-		if(h.isDisponible()) {
+		if (h.isDisponible()) {
 			Reserva r = new Reserva(fecha, c, h);
 			c.setLstReserva(r);
 			return "Asignacion exitosa";
-		}
-		else {
+		} else {
 			return "La habitacion esta ocupado, debe elegir otra habitacion";
 		}
 	}
 
 	public String comfirmarReserva(Reserva r) {
-		if(r.alquilarHabitacion()=="Reserva exitosa") {
+		if (r.alquilarHabitacion() == "Reserva exitosa") {
 			return "Confirmacion exitosa";
-		}
-		else {
+		} else {
 			return "Otro usuario comfirmo la habitacion";
 		}
 	}

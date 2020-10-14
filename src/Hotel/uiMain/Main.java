@@ -28,7 +28,7 @@ public class Main {
 		}
 		System.out.println("Conexión exitosa");
 		Thread.sleep(1000);
-		Menu m1 = new Menu();
+		new MenuController();
 
 	}
 

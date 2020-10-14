@@ -2,34 +2,20 @@ package uiMain;
 
 import java.util.Scanner;
 
-public class Menu {
-	@SuppressWarnings({ "resource", "unused" })
-	public Menu() {
+public class MenuController {
+	@SuppressWarnings({ "resource" })
+	public MenuController() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
-		int aux = 0;
 
 		globalServices.clearScr();
 		imprimirOpciones();
 
-		boolean correct = false;
-		while (!correct) {
-			try {
-				String option = sc.next();
-				aux = Integer.valueOf(option) + 0;
-				if (aux < 8 && aux > 0) {
-					correct = true;
-				} else {
-					System.out.println("El número ingresado es inválido");
-				}
+		int aux = globalServices.validacionEntrada(7);
 
-			} catch (Exception e) {
-				System.out.println("Error: No se ha ingresado un número entero");
-			}
-		}
 		switch (aux) {
 		case 1:
-
+			new ReservaController();
 			break;
 		case 2:
 
@@ -47,7 +33,7 @@ public class Menu {
 
 			break;
 		case 7:
-			Main m = new Main();
+			System.out.println("Sesión finalizada");
 			break;
 
 		default:

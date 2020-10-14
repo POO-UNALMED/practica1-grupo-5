@@ -3,6 +3,7 @@ package gestorAplicacion;
 public abstract class Persona {
 	private int cedula;
 	private String nombre;
+
 	public abstract String toString();
 
 	public Persona(int cedula, String nombre) {

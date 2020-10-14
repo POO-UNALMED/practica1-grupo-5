@@ -9,15 +9,39 @@ public class Cliente extends Persona {
 	public static int numClientes;
 	private boolean pazYSalvo = true;
 	private Empleado empleado;
+	private static List<Cliente> lstCliente = new ArrayList<>();
 
 	public Cliente(int cedula, String nombre, Empleado empleado) {
 		super(cedula, nombre);
 		this.empleado = empleado;
 		numClientes++;
+		lstCliente.add(this);
 	}
 
 	public List<Reserva> getLstReserva() {
 		return lstReserva;
+	}
+
+	public static boolean ClienteExist(int cedula) {
+		boolean exist = false;
+		for (Cliente cliente : lstCliente) {
+			if (cliente.getCedula() == cedula) {
+				exist = true;
+				break;
+			}
+		}
+		return exist;
+	}
+
+	public static Cliente ClientePorCedula(int cedula) {
+		Cliente Cliente = null;
+		for (Cliente cliente : lstCliente) {
+			if (cliente.getCedula() == cedula) {
+				Cliente = cliente;
+				break;
+			}
+		}
+		return Cliente;
 	}
 
 	public void setLstReserva(Reserva r) {
@@ -42,7 +66,6 @@ public class Cliente extends Persona {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -52,7 +75,7 @@ public class Cliente extends Persona {
 
 	public void pagarRecibo() {
 		for (Reserva l : lstReserva) {
-			Pago p=l.establecerPago();
+			Pago p = l.establecerPago();
 			p.generarRecibo();
 		}
 	}
