@@ -2,6 +2,8 @@ package uiMain;
 
 import java.util.Scanner;
 
+import gestorAplicacion.Reserva;
+
 public class MenuController {
 	@SuppressWarnings({ "resource" })
 	public MenuController() {
@@ -15,7 +17,7 @@ public class MenuController {
 
 		switch (aux) {
 		case 1:
-			new ReservaController();
+			Reserva.menuReserva();
 			break;
 		case 2:
 

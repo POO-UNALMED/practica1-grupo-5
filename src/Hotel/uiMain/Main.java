@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
 
-	@SuppressWarnings({ "unused", "resource" })
+	@SuppressWarnings({ "resource" })
 	public static void main(String[] args) throws InterruptedException {
 
 		Scanner sc = new Scanner(System.in);
@@ -16,18 +16,18 @@ public class Main {
 		sc.next();
 		boolean tru = true;
 		int n = 6;
-		while (tru) {
-
-			Thread.sleep(500);
-			System.out.print(".");
-			n--;
-			if (n == 0) {
-				tru = false;
-				System.out.println(".");
-			}
-		}
+//		while (tru) {
+//
+//			Thread.sleep(500);
+//			System.out.print(".");
+//			n--;
+//			if (n == 0) {
+//				tru = false;
+//				System.out.println(".");
+//			}
+//		}
 		System.out.println("Conexión exitosa");
-		Thread.sleep(1000);
+//		Thread.sleep(1000);
 		new MenuController();
 
 	}
