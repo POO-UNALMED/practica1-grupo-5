@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -73,16 +74,24 @@ public class Habitacion implements Serializable {
 		return lst;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static boolean isAvailable(Habitacion hab, Date fechaIni, Date fechaFin) {
 		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
 		global globalServices = new global();
 		Date fecha1 = null;
 		Date fecha2 = null;
+		Calendar fechaIniAux = Calendar.getInstance();
+		fechaIniAux.setTime(fechaIni);
+		Calendar fechaFinAux = Calendar.getInstance();
+		fechaFinAux.setTime(fechaFin);
 		boolean available = true;
-		DateTime fechaInicio2 = formatter
-				.parseDateTime(fechaIni.getDay() + "/" + fechaIni.getMonth() + "/" + fechaIni.getYear());
-		DateTime fechaFin2 = formatter
-				.parseDateTime(fechaFin.getDay() + "/" + fechaFin.getMonth() + "/" + fechaFin.getYear());
+		String string1 = fechaIniAux.get(Calendar.DATE) + "/" + (fechaIniAux.get(Calendar.MONTH) + 1) + "/"
+				+ fechaIniAux.get(Calendar.YEAR);
+		String string2 = fechaFinAux.get(Calendar.DATE) + "/" + (fechaFinAux.get(Calendar.MONTH) + 1) + "/"
+				+ fechaFinAux.get(Calendar.YEAR);
+		System.out.println(string1 + "\n" + string2);
+		DateTime fechaInicio2 = formatter.parseDateTime(string1);
+		DateTime fechaFin2 = formatter.parseDateTime(string2);
 
 		for (Map.Entry<Pair<Date, Date>, Integer> x : hab.getBusyDates().entrySet()) {
 			fecha1 = globalServices.StringToDate(x.getKey().toString().split("=")[0]);

@@ -114,8 +114,8 @@ public class Reserva implements Serializable {
 
 			List<Habitacion> lstHabitaciones = new ArrayList<>();
 			lstHabitaciones = Habitacion.habitacionesDisponiblesPorTipo(tipo, fecha1, fecha2);
-			for (int i = 1; i <= lstHabitaciones.size(); i++) {
-				System.out.println(i + "- " + lstHabitaciones.get(i).getNumero() + "\n   -> "
+			for (int i = 0; i < lstHabitaciones.size(); i++) {
+				System.out.println((i + 1) + "- N°" + lstHabitaciones.get(i).getNumero() + "   -> "
 						+ lstHabitaciones.get(i).getDescripcion());
 			}
 			int aux = globalServices.validacionEntrada(lstHabitaciones.size());
