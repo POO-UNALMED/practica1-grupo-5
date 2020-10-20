@@ -1,17 +1,26 @@
 package gestorAplicacion;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-public class Empleado extends Persona {
+public class Empleado extends Persona implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private float salario;
 	private boolean activo;
 	private static List<Cliente> lstCliente = new ArrayList<>();
 	private static List<Empleado> lstEmpleado = new ArrayList<>();
 
-	public Empleado(int cedula, String nombre, String cargo, float salario) {
+	public Empleado(int cedula, String nombre, float salario) {
 		super(cedula, nombre);
 		this.salario = salario;
 		this.activo = true;
@@ -20,12 +29,14 @@ public class Empleado extends Persona {
 
 	public static Empleado newEmpleado(int cedula) {
 		Scanner sc = new Scanner(System.in);
-//		System.out.println("Ingrese el nombre del cliente: ");
-//		String nombre = sc.next();
-//		System.out.println("Ingrese la cedula del empleado a cargo: ");
-//		Empleado employee = Empleado.EmpleadoPorCedula(sc.nextInt());
+		Scanner scf = new Scanner(System.in);
+		scf.useDelimiter("\n");
+		System.out.println("Ingrese el nombre del empleado: ");
+		String nombre = scf.next();
+		System.out.println("Ingrese el salario de " + nombre);
+		int salario = sc.nextInt();
 
-		return null;
+		return new Empleado(cedula, nombre, salario);
 	}
 
 	public static Empleado EmpleadoExist() {
@@ -60,6 +71,45 @@ public class Empleado extends Persona {
 
 		}
 		return employee;
+	}
+
+	public static boolean Guardar() {
+		ObjectOutputStream oos;
+		boolean error = true;
+		File EmpleadoFile = new File("src/Hotel/BaseDatos/Empleado");
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(EmpleadoFile));
+			oos.writeObject(Empleado.lstEmpleado);
+			oos.close();
+			error = false;
+		} catch (IOException e) {
+			System.out.println("Error al intentar guardar Clientes\n    -> Error: " + e.getMessage());
+			error = true;
+		}
+		return !error;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static boolean Cargar() {
+		ObjectInputStream ois;
+		boolean error = true;
+		File EmpleadoFile = new File("src/Hotel/BaseDatos/Empleado");
+
+		try {
+			ois = new ObjectInputStream(new FileInputStream(EmpleadoFile));
+			Empleado.lstEmpleado = (List<Empleado>) ois.readObject();
+			error = false;
+		} catch (IOException e) {
+			System.out.println("Error al intentar leer Empleados\n    -> Error: " + e.getMessage());
+			error = true;
+		} catch (ArrayIndexOutOfBoundsException ae) {
+			System.out.println("Error al intentar leer Empleados\n    -> Error: " + ae.getMessage());
+			error = true;
+		} catch (ClassNotFoundException ce) {
+			System.out.println("Error al intentar leer Empleados\n    -> Error: " + ce.getMessage());
+			error = true;
+		}
+		return !error;
 	}
 
 	public static boolean EmpleadoExist(int cedula) {
@@ -110,7 +160,6 @@ public class Empleado extends Persona {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -132,8 +181,8 @@ public class Empleado extends Persona {
 	}
 
 	public String asignarReserva(Cliente c, Date fecha, Habitacion h) {
-		if (h.isDisponible()) {
-			Reserva r = new Reserva(fecha, c, h);
+		if (false == false) {
+			Reserva r = new Reserva(c, h);
 			c.setLstReserva(r);
 			return "Asignacion exitosa";
 		} else {

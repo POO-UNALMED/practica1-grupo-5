@@ -35,8 +35,17 @@ public class MenuController {
 
 			break;
 		case 7:
-			System.out.println("Sesión finalizada");
-			break;
+			if (globalServices.GuardarSesion()) {
+				System.out.println("Sesión guardada y finalizada exitosamente");
+				break;
+			} else {
+				System.out.println("Ocurrió un error al guardar, intentelo nuevamente");
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+				}
+				new MenuController();
+			}
 
 		default:
 			break;
@@ -52,6 +61,6 @@ public class MenuController {
 		System.out.println("4- Pagos");
 		System.out.println("5- Clientes");
 		System.out.println("6- Empleados");
-		System.out.println("7- Cerrar sesión");
+		System.out.println("7- Guardar y Cerrar sesión");
 	}
 }

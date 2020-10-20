@@ -1,16 +1,24 @@
 package gestorAplicacion;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Cliente extends Persona {
+public class Cliente extends Persona implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private List<Reserva> lstReserva = new ArrayList<>();
 	public static int numClientes;
 	private boolean pazYSalvo = true;
 	private Empleado empleado;
-	private static List<Cliente> lstCliente = new ArrayList<>();
+	public static List<Cliente> lstCliente = new ArrayList<>();
 
 	public Cliente(int cedula, String nombre, Empleado empleado) {
 		super(cedula, nombre);
@@ -21,13 +29,14 @@ public class Cliente extends Persona {
 
 	public static Cliente ClienteExist() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Ingrese la cédula: (Ex: 1001366265)");
+		System.out.println("Ingrese la cédula del cliente: (Ex: 1001366265)");
 		boolean ClienteisCorrect = false;
 		Cliente cliente = null;
 		while (!ClienteisCorrect) {
 			int ced = sc.nextInt();
 			if (Cliente.ClienteExist(ced)) {
 				cliente = Cliente.ClientePorCedula(ced);
+				ClienteisCorrect = true;
 			} else {
 				System.out.println("El cliente no está registrado, ¿Desea crearlo?");
 				System.out.print("S/N ");
@@ -53,13 +62,55 @@ public class Cliente extends Persona {
 		return cliente;
 	}
 
+	public static boolean Guardar() {
+		ObjectOutputStream oos;
+		boolean error = true;
+		File ClientesFile = new File("src/Hotel/BaseDatos/Clientes");
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(ClientesFile));
+			oos.writeObject(Cliente.lstCliente);
+			oos.close();
+			error = false;
+		} catch (IOException e) {
+			System.out.println("Error al intentar guardar Clientes\n    -> Error: " + e.getMessage());
+			error = true;
+		}
+		return !error;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static boolean Cargar() {
+		ObjectInputStream ois;
+		boolean error = true;
+		List<Cliente> clientes = new ArrayList<>();
+		File ClientesFile = new File("src/Hotel/BaseDatos/Clientes");
+
+		try {
+			ois = new ObjectInputStream(new FileInputStream(ClientesFile));
+			Cliente.lstCliente = (List<Cliente>) ois.readObject();
+			error = false;
+		} catch (IOException e) {
+			System.out.println("Error al intentar leer Clientes\n    -> Error: " + e.getMessage());
+			error = true;
+		} catch (ArrayIndexOutOfBoundsException ae) {
+			System.out.println("Error al intentar leer Clientes\n    -> Error: " + ae.getMessage());
+			error = true;
+		} catch (ClassNotFoundException ce) {
+			System.out.println("Error al intentar leer Clientes\n    -> Error: " + ce.getMessage());
+			error = true;
+		}
+		if (!error) {
+			Cliente.numClientes = Cliente.lstCliente.size();
+		}
+		return !error;
+	}
+
 	private static Cliente newCliente(int cedula) {
 		Scanner sc = new Scanner(System.in);
 		Scanner scf = new Scanner(System.in);
 		scf.useDelimiter("\n");
 		System.out.println("Ingrese el nombre del cliente: ");
 		String nombre = scf.next();
-		System.out.println(nombre);
 		Empleado employee = Empleado.EmpleadoExist();
 		if (employee == null) {
 			return null;

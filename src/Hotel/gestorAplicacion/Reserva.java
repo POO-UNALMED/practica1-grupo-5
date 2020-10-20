@@ -1,15 +1,23 @@
 package gestorAplicacion;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import uiMain.MenuController;
 import uiMain.global;
 
-public class Reserva {
+public class Reserva implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private static int numReserva;
 	private Date fecha;
 	private Cliente cliente;
@@ -18,13 +26,16 @@ public class Reserva {
 	private Pago pago;
 	private int id;
 	private boolean confirmacion = false;
+	public static List<Reserva> lstReserva = new ArrayList<>();
 
-	public Reserva(Date fecha, Cliente cliente, Habitacion habitacion) {
+	public Reserva(Cliente cliente, Habitacion habitacion) {
 		numReserva++;
 		id = numReserva;
-		this.fecha = fecha;
+		this.fecha = new Date();
 		this.cliente = cliente;
 		this.habitacion = habitacion;
+		this.cliente.setPazYSalvo(false);
+		Reserva.lstReserva.add(this);
 	}
 
 	public static void menuReserva() {
@@ -66,23 +77,53 @@ public class Reserva {
 		Cliente cliente = null;
 		boolean DateisCorrect = false;
 		System.out.println("     Nueva Reserva");
-//		Ingreso de fecha
-		System.out.println("Ingrese la fecha: dd/mm/yyyy  ");
-		while (!DateisCorrect) {
-			try {
-				fecha = StringToDate(sc.next());
-				DateisCorrect = true;
-			} catch (Exception e) {
-				System.out.println("Formato inválido");
-				System.out.println("Ingrese la fecha nuevamente: dd/mm/yyyy  ");
-			}
-		}
 
 //		Ingreso del cliente
 		cliente = Cliente.ClienteExist();
 
 		if (cliente != null) {
-			new Reserva(fecha, cliente, null);
+			System.out.println("¿Qué tipo de habitación desea reservar?");
+			System.out.println("1- Suite    ($250.000/noche)");
+			System.out.println("2- Familiar ($110.000/noche)");
+			System.out.println("3- Sencilla ($55.000/noche)");
+			int tipo = globalServices.validacionEntrada(3);
+
+			System.out.println("Fechas");
+			System.out.println("   Desde:");
+			Date fecha1 = new Date();
+			while (!DateisCorrect) {
+				fecha1 = globalServices.StringToDate(sc.next());
+				if (fecha1 != null) {
+					DateisCorrect = true;
+				} else {
+					System.out.println("Ocurrio un problema ingresando la fecha, intentelo nuevamente");
+				}
+			}
+
+			DateisCorrect = false;
+			Date fecha2 = new Date();
+			System.out.println("   Hasta:");
+			while (!DateisCorrect) {
+				fecha2 = globalServices.StringToDate(sc.next());
+				if (fecha2 != null) {
+					DateisCorrect = true;
+				} else {
+					System.out.println("Ocurrio un problema ingresando la fecha, intentelo nuevamente");
+				}
+			}
+
+			List<Habitacion> lstHabitaciones = new ArrayList<>();
+			lstHabitaciones = Habitacion.habitacionesDisponiblesPorTipo(tipo, fecha1, fecha2);
+			for (int i = 1; i <= lstHabitaciones.size(); i++) {
+				System.out.println(i + "- " + lstHabitaciones.get(i).getNumero() + "\n   -> "
+						+ lstHabitaciones.get(i).getDescripcion());
+			}
+			int aux = globalServices.validacionEntrada(lstHabitaciones.size());
+
+			Reserva newReserva = new Reserva(cliente, lstHabitaciones.get(aux));
+			// --------- Falta setear fechas y crear metodo para ver si esta disponible
+			Habitacion.ocuparHabitacion(null, null, null, newReserva.getId());
+			// -------------------------------------------------------------------------------------------
 		} else {
 			System.out.println("No se pudo crear la reserva");
 			try {
@@ -94,10 +135,43 @@ public class Reserva {
 		}
 	}
 
-	private static Date StringToDate(String string) throws ParseException {
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		return formatter.parse(string);
+	public static boolean Guardar() {
+		ObjectOutputStream oos;
+		boolean error = true;
+		File ReservaFile = new File("src/Hotel/BaseDatos/Reserva");
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(ReservaFile));
+			oos.writeObject(Reserva.lstReserva);
+			oos.close();
+			error = false;
+		} catch (IOException e) {
+			System.out.println("Error al intentar guardar Reservas\n    -> Error: " + e.getMessage());
+			error = true;
+		}
+		return !error;
+	}
 
+	@SuppressWarnings("unchecked")
+	public static boolean Cargar() {
+		ObjectInputStream ois;
+		boolean error = true;
+		File ReservaFile = new File("src/Hotel/BaseDatos/Reserva");
+
+		try {
+			ois = new ObjectInputStream(new FileInputStream(ReservaFile));
+			Reserva.lstReserva = (List<Reserva>) ois.readObject();
+			error = false;
+		} catch (IOException e) {
+			System.out.println("No hay Reservas guardadas");
+			error = false;
+		} catch (ArrayIndexOutOfBoundsException ae) {
+			System.out.println("Error al intentar leer Reservas\n    -> Error: " + ae.getMessage());
+			error = true;
+		} catch (ClassNotFoundException ce) {
+			System.out.println("Error al intentar leer Reservas\n    -> Error: " + ce.getMessage());
+			error = true;
+		}
+		return !error;
 	}
 
 	public static int getNumReserva() {
@@ -155,13 +229,14 @@ public class Reserva {
 	// METODOS ADICIONALES alias FUNCIONALIDADES
 
 	public boolean verificarDispo() {
-		return habitacion.isDisponible();
+//		return habitacion.isDisponible();
+		return false;
 	}
 
 	public String alquilarHabitacion() {
 		if (this.verificarDispo() == true) {
 			confirmacion = true;
-			habitacion.setDisponible(false);
+//			habitacion.setDisponible(false);
 			return "Reserva exitosa";
 		} else {
 			return "Habitacion no disponible";
