@@ -15,8 +15,12 @@ import gestorAplicacion.Reserva;
 public class global {
 
 	public void clearScr() {
+		try {
+			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+		} catch (Exception e) {
+		}
 		System.out.println("\n\n           HOTEL EL POODEROSO");
-		System.out.println("------------------ // ------------------\n\n\n\n\n");
+		System.out.println("------------------ // ------------------\n\n\n");
 	}
 
 	@SuppressWarnings("resource")

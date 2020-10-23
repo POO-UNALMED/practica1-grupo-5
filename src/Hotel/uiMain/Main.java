@@ -14,7 +14,7 @@ public class Main {
 
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
-		System.out.println("       Bienvenido al Hotel El POOderoso");
+		globalServices.clearScr();
 		System.out.println();
 		System.out.print("Porfavor ingrese su usuario: ");
 		sc.next();
