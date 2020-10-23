@@ -15,13 +15,8 @@ import gestorAplicacion.Reserva;
 public class global {
 
 	public void clearScr() {
-		for (int i = 0; i < 8; i++) {
-			System.out.println();
-			if (i == 2) {
-				System.out.println("           HOTEL EL POODEROSO");
-				System.out.println("------------------ // ------------------");
-			}
-		}
+		System.out.println("\n\n           HOTEL EL POODEROSO");
+		System.out.println("------------------ // ------------------\n\n\n\n\n");
 	}
 
 	@SuppressWarnings("resource")
