@@ -2,6 +2,10 @@ package uiMain;
 
 import java.util.Scanner;
 
+import gestorAplicacion.Cliente;
+import gestorAplicacion.Empleado;
+import gestorAplicacion.Habitacion;
+import gestorAplicacion.Pago;
 import gestorAplicacion.Reserva;
 
 public class MenuController {
@@ -23,16 +27,16 @@ public class MenuController {
 
 			break;
 		case 3:
-
+			Habitacion.menuHabitacion();
 			break;
 		case 4:
-
+			Pago.menuPago();
 			break;
 		case 5:
-
+			Cliente.menuCliente();
 			break;
 		case 6:
-
+			Empleado.menuEmpleado();
 			break;
 		case 7:
 			if (globalServices.GuardarSesion()) {

@@ -13,37 +13,384 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormat;
 
 import javafx.util.Pair;
+import uiMain.MenuController;
 import uiMain.global;
 
 public class Habitacion implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private int numero;
+	private static int numero;
 	private Map<Pair<Date, Date>, Integer> busyDates = new HashMap<>();
 	private String tipo;
 	private String descripcion;
 	private int precioDia;
+	private int numeroHabitacion;
 	private static List<Habitacion> lstHabitacion = new ArrayList<>();
 
-	public Habitacion(int numero, String tipo, String descripcion) {
-		this.numero = numero;
-
+	public Habitacion(String tipo, String descripcion) {
+		Habitacion.numero++;
+		this.numeroHabitacion=Habitacion.numero;
 		this.tipo = tipo;
 		if (tipo == "Sencilla") {
 			precioDia = 55000;
 		} else if (tipo == "Familiar") {
 			precioDia = 110000;
-		} else if (tipo == "Suite") {
+		} else if (tipo == "Suite"){
 			precioDia = 250000;
 		}
 		this.descripcion = descripcion;
 		Habitacion.lstHabitacion.add(this);
+	}
+	
+	public static void menuHabitacion() {
+		global globalServices = new global();
+		globalServices.clearScr();
+		System.out.println("Habitaciones   ");
+		System.out.println("    digite el número de la opción que desee:");
+		System.out.println("1- Crear Habitacion");
+		System.out.println("2- Buscar Habitacion");
+		System.out.println("3- Editar reserva");
+		System.out.println("4- Eliminar Habitacion");
+		System.out.println("5- Mostrar listado de habitaciones");
+		
+
+		int aux = globalServices.validacionEntrada(5);
+
+		switch (aux) {
+		case 1:
+			crearHabitacion();
+			break;
+		case 2:
+			buscarHabitacion();
+			break;
+		case 3:
+			editarHabitacion();
+			break;
+		case 4:
+			eliminarHabitacion();
+			break;
+		case 5:
+			mostrarHabitacionesExistente();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public static void crearHabitacion() {
+		global globalServices = new global();
+		Scanner sc = new Scanner(System.in);
+		globalServices.clearScr();
+		System.out.println("     CREACION HABITACION");
+		System.out.println("¿Que tipo de Habitacion desea crear?");
+		System.out.println("1- Sencilla");
+		System.out.println("2- Familiar");
+		System.out.println("3- Suite");
+		int tipo = globalServices.validacionEntrada(3);
+		switch (tipo) {
+		case 1:
+			System.out.println("¿Que descripcion posee la habitacion?");
+			String a=sc.next();
+			new Habitacion("Sencilla",a);
+			System.out.println("Habitacion creada exitosamente");
+			break;
+		case 2:
+			System.out.println("¿Que descripcion posee la habitacion?");
+			String b=sc.next();
+			new Habitacion("Familiar",b);
+			System.out.println("Habitacion creada exitosamente");
+			break;
+		case 3:
+			System.out.println("¿Que descripcion posee la habitacion?");
+			String c=sc.next();
+			new Habitacion("Suite",c);
+			System.out.println("Habitacion creada exitosamente");
+			break;
+		default:
+			break;
+		}
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			new MenuController();
+		}
+		new MenuController();
+	}
+	
+	public static void buscarHabitacion() {
+		global globalServices = new global();
+		Scanner sc = new Scanner(System.in);
+		globalServices.clearScr();
+		System.out.println("     BUSQUEDAD DE HABITACION");
+		boolean confirma = false;
+		if (Habitacion.lstHabitacion.size() > 0) {
+			while (!confirma) {
+				System.out.println("     Ingrese el numero de la Habitacion:");
+				int aux = globalServices.valiEntrada();
+				boolean aux1 = false;
+				for (Habitacion h : Habitacion.lstHabitacion) {
+					if (h.getNumeroHabitacion() == aux) {
+						System.out.println("Esta es su habitacion: ");
+						System.out.println();
+						System.out.println("Numero de habitacion: " + h.getNumeroHabitacion());
+						System.out.println("Tipo: " + h.getTipo());
+						System.out.println("Descripcion: " + h.getDescripcion());
+						aux1 = true;
+						break;
+					}
+				}
+				if (!aux1) {
+					System.out.println("Este numero de habitacion no se encuentra registrado");
+					System.out.println("¿Desea volver a intentar?");
+					System.out.println("S/N");
+					boolean bien = false;
+					while (!bien) {
+						String res = sc.next();
+						if (res.equals("s") || res.equals("S")) {
+							bien = true;
+						} else if (res.equals("n") || res.equals("N")) {
+							System.out.println("Busqueda cancelada");
+							bien = true;
+							confirma = true;
+						} else {
+							System.out.println("Entrada inválida");
+							System.out.print("¿Desea volver a intentar? S/N ");
+						}
+					}
+				}else {
+					confirma = true;
+				}
+			}
+			try {
+				Thread.sleep(1200);
+				new MenuController();
+			} catch (InterruptedException e) {
+				new MenuController();
+			}
+		} else {
+			System.out.println("No hay habitaciones registradas");
+			try {
+				Thread.sleep(1200);
+				new MenuController();
+			} catch (InterruptedException e) {
+				new MenuController();
+			}
+		}
+	}
+	
+	public static void editarHabitacion() {
+		global globalServices = new global();
+		Scanner sc = new Scanner(System.in);
+		globalServices.clearScr();
+		System.out.println("     EDICION HABITACION");
+		boolean confirma = false;
+		if (Habitacion.lstHabitacion.size() > 0) {
+			while (!confirma) {
+				System.out.println("     Ingrese el numero de la habitacion a editar:");
+				int aux = globalServices.valiEntrada();
+				boolean aux1 = false;
+				for (Habitacion h : Habitacion.lstHabitacion) {
+					if (h.getNumeroHabitacion() == aux) {
+						System.out.println("Esta es su Habitacion:");
+						System.out.println("Numero de habitacion: " + h.getNumeroHabitacion());
+						System.out.println("Tipo: " + h.getTipo());
+						System.out.println("Descripcion: " + h.getDescripcion());
+						System.out.println();
+						System.out.println("Que edicion desea realizar?");
+						System.out.println("1- Editar tipo de habitacion");
+						System.out.println("2- Editar descripcion de la habitacion");
+						int aux2 = globalServices.validacionEntrada(2);
+						switch (aux2) {
+						case 1:
+							System.out.println("Ingrese el nuevo tipo de la habitacion:");
+							System.out.println("1- Sencilla");
+							System.out.println("2- Familiar");
+							System.out.println("3- Suite");
+							int a = globalServices.validacionEntrada(3);
+							switch (a) {
+							case 1:
+								h.setTipo("Sencilla");
+								System.out.println("Cambio exitoso");
+								break;
+							case 2:
+								h.setTipo("Familiar");
+								System.out.println("Cambio exitoso");
+								break;
+							case 3:
+								h.setTipo("Suite");
+								System.out.println("Cambio exitoso");
+								break;
+							default:
+								break;
+							}
+							break;
+						case 2:
+							System.out.println("Ingrese la nueva descripcion de la habitacion:");
+							String d=sc.next();
+							h.setDescripcion(d);
+							System.out.println("Cambio de la nueva descripcion de la habitacion exitoso");
+							break;
+						default:
+							break;
+						}
+						aux1 = true;
+						break;
+					}
+				}
+				if (!aux1) {
+					System.out.println("No se encuentra ninguna habitacion registrada con este numero");
+					System.out.println("¿Desea volver a intentar?");
+					System.out.println("S/N");
+					boolean bien = false;
+					while (!bien) {
+						String res = sc.next();
+						if (res.equals("s") || res.equals("S")) {
+							bien = true;
+						} else if (res.equals("n") || res.equals("N")) {
+							System.out.println("Edicion cancelada");
+							bien = true;
+							confirma = true;
+						} else {
+							System.out.println("Entrada inválida");
+							System.out.print("¿Desea volver a intentar? S/N ");
+						}
+					}
+				}else {
+					confirma = true;
+				}
+			}
+			try {
+				Thread.sleep(1200);
+				new MenuController();
+			} catch (InterruptedException e) {
+				new MenuController();
+			}
+		} else {
+			System.out.println("No hay habitaciones registradas");
+			try {
+				Thread.sleep(1200);
+				new MenuController();
+			} catch (InterruptedException e) {
+				new MenuController();
+			}
+		}
+	}
+	
+	public static void eliminarHabitacion() {
+		System.out.println("     ELIMINAR HABITACION");
+		global globalServices = new global();
+		Scanner sc = new Scanner(System.in);
+		globalServices.clearScr();
+		boolean confirma = false;
+		if (Habitacion.lstHabitacion.size() > 0) {
+			while (!confirma) {
+				System.out.println("     Ingrese el numero de la habitacion:");
+				int aux = globalServices.valiEntrada();
+				boolean aux1 = false;
+				for (Habitacion h : Habitacion.lstHabitacion) {
+					if (h.getNumeroHabitacion() == aux) {
+						System.out.println("Numero de habitacion: " + h.getNumeroHabitacion());
+						System.out.println("Tipo: " + h.getTipo());
+						System.out.println("Descripcion: " + h.getDescripcion());
+						System.out.println();
+						System.out.println("¿Esta Seguro que desea eliminar la Habitacion?");
+						System.out.println("S/N");
+						boolean bien = false;
+						while (!bien) {
+							String res = sc.next();
+							if (res.equals("s") || res.equals("S")) {
+								bien = true;
+								Habitacion.lstHabitacion.remove(h);
+								System.out.println("Eliminacion exitosa");
+							} else if (res.equals("n") || res.equals("N")) {
+								System.out.println("Eliminacion cancelada");
+								bien = true;
+								confirma = true;
+							} else {
+								System.out.println("Entrada inválida");
+								System.out.print("¿Desea volver a intentar? S/N ");
+							}
+						}
+						aux1 = true;
+						break;
+					}
+				}
+				if (!aux1) {
+					System.out.println("Este numero de habitacion no se encuentra registrado");
+					System.out.println("¿Desea volver a intentar?");
+					System.out.println("S/N");
+					boolean bien = false;
+					while (!bien) {
+						String res = sc.next();
+						if (res.equals("s") || res.equals("S")) {
+							bien = true;
+							System.out.println("Eliminacion exitosa");
+						} else if (res.equals("n") || res.equals("N")) {
+							System.out.println("Eliminacion cancelada");
+							bien = true;
+							confirma = true;
+						} else {
+							System.out.println("Entrada inválida");
+							System.out.print("¿Desea volver a intentar? S/N ");
+						}
+					}
+				}
+				else {
+					confirma = true;
+				}
+			}
+			try {
+				Thread.sleep(1200);
+				new MenuController();
+			} catch (InterruptedException e) {
+				new MenuController();
+			}
+		} else {
+			System.out.println("No hay habitaciones registradas");
+			try {
+				Thread.sleep(1200);
+				new MenuController();
+			} catch (InterruptedException e) {
+				new MenuController();
+			}
+		}
+
+	}
+	
+	public static void mostrarHabitacionesExistente() {
+		System.out.println("    HABITACIONES EXISTENTES ACTUALMENTE");
+		if (Habitacion.lstHabitacion.size() > 0) {
+			int n = 1;
+			for (Habitacion h : Habitacion.lstHabitacion) {
+				System.out.println(n + "- Numero de habitacion: " + h.getNumeroHabitacion() + " Descripcion: "+h.getDescripcion() 
+						+"\n   Tipo: "+h.getTipo()+"  Precio por dia : "+h.getPrecioDia());
+				n++;
+			}
+			System.out.println();
+			System.out.println("Total de habitaciones: "+Habitacion.lstHabitacion.size());
+			try {
+				Thread.sleep(1200);
+				new MenuController();
+			} catch (InterruptedException e) {
+				new MenuController();
+			}
+
+		} else {
+			System.out.println("No hay habitaciones existentes por el momento.");
+			try {
+				Thread.sleep(1200);
+				new MenuController();
+			} catch (InterruptedException e) {
+				new MenuController();
+			}
+		}
 	}
 
 	public static List<Habitacion> habitacionesDisponiblesPorTipo(int tipo, Date fechaIni, Date fechaFin) {
@@ -89,7 +436,6 @@ public class Habitacion implements Serializable {
 				+ fechaIniAux.get(Calendar.YEAR);
 		String string2 = fechaFinAux.get(Calendar.DATE) + "/" + (fechaFinAux.get(Calendar.MONTH) + 1) + "/"
 				+ fechaFinAux.get(Calendar.YEAR);
-		System.out.println(string1 + "\n" + string2);
 		DateTime fechaInicio2 = formatter.parseDateTime(string1);
 		DateTime fechaFin2 = formatter.parseDateTime(string2);
 
@@ -113,7 +459,7 @@ public class Habitacion implements Serializable {
 	}
 
 	public static void ocuparHabitacion(Habitacion hab, Date fechaIni, Date fechaFin, int idReserva) {
-		Pair<Date, Date> fechas = new Pair<>(new Date(), new Date());
+		Pair<Date, Date> fechas = new Pair<>(fechaIni, fechaFin);
 		hab.busyDates.put(fechas, idReserva);
 	}
 
@@ -144,7 +490,7 @@ public class Habitacion implements Serializable {
 			Habitacion.lstHabitacion = (List<Habitacion>) ois.readObject();
 			error = false;
 		} catch (IOException e) {
-			System.out.println("Error al intentar leer Habitaciones\n    -> Error: " + e.getMessage());
+			System.out.println("No hay habitaciones guardadas\n    -> Error: " + e.getMessage());
 			error = true;
 		} catch (ArrayIndexOutOfBoundsException ae) {
 			System.out.println("Error al intentar leer Habitaciones\n    -> Error: " + ae.getMessage());
@@ -194,6 +540,14 @@ public class Habitacion implements Serializable {
 
 	public void setPrecioDia(int precioDia) {
 		this.precioDia = precioDia;
+	}
+	
+	public int getNumeroHabitacion() {
+		return numeroHabitacion;
+	}
+
+	public void setNumeroHabitacion(int numeroHabitacion) {
+		this.numeroHabitacion = numeroHabitacion;
 	}
 
 	public int valor() {
