@@ -37,12 +37,31 @@ public class global {
 				if (aux < fin + 1 && aux > 0) {
 					correct = true;
 				} else {
-					System.out.println("El n√∫mero ingresado es inv√°lido");
+					System.out.println("El n˙mero ingresado es inv·lido");
 					System.out.println("Ingrese nuevamente");
 				}
 
 			} catch (Exception e) {
 				System.out.println("Error: No se ha ingresado un n√∫mero entero");
+				System.out.println("Ingrese nuevamente");
+			}
+		}
+		return aux;
+	}
+	
+	public int valiEntrada() {
+		Scanner sc = new Scanner(System.in);
+		boolean correct = false;
+		int aux = 0;
+		String option = "";
+		while (!correct) {
+			try {
+				option = sc.next();
+				aux = Integer.valueOf(option) + 0;
+				correct = true;
+
+			} catch (Exception e) {
+				System.out.println("Error: No se ha ingresado un numero entero");
 				System.out.println("Ingrese nuevamente");
 			}
 		}
