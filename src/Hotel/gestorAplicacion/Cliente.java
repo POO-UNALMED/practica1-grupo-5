@@ -133,6 +133,7 @@ public class Cliente extends Persona implements Serializable {
 		} catch (InterruptedException e) {
 			new MenuController();
 		}
+		globalServices.GuardarSesion();
 		new MenuController();
 	}
 
@@ -517,10 +518,6 @@ public class Cliente extends Persona implements Serializable {
 		}
 	}
 
-	public List<Reserva> getLstReserva() {
-		return lstReserva;
-	}
-
 	public static boolean ClienteExist(int cedula) {
 		boolean exist = false;
 		for (Cliente cliente : lstCliente) {
@@ -542,6 +539,10 @@ public class Cliente extends Persona implements Serializable {
 		}
 		return Cliente;
 	}
+	
+	public List<Reserva> getLstReserva() {
+		return lstReserva;
+	}
 
 	public void setLstReserva(Reserva r) {
 		lstReserva.add(r);
@@ -562,6 +563,9 @@ public class Cliente extends Persona implements Serializable {
 	public void setEmpleado(Empleado empleado) {
 		this.empleado = empleado;
 	}
+	
+	
+	
 
 	@Override
 	public String toString() {

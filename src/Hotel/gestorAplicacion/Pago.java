@@ -34,38 +34,39 @@ public class Pago implements Serializable {
 		global globalServices = new global();
 		globalServices.clearScr();
 		System.out.println("Pagos   ");
-		System.out.println("    digite el número de la opción que desee:");
+		System.out.println("    digite el nï¿½mero de la opciï¿½n que desee:");
 		System.out.println("1- Imprimir factura");
 		System.out.println("2- Mostrar pagos pendientes");
 
 		int aux = globalServices.validacionEntrada(2);
 
 		switch (aux) {
-		case 1:
-			imprimeFactura();
-			break;
-		case 2:
-			mostrarPagosPendientes();
-			break;
-		case 3:
-//			editarCliente();
-			break;
+			case 1:
+				imprimeFactura();
+				break;
+			case 2:
+				mostrarPagosPendientes();
+				break;
+			case 3:
+				// editarCliente();
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 	}
 
 	public static void crearPago(Reserva re, boolean temporada) {
-		// calculos de dias entre las fechas
-		// mientras, puse dias 8
-		int dias = 8;
+		global globalServices = new global();
+		int milisecondsByDay = 86400000;
+		int dias = (int) ((re.getFechaFin().getTime() - re.getFechaInicio().getTime()) / milisecondsByDay);
 		double costo = dias * re.getHabitacion().getPrecioDia();
 		if (temporada) {
 			costo += Pago.demanda;
 		}
 		re.setPago(new Pago(costo, temporada, re));
 		System.out.println("Pago creado exitosamente");
+		globalServices.GuardarSesion();
 	}
 
 	public static void imprimeFactura() {
@@ -73,7 +74,6 @@ public class Pago implements Serializable {
 		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
 		boolean confirma = false;
-		Reserva re = null;
 		if (Pago.lstPago.size() > 0) {
 			while (!confirma) {
 				System.out.println("Ingrese el numero de la reserva");
@@ -87,7 +87,7 @@ public class Pago implements Serializable {
 						System.out.println();
 						System.out.println("Cliente: " + p.getReserva().getCliente().getNombre());
 						System.out.println("Habitacion tipo: " + p.getReserva().getHabitacion().getTipo());
-						System.out.println("Costo por noche: " + p.getValor());
+						System.out.println("Costo por noche: " + p.getReserva().getHabitacion().getPrecioDia());
 						System.out.println("Total de dias: ");
 						String tem = null;
 						if (p.isTemporadaAlta()) {
@@ -104,7 +104,7 @@ public class Pago implements Serializable {
 					confirma = true;
 				} else {
 					System.out.println("Este numero de reserva no se encuentra registrado");
-					System.out.println("¿Desea volver a intentar?");
+					System.out.println("ï¿½Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -116,8 +116,8 @@ public class Pago implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inválida");
-							System.out.print("¿Desea volver a intentar? S/N ");
+							System.out.println("Entrada invï¿½lida");
+							System.out.print("ï¿½Desea volver a intentar? S/N ");
 						}
 					}
 				}
@@ -146,11 +146,9 @@ public class Pago implements Serializable {
 		System.out.println("PAGOS PENDIENTES");
 		System.out.println();
 		if (Pago.lstPago.size() > 0) {
-			int n = 1;
 			for (Pago p : Pago.lstPago) {
-				System.out.println("--> Cliente: " + p.getReserva().getCliente().getNombre() + " Valor pendiente: "
-						+ p.getValor());
-				n++;
+				System.out
+						.println("--> Cliente: " + p.getReserva().getCliente().getNombre() + " Valor pendiente: " + p.getValor());
 			}
 			System.out.println("Presione '1' para regresar");
 			sc.next();
@@ -174,6 +172,19 @@ public class Pago implements Serializable {
 				break;
 			}
 		}
+	}
+
+	public void multa(Reserva re) {
+		int multa = 20000;
+		System.out.println();
+		System.out.println("    FACTURA");
+		System.out.println(" HOTEL POODEROSO");
+		System.out.println();
+		System.out.println("Cliente: " + re.getCliente().getNombre());
+		System.out.println("Habitacion tipo: " + re.getHabitacion().getTipo());
+		System.out.println("Costo por noche: " + re.getHabitacion().getPrecioDia());
+		System.out.println("Factura por motivo de multa ");
+		System.out.println("Total a pagar: " + multa);
 	}
 
 	public static boolean Guardar() {

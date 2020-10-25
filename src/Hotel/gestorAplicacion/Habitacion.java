@@ -124,6 +124,7 @@ public class Habitacion implements Serializable {
 		} catch (InterruptedException e) {
 			new MenuController();
 		}
+		globalServices.GuardarSesion();
 		new MenuController();
 	}
 
