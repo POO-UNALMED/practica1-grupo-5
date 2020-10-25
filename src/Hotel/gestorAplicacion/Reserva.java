@@ -164,6 +164,8 @@ public class Reserva implements Serializable {
 						default:
 							break;
 						}
+						cliente.setPazYSalvo(false);
+						cliente.setLstReserva(newReserva);
 						Pago.crearPago(newReserva, term);
 						System.out.println("Reserva creada exitosamente");
 						bien = true;
