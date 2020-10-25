@@ -364,11 +364,11 @@ public class Empleado extends Persona implements Serializable {
 			break;
 		}
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(1200);
+			Empleado.menuEmpleado();
 		} catch (InterruptedException e) {
-			new MenuController();
+			Empleado.menuEmpleado();
 		}
-		new MenuController();
 	}
 
 	public static void mostrarEmpleadosExistente() {

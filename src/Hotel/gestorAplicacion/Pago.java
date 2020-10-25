@@ -56,10 +56,9 @@ public class Pago implements Serializable {
 		}
 	}
 
-	public static void crearPago(Reserva re, boolean temporada) {
-		// calculos de dias entre las fechas
-		// mientras, puse dias 8
-		int dias = 8;
+	public static void crearPago(Reserva re, boolean temporada) {		
+		int milisecondsByDay = 86400000;
+		int dias = (int)((re.getFechaFin().getTime()-re.getFechaInicio().getTime()) / milisecondsByDay);
 		double costo = dias * re.getHabitacion().getPrecioDia();
 		if (temporada) {
 			costo += Pago.demanda;
@@ -73,7 +72,6 @@ public class Pago implements Serializable {
 		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
 		boolean confirma = false;
-		Reserva re = null;
 		if (Pago.lstPago.size() > 0) {
 			while (!confirma) {
 				System.out.println("Ingrese el numero de la reserva");
@@ -87,7 +85,7 @@ public class Pago implements Serializable {
 						System.out.println();
 						System.out.println("Cliente: " + p.getReserva().getCliente().getNombre());
 						System.out.println("Habitacion tipo: " + p.getReserva().getHabitacion().getTipo());
-						System.out.println("Costo por noche: " + p.getValor());
+						System.out.println("Costo por noche: " + p.getReserva().getHabitacion().getPrecioDia());
 						System.out.println("Total de dias: ");
 						String tem = null;
 						if (p.isTemporadaAlta()) {
@@ -146,11 +144,9 @@ public class Pago implements Serializable {
 		System.out.println("PAGOS PENDIENTES");
 		System.out.println();
 		if (Pago.lstPago.size() > 0) {
-			int n = 1;
 			for (Pago p : Pago.lstPago) {
 				System.out.println("--> Cliente: " + p.getReserva().getCliente().getNombre() + " Valor pendiente: "
 						+ p.getValor());
-				n++;
 			}
 			System.out.println("Presione '1' para regresar");
 			sc.next();
@@ -174,6 +170,19 @@ public class Pago implements Serializable {
 				break;
 			}
 		}
+	}
+	
+	public void multa(Reserva re) {
+		int multa=20000;
+		System.out.println();
+		System.out.println("    FACTURA");
+		System.out.println(" HOTEL POODEROSO");
+		System.out.println();
+		System.out.println("Cliente: " + re.getCliente().getNombre());
+		System.out.println("Habitacion tipo: " + re.getHabitacion().getTipo());
+		System.out.println("Costo por noche: " + re.getHabitacion().getPrecioDia());
+		System.out.println("Factura por motivo de multa ");
+		System.out.println("Total a pagar: "+multa);
 	}
 
 	public static boolean Guardar() {
