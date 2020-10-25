@@ -50,8 +50,9 @@ public class Reserva implements Serializable {
 		System.out.println("3- Editar reserva");
 		System.out.println("4- Eliminar reserva");
 		System.out.println("5- Mostrar listado de reservas");
+		System.out.println("6- Regresar");
 
-		int aux = globalServices.validacionEntrada(5);
+		int aux = globalServices.validacionEntrada(6);
 
 		switch (aux) {
 		case 1:
@@ -69,6 +70,9 @@ public class Reserva implements Serializable {
 		case 5:
 			mostarReservasExistente();
 			break;
+		case 6:
+			new MenuController();
+			break;
 		default:
 			break;
 		}
@@ -85,7 +89,7 @@ public class Reserva implements Serializable {
 
 //		Ingreso del cliente
 		cliente = Cliente.ClienteExist();
-
+		globalServices.clearScr();
 		if (cliente != null) {
 			System.out.println("¿Qué tipo de habitación desea reservar?");
 			System.out.println("1- Suite    ($250.000/noche)");
@@ -123,6 +127,8 @@ public class Reserva implements Serializable {
 					System.out.println("Tiempo de reserva invalido, por favor intente de nuevo");
 					System.out.println("------------------------------------------------------");
 					System.out.println("");
+					globalServices.clearScr();
+					Reserva.menuReserva();
 				}
 			}
 
@@ -142,23 +148,23 @@ public class Reserva implements Serializable {
 				while (!bien) {
 					String res = sc.next();
 					if (res.equals("s") || res.equals("S")) {
-						Habitacion.ocuparHabitacion(lstHabitaciones.get(aux-1), fecha1, fecha2, newReserva.getId());
+						Habitacion.ocuparHabitacion(lstHabitaciones.get(aux - 1), fecha1, fecha2, newReserva.getId());
 						System.out.println("Que temporada es?");
 						System.out.println("1- Alta");
 						System.out.println("2- Baja");
 						int aux2 = globalServices.validacionEntrada(2);
-						boolean term=false;
+						boolean term = false;
 						switch (aux2) {
 						case 1:
-							term=true;
+							term = true;
 							break;
 						case 2:
-							term=false;
+							term = false;
 							break;
 						default:
 							break;
 						}
-						Pago.crearPago(newReserva,term);
+						Pago.crearPago(newReserva, term);
 						System.out.println("Reserva creada exitosamente");
 						bien = true;
 					} else if (res.equals("n") || res.equals("N")) {
@@ -176,7 +182,7 @@ public class Reserva implements Serializable {
 				} catch (InterruptedException e) {
 					new MenuController();
 				}
-			}else {
+			} else {
 				System.out.println("No hay habitaciones disponibles para este tipo de habitacion");
 				try {
 					Thread.sleep(1200);
@@ -189,12 +195,13 @@ public class Reserva implements Serializable {
 			System.out.println("No se pudo crear la reserva");
 			try {
 				Thread.sleep(1000);
+				new MenuController();
 			} catch (InterruptedException e) {
 				new MenuController();
 			}
 		}
 	}
-	
+
 	public static void editarReserva() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -215,56 +222,56 @@ public class Reserva implements Serializable {
 						switch (aux2) {
 						case 1:
 							Date fecha1 = new Date();
-							boolean DateisCorrect=false;
+							boolean DateisCorrect = false;
 							while (!DateisCorrect) {
-							System.out.println("Ingrese el nuevo tipo de la habitacion:");
+								System.out.println("Ingrese el nuevo tipo de la habitacion:");
 								fecha1 = globalServices.StringToDate(sc.next());
 								if (fecha1 != null) {
-									if(fecha1.compareTo(r.getFechaFin()) <= 0) {
-										//r.setFechaFin(fecha1);
+									if (fecha1.compareTo(r.getFechaFin()) <= 0) {
+										// r.setFechaFin(fecha1);
 										DateisCorrect = true;
-									}else {
+									} else {
 										System.out.println("La fecha que ingreso es mayor que fecha Fin de su reserva");
 									}
 								} else {
 									System.out.println("Ocurrio un problema ingresando la fecha, intentelo nuevamente");
 								}
 							}
-							boolean p=Habitacion.isAvailable(r.getHabitacion(), fecha1,r.getFechaFin());
-							if(p) {
+							boolean p = Habitacion.isAvailable(r.getHabitacion(), fecha1, r.getFechaFin());
+							if (p) {
 								r.setFechaInicio(fecha1);
 								System.out.println("Cambio de fecha exitoso");
+							} else {
+								System.out.println(
+										"La habitacion ya se encuentra ocupada para el intervalo de tiempo nuevo");
 							}
-							else {
-								System.out.println("La habitacion ya se encuentra ocupada para el intervalo de tiempo nuevo");
-							}
-							
-							
+
 							break;
 						case 2:
 							Date fecha2 = new Date();
-							boolean DateisCorrec=false;
+							boolean DateisCorrec = false;
 							while (!DateisCorrec) {
-							System.out.println("Ingrese el nuevo tipo de la habitacion:");
+								System.out.println("Ingrese el nuevo tipo de la habitacion:");
 								fecha2 = globalServices.StringToDate(sc.next());
 								if (fecha2 != null) {
-									if(fecha2.compareTo(r.getFechaInicio()) >= 0) {
+									if (fecha2.compareTo(r.getFechaInicio()) >= 0) {
 										DateisCorrec = true;
-									}else {
-										System.out.println("La fecha que ingreso es menor que fecha Inicio de su reserva");
+									} else {
+										System.out.println(
+												"La fecha que ingreso es menor que fecha Inicio de su reserva");
 										System.out.println("intentelo nuevamente");
 									}
 								} else {
 									System.out.println("Ocurrio un problema ingresando la fecha, intentelo nuevamente");
 								}
 							}
-							boolean w=Habitacion.isAvailable(r.getHabitacion(),r.getFechaInicio(),fecha2);
-							if(w) {
+							boolean w = Habitacion.isAvailable(r.getHabitacion(), r.getFechaInicio(), fecha2);
+							if (w) {
 								r.setFechaFin(fecha2);
 								System.out.println("Cambio de fecha exitoso");
-							}
-							else {
-								System.out.println("La habitacion ya se encuentra ocupada para el intervalo de tiempo nuevo");
+							} else {
+								System.out.println(
+										"La habitacion ya se encuentra ocupada para el intervalo de tiempo nuevo");
 							}
 							break;
 						default:
@@ -292,7 +299,7 @@ public class Reserva implements Serializable {
 							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
-				}else {
+				} else {
 					confirma = true;
 				}
 			}
@@ -312,7 +319,6 @@ public class Reserva implements Serializable {
 			}
 		}
 	}
-	
 
 	public static void buscarReserva() {
 		global globalServices = new global();
@@ -356,8 +362,8 @@ public class Reserva implements Serializable {
 							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
-				}else {
-					confirma=true;
+				} else {
+					confirma = true;
 				}
 			}
 			try {
@@ -437,9 +443,8 @@ public class Reserva implements Serializable {
 							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
-				}
-				else {
-					confirma=true;
+				} else {
+					confirma = true;
 				}
 			}
 			try {
@@ -461,28 +466,27 @@ public class Reserva implements Serializable {
 	}
 
 	public static void mostarReservasExistente() {
+		global globalService = new global();
+		Scanner sc = new Scanner(System.in);
+		globalService.clearScr();
 		System.out.println("    RESERVAS EXISTENTES ACTUALMENTE");
 		if (Reserva.lstReserva.size() > 0) {
 			int n = 1;
 			for (Reserva r : Reserva.lstReserva) {
 				System.out.println(n + "- Numero de reserva: " + r.getId() + " Cliente: " + r.getCliente().getNombre()
-						+"\n    Fecha de reserva: Desde: "+r.getFechaInicio()+" Hasta: "+r.getFechaFin());
+						+ "\n    Fecha de reserva: Desde: " + r.getFechaInicio() + " Hasta: " + r.getFechaFin());
 				n++;
 			}
-			try {
-				Thread.sleep(1200);
-				new MenuController();
-			} catch (InterruptedException e) {
-				new MenuController();
-			}
-
+			System.out.println("Presione '1' para regresar");
+			sc.next();
+			Reserva.menuReserva();
 		} else {
-			System.out.println("No hay reserves existentes por el momento.");
+			System.out.println("No hay reservas existentes por el momento.");
 			try {
 				Thread.sleep(1200);
-				new MenuController();
+				Reserva.menuReserva();
 			} catch (InterruptedException e) {
-				new MenuController();
+				Reserva.menuReserva();
 			}
 		}
 	}
@@ -525,17 +529,17 @@ public class Reserva implements Serializable {
 		}
 		return !error;
 	}
-	
+
 	public static Reserva reservaExist(int num) {
-		Reserva re=null;
-		if(Reserva.lstReserva.size()>0) {
-			for(Reserva r:Reserva.lstReserva) {
-				if(r.getId()==num) {
-					re=r;
+		Reserva re = null;
+		if (Reserva.lstReserva.size() > 0) {
+			for (Reserva r : Reserva.lstReserva) {
+				if (r.getId() == num) {
+					re = r;
 				}
 			}
 			return re;
-		}else {
+		} else {
 			return re;
 		}
 	}
@@ -604,4 +608,3 @@ public class Reserva implements Serializable {
 		this.fechaFin = fechaFin;
 	}
 }
-

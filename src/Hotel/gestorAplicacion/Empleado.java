@@ -28,7 +28,7 @@ public class Empleado extends Persona implements Serializable {
 		this.activo = true;
 		lstEmpleado.add(this);
 	}
-	
+
 	public static void menuEmpleado() {
 		global globalServices = new global();
 		globalServices.clearScr();
@@ -66,22 +66,22 @@ public class Empleado extends Persona implements Serializable {
 			break;
 		}
 	}
-	
+
 	public static void crearEmpleado() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
 		System.out.println("     CREACION EMPLEADO");
 		System.out.println("Ingrese nombre del Empleado:");
-		String nom=sc.next();
+		String nom = sc.next();
 		boolean empleadoisCorrect = false;
 		while (!empleadoisCorrect) {
 			System.out.println("Ingrese cedula del Empleado: (Ex: 1001366265)");
 			int ced = sc.nextInt();
 			if (!Empleado.EmpleadoExist(ced)) {
 				System.out.println("Ingrese salario del Empleado:");
-				int sal= globalServices.valiEntrada();
-				new Empleado(ced,nom,sal);
+				int sal = globalServices.valiEntrada();
+				new Empleado(ced, nom, sal);
 				System.out.println("Creacion exitosa");
 				System.out.println("Feliz dia");
 				empleadoisCorrect = true;
@@ -113,8 +113,7 @@ public class Empleado extends Persona implements Serializable {
 		}
 		new MenuController();
 	}
-	
-	
+
 	public static void buscarEmpleado() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -155,7 +154,7 @@ public class Empleado extends Persona implements Serializable {
 							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
-				}else {
+				} else {
 					confirma = true;
 				}
 			}
@@ -175,7 +174,7 @@ public class Empleado extends Persona implements Serializable {
 			}
 		}
 	}
-	
+
 	public static void editarEmpleado() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -201,7 +200,7 @@ public class Empleado extends Persona implements Serializable {
 						switch (aux2) {
 						case 1:
 							System.out.println("Ingrese el nuevo nombre del Empleado:");
-							String nom=sc.next();
+							String nom = sc.next();
 							e.setNombre(nom);
 							System.out.println("Cambio de nombre exitoso");
 							break;
@@ -236,7 +235,7 @@ public class Empleado extends Persona implements Serializable {
 							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
-				}else {
+				} else {
 					confirma = true;
 				}
 			}
@@ -256,7 +255,7 @@ public class Empleado extends Persona implements Serializable {
 			}
 		}
 	}
-	
+
 	public static void eliminarEmpleado() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -315,8 +314,7 @@ public class Empleado extends Persona implements Serializable {
 							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
-				}
-				else {
+				} else {
 					confirma = true;
 				}
 			}
@@ -337,7 +335,7 @@ public class Empleado extends Persona implements Serializable {
 		}
 
 	}
-	
+
 	public static void darInfo() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -358,7 +356,8 @@ public class Empleado extends Persona implements Serializable {
 			System.out.println("Poseen un costo de: 110.000$");
 			break;
 		case 3:
-			System.out.println("Las habitaciones Suits cuenta con capacidad para 6 personas(3 camas, 2 bano, 1 salon, 1 jacuzzy)");
+			System.out.println(
+					"Las habitaciones Suits cuenta con capacidad para 6 personas(3 camas, 2 bano, 1 salon, 1 jacuzzy)");
 			System.out.println("Poseen un costo de: 250.000$");
 			break;
 		default:
@@ -371,36 +370,36 @@ public class Empleado extends Persona implements Serializable {
 		}
 		new MenuController();
 	}
-	
+
 	public static void mostrarEmpleadosExistente() {
+		global globalService = new global();
+		Scanner sc = new Scanner(System.in);
+		globalService.clearScr();
 		System.out.println("    EMPLEADOS EXISTENTES ACTUALMENTE");
 		if (Empleado.lstEmpleado.size() > 0) {
 			int n = 1;
 			for (Empleado e : Empleado.lstEmpleado) {
-				System.out.println(n + "- Nombre: " + e.getNombre() + " Cedula: "+e.getCedula()+" Salario: "+e.getSalario());
+				System.out.println(
+						n + "- Nombre: " + e.getNombre() + " Cedula: " + e.getCedula() + " Salario: " + e.getSalario());
 				n++;
 			}
 			System.out.println();
-			System.out.println("Total de empleados: "+Empleado.lstEmpleado.size());
-			try {
-				Thread.sleep(1200);
-				new MenuController();
-			} catch (InterruptedException e) {
-				new MenuController();
-			}
+			System.out.println("Total de empleados: " + Empleado.lstEmpleado.size());
+			System.out.println("Presione '1' para regresar");
+			sc.next();
+			Empleado.menuEmpleado();
 
 		} else {
 			System.out.println("No hay empleados existentes por el momento.");
 			try {
 				Thread.sleep(1200);
-				new MenuController();
+				Empleado.menuEmpleado();
 			} catch (InterruptedException e) {
-				new MenuController();
+				Empleado.menuEmpleado();
 			}
 		}
 	}
 
-	
 	public static Empleado newEmpleado(int cedula) {
 		Scanner sc = new Scanner(System.in);
 		Scanner scf = new Scanner(System.in);
@@ -414,6 +413,7 @@ public class Empleado extends Persona implements Serializable {
 	}
 
 	public static Empleado EmpleadoExist() {
+		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Ingrese la cédula del empleado: (Ex: 1001366265)");
 		boolean EmpleadoisCorrect = false;
@@ -422,6 +422,7 @@ public class Empleado extends Persona implements Serializable {
 			int ced = sc.nextInt();
 			if (Empleado.EmpleadoExist(ced)) {
 				employee = Empleado.EmpleadoPorCedula(ced);
+				EmpleadoisCorrect = true;
 			} else {
 				System.out.println("El empleado no está registrado, ¿Desea crearlo?");
 				System.out.print("S/N ");
@@ -432,6 +433,7 @@ public class Empleado extends Persona implements Serializable {
 						employee = newEmpleado(ced);
 						bien = true;
 						EmpleadoisCorrect = true;
+						globalService.clearScr();
 					} else if (res.equals("n") || res.equals("N")) {
 						System.out.println("Creación de empleado cancelada");
 						bien = true;
@@ -488,7 +490,7 @@ public class Empleado extends Persona implements Serializable {
 
 	public static boolean EmpleadoExist(int cedula) {
 		boolean exist = false;
-		if(Empleado.lstEmpleado.size()>0) {
+		if (Empleado.lstEmpleado.size() > 0) {
 			for (Empleado employee : lstEmpleado) {
 				if (employee.getCedula() == cedula) {
 					exist = true;
@@ -496,13 +498,10 @@ public class Empleado extends Persona implements Serializable {
 				}
 			}
 			return exist;
-		}
-		else {
+		} else {
 			return exist;
 		}
 	}
-	
-	
 
 	public static Empleado EmpleadoPorCedula(int cedula) {
 		Empleado Empleado = null;
@@ -535,7 +534,6 @@ public class Empleado extends Persona implements Serializable {
 	public String toString() {
 		return null;
 	}
-
 
 //	public String asignarReserva(Cliente c, Date fecha, Habitacion h) {
 //		if (false == false) {

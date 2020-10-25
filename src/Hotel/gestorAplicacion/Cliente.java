@@ -29,7 +29,7 @@ public class Cliente extends Persona implements Serializable {
 		numClientes++;
 		lstCliente.add(this);
 	}
-	
+
 	public static void menuCliente() {
 		global globalServices = new global();
 		globalServices.clearScr();
@@ -64,68 +64,67 @@ public class Cliente extends Persona implements Serializable {
 			break;
 		}
 	}
-	
+
 	public static void crearCliente() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
 		System.out.println("     CREACION DE CLIENTE");
 		System.out.println("Ingrese nombre del cliente:");
-		String nom=sc.next();
+		String nom = sc.next();
 		boolean clienteisCorrect = false;
 		while (!clienteisCorrect) {
 			System.out.println("Ingrese cedula del cliente: (Ex: 1001366265)");
 			int ced = sc.nextInt();
-			if (!clienteExist(ced)){
-				boolean pepe=false;
-				while(!pepe) {
+			if (!clienteExist(ced)) {
+				boolean pepe = false;
+				while (!pepe) {
 					System.out.println("Ingrese la cedula del empleado que lo atiende:");
-					int cedu= globalServices.valiEntrada();
-					if(Empleado.EmpleadoExist(cedu)) {
-						Empleado p= Empleado.EmpleadoPorCedula(cedu);
-						new Cliente(ced,nom,p);
+					int cedu = globalServices.valiEntrada();
+					if (Empleado.EmpleadoExist(cedu)) {
+						Empleado p = Empleado.EmpleadoPorCedula(cedu);
+						new Cliente(ced, nom, p);
 						System.out.println("Creacion exitosa");
-						pepe=true;
+						pepe = true;
 						clienteisCorrect = true;
-					}
-					else {
+					} else {
 						System.out.println("No existe empleado con esa cedula");
 						System.out.println("Desea volver a intentar?");
 						System.out.println("S/N");
 						boolean bien = false;
 						while (!bien) {
-								String res = sc.next();
-								if (res.equals("s") || res.equals("S")) {
-									bien = true;
-								} else if (res.equals("n") || res.equals("N")) {
-									System.out.println("Creación de cliente cancelada");
-									bien = true;
-									pepe = true;
-									clienteisCorrect = true;
-								} else {
-									System.out.println("Entrada inválida");
-									System.out.print("¿Desea volver a intentar? S/N ");
-								}
+							String res = sc.next();
+							if (res.equals("s") || res.equals("S")) {
+								bien = true;
+							} else if (res.equals("n") || res.equals("N")) {
+								System.out.println("Creación de cliente cancelada");
+								bien = true;
+								pepe = true;
+								clienteisCorrect = true;
+							} else {
+								System.out.println("Entrada inválida");
+								System.out.print("¿Desea volver a intentar? S/N ");
+							}
 						}
 					}
 				}
-			}else {
+			} else {
 				System.out.println("Ya existe un cliente con esa cedula");
 				System.out.println("Desea volver a intentar?");
 				System.out.println("S/N");
 				boolean bien = false;
 				while (!bien) {
-						String res = sc.next();
-						if (res.equals("s") || res.equals("S")) {
-							bien = true;
-						} else if (res.equals("n") || res.equals("N")) {
-							System.out.println("Creación de cliente cancelada");
-							bien = true;
-							clienteisCorrect = true;
-						} else {
-							System.out.println("Entrada inválida");
-							System.out.print("¿Desea volver a intentar? S/N ");
-						}
+					String res = sc.next();
+					if (res.equals("s") || res.equals("S")) {
+						bien = true;
+					} else if (res.equals("n") || res.equals("N")) {
+						System.out.println("Creación de cliente cancelada");
+						bien = true;
+						clienteisCorrect = true;
+					} else {
+						System.out.println("Entrada inválida");
+						System.out.print("¿Desea volver a intentar? S/N ");
+					}
 				}
 			}
 		}
@@ -136,7 +135,7 @@ public class Cliente extends Persona implements Serializable {
 		}
 		new MenuController();
 	}
-	
+
 	public static void buscarCliente() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -177,7 +176,7 @@ public class Cliente extends Persona implements Serializable {
 							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
-				}else {
+				} else {
 					confirma = true;
 				}
 			}
@@ -197,7 +196,7 @@ public class Cliente extends Persona implements Serializable {
 			}
 		}
 	}
-	
+
 	public static void editarCliente() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -223,21 +222,21 @@ public class Cliente extends Persona implements Serializable {
 						switch (aux2) {
 						case 1:
 							System.out.println("Ingrese el nuevo nombre del Empleado:");
-							String nom=sc.next();
+							String nom = sc.next();
 							c.setNombre(nom);
 							System.out.println("Cambio de nombre exitoso");
 							break;
 						case 2:
-							boolean con=false;
-							while(!con) {
+							boolean con = false;
+							while (!con) {
 								System.out.println("Ingrese la cedula del nuevo empleado:");
 								int cedu = sc.nextInt();
-								if(Empleado.EmpleadoExist(cedu)) {
-									Empleado p=Empleado.EmpleadoPorCedula(cedu);
+								if (Empleado.EmpleadoExist(cedu)) {
+									Empleado p = Empleado.EmpleadoPorCedula(cedu);
 									c.setEmpleado(p);
 									System.out.println("Cambio de empleado exitoso");
-									con=true;
-								}else {
+									con = true;
+								} else {
 									System.out.println("No se encuentra ningun empleado con esta cedula");
 									System.out.println("¿Desea volver a intentar?");
 									System.out.println("S/N");
@@ -283,7 +282,7 @@ public class Cliente extends Persona implements Serializable {
 							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
-				}else {
+				} else {
 					confirma = true;
 				}
 			}
@@ -303,7 +302,7 @@ public class Cliente extends Persona implements Serializable {
 			}
 		}
 	}
-	
+
 	public static void eliminarCliente() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -362,8 +361,7 @@ public class Cliente extends Persona implements Serializable {
 							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
-				}
-				else {
+				} else {
 					confirma = true;
 				}
 			}
@@ -384,29 +382,30 @@ public class Cliente extends Persona implements Serializable {
 		}
 
 	}
-	
+
 	public static void mostrarClientesExistente() {
+		global globalService = new global();
+		Scanner sc = new Scanner(System.in);
+		globalService.clearScr();
 		System.out.println("    CLIENTES EXISTENTES ACTUALMENTE");
 		if (Cliente.lstCliente.size() > 0) {
 			int n = 1;
 			for (Cliente c : Cliente.lstCliente) {
-				System.out.println(n + "- Nombre: " + c.getNombre() + " Cedula: "+c.getCedula()+" Empleado a Cargo: "+c.getEmpleado().getNombre());
+				System.out.println(n + "- Nombre: " + c.getNombre() + " Cedula: " + c.getCedula()
+						+ " Empleado a Cargo: " + c.getEmpleado().getNombre());
 				n++;
 			}
-			try {
-				Thread.sleep(1200);
-				new MenuController();
-			} catch (InterruptedException e) {
-				new MenuController();
-			}
+			System.out.println("Presione '1' para regresar");
+			sc.next();
+			Cliente.menuCliente();
 
 		} else {
 			System.out.println("No hay clientes existentes por el momento.");
 			try {
 				Thread.sleep(1200);
-				new MenuController();
+				Cliente.menuCliente();
 			} catch (InterruptedException e) {
-				new MenuController();
+				Cliente.menuCliente();
 			}
 		}
 	}
@@ -445,10 +444,10 @@ public class Cliente extends Persona implements Serializable {
 		}
 		return cliente;
 	}
-	
+
 	public static boolean clienteExist(int cedula) {
 		boolean exist = false;
-		if(Cliente.lstCliente.size()>0) {
+		if (Cliente.lstCliente.size() > 0) {
 			for (Cliente c : Cliente.lstCliente) {
 				if (c.getCedula() == cedula) {
 					exist = true;
@@ -456,7 +455,7 @@ public class Cliente extends Persona implements Serializable {
 				}
 			}
 			return exist;
-		}else {
+		} else {
 			return exist;
 		}
 	}

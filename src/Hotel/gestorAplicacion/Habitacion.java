@@ -36,32 +36,32 @@ public class Habitacion implements Serializable {
 
 	public Habitacion(String tipo, String descripcion) {
 		Habitacion.numero++;
-		this.numeroHabitacion=Habitacion.numero;
+		this.numeroHabitacion = Habitacion.numero;
 		this.tipo = tipo;
 		if (tipo == "Sencilla") {
 			precioDia = 55000;
 		} else if (tipo == "Familiar") {
 			precioDia = 110000;
-		} else if (tipo == "Suite"){
+		} else if (tipo == "Suite") {
 			precioDia = 250000;
 		}
 		this.descripcion = descripcion;
 		Habitacion.lstHabitacion.add(this);
 	}
-	
+
 	public static void menuHabitacion() {
 		global globalServices = new global();
 		globalServices.clearScr();
 		System.out.println("Habitaciones   ");
 		System.out.println("    digite el número de la opción que desee:");
-		System.out.println("1- Crear Habitacion");
-		System.out.println("2- Buscar Habitacion");
-		System.out.println("3- Editar reserva");
-		System.out.println("4- Eliminar Habitacion");
+		System.out.println("1- Crear habitación");
+		System.out.println("2- Buscar habitación");
+		System.out.println("3- Editar habitación");
+		System.out.println("4- Eliminar habitación");
 		System.out.println("5- Mostrar listado de habitaciones");
-		
+		System.out.println("6- Regresar");
 
-		int aux = globalServices.validacionEntrada(5);
+		int aux = globalServices.validacionEntrada(6);
 
 		switch (aux) {
 		case 1:
@@ -79,11 +79,14 @@ public class Habitacion implements Serializable {
 		case 5:
 			mostrarHabitacionesExistente();
 			break;
+		case 6:
+			new MenuController();
+			break;
 		default:
 			break;
 		}
 	}
-	
+
 	public static void crearHabitacion() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -97,20 +100,20 @@ public class Habitacion implements Serializable {
 		switch (tipo) {
 		case 1:
 			System.out.println("¿Que descripcion posee la habitacion?");
-			String a=sc.next();
-			new Habitacion("Sencilla",a);
+			String a = sc.next();
+			new Habitacion("Sencilla", a);
 			System.out.println("Habitacion creada exitosamente");
 			break;
 		case 2:
 			System.out.println("¿Que descripcion posee la habitacion?");
-			String b=sc.next();
-			new Habitacion("Familiar",b);
+			String b = sc.next();
+			new Habitacion("Familiar", b);
 			System.out.println("Habitacion creada exitosamente");
 			break;
 		case 3:
 			System.out.println("¿Que descripcion posee la habitacion?");
-			String c=sc.next();
-			new Habitacion("Suite",c);
+			String c = sc.next();
+			new Habitacion("Suite", c);
 			System.out.println("Habitacion creada exitosamente");
 			break;
 		default:
@@ -123,7 +126,7 @@ public class Habitacion implements Serializable {
 		}
 		new MenuController();
 	}
-	
+
 	public static void buscarHabitacion() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -164,7 +167,7 @@ public class Habitacion implements Serializable {
 							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
-				}else {
+				} else {
 					confirma = true;
 				}
 			}
@@ -184,7 +187,7 @@ public class Habitacion implements Serializable {
 			}
 		}
 	}
-	
+
 	public static void editarHabitacion() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -233,7 +236,7 @@ public class Habitacion implements Serializable {
 							break;
 						case 2:
 							System.out.println("Ingrese la nueva descripcion de la habitacion:");
-							String d=sc.next();
+							String d = sc.next();
 							h.setDescripcion(d);
 							System.out.println("Cambio de la nueva descripcion de la habitacion exitoso");
 							break;
@@ -262,7 +265,7 @@ public class Habitacion implements Serializable {
 							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
-				}else {
+				} else {
 					confirma = true;
 				}
 			}
@@ -282,7 +285,7 @@ public class Habitacion implements Serializable {
 			}
 		}
 	}
-	
+
 	public static void eliminarHabitacion() {
 		System.out.println("     ELIMINAR HABITACION");
 		global globalServices = new global();
@@ -341,8 +344,7 @@ public class Habitacion implements Serializable {
 							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
-				}
-				else {
+				} else {
 					confirma = true;
 				}
 			}
@@ -363,32 +365,32 @@ public class Habitacion implements Serializable {
 		}
 
 	}
-	
+
 	public static void mostrarHabitacionesExistente() {
+		global globalService = new global();
+		Scanner sc = new Scanner(System.in);
+		globalService.clearScr();
 		System.out.println("    HABITACIONES EXISTENTES ACTUALMENTE");
 		if (Habitacion.lstHabitacion.size() > 0) {
 			int n = 1;
 			for (Habitacion h : Habitacion.lstHabitacion) {
-				System.out.println(n + "- Numero de habitacion: " + h.getNumeroHabitacion() + " Descripcion: "+h.getDescripcion() 
-						+"\n   Tipo: "+h.getTipo()+"  Precio por dia : "+h.getPrecioDia());
+				System.out.println(n + "- Numero de habitacion: " + h.getNumeroHabitacion() + " Descripcion: "
+						+ h.getDescripcion() + "\n   Tipo: " + h.getTipo() + "  Precio por dia : " + h.getPrecioDia());
 				n++;
 			}
 			System.out.println();
-			System.out.println("Total de habitaciones: "+Habitacion.lstHabitacion.size());
-			try {
-				Thread.sleep(1200);
-				new MenuController();
-			} catch (InterruptedException e) {
-				new MenuController();
-			}
+			System.out.println("Total de habitaciones: " + Habitacion.lstHabitacion.size());
+			System.out.println("Presione '1' para regresar");
+			sc.next();
+			Habitacion.menuHabitacion();
 
 		} else {
 			System.out.println("No hay habitaciones existentes por el momento.");
 			try {
 				Thread.sleep(1200);
-				new MenuController();
+				Habitacion.menuHabitacion();
 			} catch (InterruptedException e) {
-				new MenuController();
+				Habitacion.menuHabitacion();
 			}
 		}
 	}
@@ -541,7 +543,7 @@ public class Habitacion implements Serializable {
 	public void setPrecioDia(int precioDia) {
 		this.precioDia = precioDia;
 	}
-	
+
 	public int getNumeroHabitacion() {
 		return numeroHabitacion;
 	}

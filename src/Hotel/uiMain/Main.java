@@ -20,24 +20,6 @@ public class Main {
 		sc.next();
 		System.out.print("Contraseña: ");
 		sc.next();
-//
-////		// Datos pruebas
-//		Empleado e1 = new Empleado(1, "Sebas", 500);
-//		Empleado e2 = new Empleado(2, "Edwar", 100);
-//		Empleado e3 = new Empleado(3, "Fulanito", 800);
-//
-//		Cliente c1 = new Cliente(4, "Pelanito", e1);
-//		Cliente c2 = new Cliente(5, "Juanita", e2);
-//		Cliente c3 = new Cliente(6, "Mrko", e3);
-//
-//		Habitacion h1 = new Habitacion(10, "Suite", "Habitacion en piso 15 con vista al mar");
-//		Habitacion h2 = new Habitacion(11, "Familiar", "Habitacion en piso 3 con hermosa vista a las piscinas");
-//		Habitacion h3 = new Habitacion(12, "Sencilla", "Habitacion en el primer piso cerca al bar");
-//
-//		Reserva r1 = new Reserva(c1, h1);
-//		Reserva r2 = new Reserva(c2, h2);
-//		Reserva r3 = new Reserva(c3, h3);
-
 		boolean tru = true;
 		int n = 6;
 //		while (tru) {
