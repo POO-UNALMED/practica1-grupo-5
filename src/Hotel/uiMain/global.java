@@ -3,6 +3,7 @@ package uiMain;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -48,12 +49,48 @@ public class global {
 		return aux;
 	}
 
+	public int valiEntrada() {
+		Scanner sc = new Scanner(System.in);
+		boolean correct = false;
+		int aux = 0;
+		String option = "";
+		while (!correct) {
+			try {
+				option = sc.next();
+				aux = Integer.valueOf(option) + 0;
+				correct = true;
+
+			} catch (Exception e) {
+				System.out.println("Error: No se ha ingresado un numero entero");
+				System.out.println("Ingrese nuevamente");
+			}
+		}
+		return aux;
+	}
+
 	public Date StringToDate(String string) {
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		Date hoy = new Date();
+		Calendar fechaHoy = Calendar.getInstance();
+		fechaHoy.setTime(hoy);
+		Calendar fecha1 = Calendar.getInstance();
+		Date fecha = null;
 		try {
-			return formatter.parse(string);
+			fecha = formatter.parse(string);
+			fecha1.setTime(fecha);
 		} catch (ParseException e) {
-			return null;
+		}
+		if (hoy.compareTo(fecha) <= 0) {
+			return fecha;
+		} else {
+			if (fechaHoy.get(Calendar.DATE) == fecha1.get(Calendar.DATE)
+					&& (fechaHoy.get(Calendar.MONTH) + 1) == (fecha1.get(Calendar.MONTH) + 1)
+					&& fechaHoy.get(Calendar.YEAR) == fecha1.get(Calendar.YEAR)) {
+				return fecha;
+			} else {
+				System.out.println("No se puede reservar fechas pasadas");
+				return null;
+			}
 		}
 
 	}
