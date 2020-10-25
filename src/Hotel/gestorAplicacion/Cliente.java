@@ -130,11 +130,13 @@ public class Cliente extends Persona implements Serializable {
 		}
 		try {
 			Thread.sleep(1000);
+			globalServices.GuardarSesion();
+			new MenuController();
 		} catch (InterruptedException e) {
+			globalServices.GuardarSesion();
 			new MenuController();
 		}
-		globalServices.GuardarSesion();
-		new MenuController();
+
 	}
 
 	public static void buscarCliente() {
@@ -289,16 +291,20 @@ public class Cliente extends Persona implements Serializable {
 			}
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		} else {
 			System.out.println("No hay clientes registrados");
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}
@@ -368,16 +374,20 @@ public class Cliente extends Persona implements Serializable {
 			}
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		} else {
 			System.out.println("No hay clientes registrados");
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}
@@ -539,7 +549,7 @@ public class Cliente extends Persona implements Serializable {
 		}
 		return Cliente;
 	}
-	
+
 	public List<Reserva> getLstReserva() {
 		return lstReserva;
 	}
@@ -563,9 +573,6 @@ public class Cliente extends Persona implements Serializable {
 	public void setEmpleado(Empleado empleado) {
 		this.empleado = empleado;
 	}
-	
-	
-	
 
 	@Override
 	public String toString() {

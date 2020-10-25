@@ -180,16 +180,20 @@ public class Reserva implements Serializable {
 				}
 				try {
 					Thread.sleep(1200);
+					globalServices.GuardarSesion();
 					new MenuController();
 				} catch (InterruptedException e) {
+					globalServices.GuardarSesion();
 					new MenuController();
 				}
 			} else {
 				System.out.println("No hay habitaciones disponibles para este tipo de habitacion");
 				try {
 					Thread.sleep(1200);
+					globalServices.GuardarSesion();
 					new MenuController();
 				} catch (InterruptedException e) {
+					globalServices.GuardarSesion();
 					new MenuController();
 				}
 			}
@@ -197,12 +201,13 @@ public class Reserva implements Serializable {
 			System.out.println("No se pudo crear la reserva");
 			try {
 				Thread.sleep(1000);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}
-		globalServices.GuardarSesion();
 	}
 
 	public static void editarReserva() {
@@ -308,16 +313,20 @@ public class Reserva implements Serializable {
 			}
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		} else {
 			System.out.println("No hay reservas registradas");
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}
@@ -452,16 +461,20 @@ public class Reserva implements Serializable {
 			}
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		} else {
 			System.out.println("No hay reservas registradas");
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}

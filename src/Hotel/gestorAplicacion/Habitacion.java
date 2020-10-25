@@ -119,13 +119,14 @@ public class Habitacion implements Serializable {
 		default:
 			break;
 		}
+		globalServices.GuardarSesion();
 		try {
 			Thread.sleep(1000);
+			new MenuController();
 		} catch (InterruptedException e) {
 			new MenuController();
 		}
-		globalServices.GuardarSesion();
-		new MenuController();
+
 	}
 
 	public static void buscarHabitacion() {
@@ -272,16 +273,20 @@ public class Habitacion implements Serializable {
 			}
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		} else {
 			System.out.println("No hay habitaciones registradas");
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}
@@ -351,16 +356,20 @@ public class Habitacion implements Serializable {
 			}
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		} else {
 			System.out.println("No hay habitaciones registradas");
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}

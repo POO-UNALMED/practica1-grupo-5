@@ -106,13 +106,14 @@ public class Empleado extends Persona implements Serializable {
 			}
 
 		}
+		globalServices.GuardarSesion();
 		try {
 			Thread.sleep(1000);
+			new MenuController();
 		} catch (InterruptedException e) {
 			new MenuController();
 		}
-		globalServices.GuardarSesion();
-		new MenuController();
+
 	}
 
 	public static void buscarEmpleado() {
@@ -242,16 +243,20 @@ public class Empleado extends Persona implements Serializable {
 			}
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		} else {
 			System.out.println("No hay empleados registrados");
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}
@@ -321,16 +326,20 @@ public class Empleado extends Persona implements Serializable {
 			}
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		} else {
 			System.out.println("No empleados registrados");
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}
