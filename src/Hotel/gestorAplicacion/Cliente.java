@@ -133,6 +133,7 @@ public class Cliente extends Persona implements Serializable {
 		} catch (InterruptedException e) {
 			new MenuController();
 		}
+		globalServices.GuardarSesion();
 		new MenuController();
 	}
 

@@ -200,6 +200,7 @@ public class Reserva implements Serializable {
 				new MenuController();
 			}
 		}
+		globalServices.GuardarSesion();
 	}
 
 	public static void editarReserva() {

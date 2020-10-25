@@ -59,6 +59,7 @@ public class Pago implements Serializable {
 	public static void crearPago(Reserva re, boolean temporada) {
 		// calculos de dias entre las fechas
 		// mientras, puse dias 8
+		global globalServices = new global();
 		int dias = 8;
 		double costo = dias * re.getHabitacion().getPrecioDia();
 		if (temporada) {
@@ -66,6 +67,7 @@ public class Pago implements Serializable {
 		}
 		re.setPago(new Pago(costo, temporada, re));
 		System.out.println("Pago creado exitosamente");
+		globalServices.GuardarSesion();
 	}
 
 	public static void imprimeFactura() {
