@@ -90,6 +90,8 @@ public class Habitacion implements Serializable {
 	public static void crearHabitacion() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
+		Scanner scn = new Scanner(System.in);
+		scn.useDelimiter("\n");
 		globalServices.clearScr();
 		System.out.println("     CREACION HABITACION");
 		System.out.println("¿Que tipo de Habitacion desea crear?");
@@ -97,35 +99,30 @@ public class Habitacion implements Serializable {
 		System.out.println("2- Familiar");
 		System.out.println("3- Suite");
 		int tipo = globalServices.validacionEntrada(3);
+		System.out.println("¿Qué descripción posee la habitación?");
+		String a = scn.next();
 		switch (tipo) {
 		case 1:
-			System.out.println("¿Que descripcion posee la habitacion?");
-			String a = sc.next();
 			new Habitacion("Sencilla", a);
-			System.out.println("Habitacion creada exitosamente");
 			break;
 		case 2:
-			System.out.println("¿Que descripcion posee la habitacion?");
-			String b = sc.next();
-			new Habitacion("Familiar", b);
-			System.out.println("Habitacion creada exitosamente");
+			new Habitacion("Familiar", a);
 			break;
 		case 3:
-			System.out.println("¿Que descripcion posee la habitacion?");
-			String c = sc.next();
-			new Habitacion("Suite", c);
-			System.out.println("Habitacion creada exitosamente");
+			new Habitacion("Suite", a);
 			break;
 		default:
 			break;
 		}
+		System.out.println("Habitacion creada exitosamente");
+		globalServices.GuardarSesion();
 		try {
 			Thread.sleep(1000);
+			new MenuController();
 		} catch (InterruptedException e) {
 			new MenuController();
 		}
-		globalServices.GuardarSesion();
-		new MenuController();
+
 	}
 
 	public static void buscarHabitacion() {
@@ -192,6 +189,8 @@ public class Habitacion implements Serializable {
 	public static void editarHabitacion() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
+		Scanner scn = new Scanner(System.in);
+		scn.useDelimiter("\n");
 		globalServices.clearScr();
 		System.out.println("     EDICION HABITACION");
 		boolean confirma = false;
@@ -237,13 +236,14 @@ public class Habitacion implements Serializable {
 							break;
 						case 2:
 							System.out.println("Ingrese la nueva descripcion de la habitacion:");
-							String d = sc.next();
+							String d = scn.next();
 							h.setDescripcion(d);
-							System.out.println("Cambio de la nueva descripcion de la habitacion exitoso");
+							System.out.println("Descripcion editada exitosamente");
 							break;
 						default:
 							break;
 						}
+						Reserva.ActualizarHabitacion(h);
 						aux1 = true;
 						break;
 					}
@@ -272,16 +272,20 @@ public class Habitacion implements Serializable {
 			}
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		} else {
 			System.out.println("No hay habitaciones registradas");
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}
@@ -351,16 +355,20 @@ public class Habitacion implements Serializable {
 			}
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		} else {
 			System.out.println("No hay habitaciones registradas");
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}

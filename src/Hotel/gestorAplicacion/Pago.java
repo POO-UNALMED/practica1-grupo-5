@@ -41,18 +41,18 @@ public class Pago implements Serializable {
 		int aux = globalServices.validacionEntrada(2);
 
 		switch (aux) {
-			case 1:
-				imprimeFactura();
-				break;
-			case 2:
-				mostrarPagosPendientes();
-				break;
-			case 3:
-				// editarCliente();
-				break;
+		case 1:
+			imprimeFactura();
+			break;
+		case 2:
+			mostrarPagosPendientes();
+			break;
+		case 3:
+			// editarCliente();
+			break;
 
-			default:
-				break;
+		default:
+			break;
 		}
 	}
 
@@ -116,8 +116,8 @@ public class Pago implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada invï¿½lida");
-							System.out.print("ï¿½Desea volver a intentar? S/N ");
+							System.out.println("Entrada inválida");
+							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
 				}
@@ -139,6 +139,15 @@ public class Pago implements Serializable {
 		}
 	}
 
+	public static void ActualizarReserva(Reserva rese) {
+		for (Pago pago : lstPago) {
+			if (pago.getReserva().getCliente().getCedula() == rese.getCliente().getCedula()) {
+				pago.setReserva(rese);
+			}
+		}
+		Pago.Guardar();
+	}
+
 	public static void mostrarPagosPendientes() {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
@@ -147,8 +156,8 @@ public class Pago implements Serializable {
 		System.out.println();
 		if (Pago.lstPago.size() > 0) {
 			for (Pago p : Pago.lstPago) {
-				System.out
-						.println("--> Cliente: " + p.getReserva().getCliente().getNombre() + " Valor pendiente: " + p.getValor());
+				System.out.println("--> Cliente: " + p.getReserva().getCliente().getNombre() + " Valor pendiente: "
+						+ p.getValor());
 			}
 			System.out.println("Presione '1' para regresar");
 			sc.next();
@@ -165,6 +174,7 @@ public class Pago implements Serializable {
 	}
 
 	public static void elimarPago(Reserva re) {
+		global globalServices = new global();
 		for (Pago pe : Pago.lstPago) {
 			if (pe == re.getPago()) {
 				Pago.lstPago.remove(pe);
@@ -172,6 +182,7 @@ public class Pago implements Serializable {
 				break;
 			}
 		}
+		globalServices.GuardarSesion();
 	}
 
 	public void multa(Reserva re) {

@@ -40,8 +40,9 @@ public class Cliente extends Persona implements Serializable {
 		System.out.println("3- Editar Cliente");
 		System.out.println("4- Eliminar Cliente");
 		System.out.println("5- Mostrar listado de clientes");
+		System.out.println("6- Regresar");
 
-		int aux = globalServices.validacionEntrada(5);
+		int aux = globalServices.validacionEntrada(6);
 
 		switch (aux) {
 		case 1:
@@ -59,19 +60,34 @@ public class Cliente extends Persona implements Serializable {
 		case 5:
 			mostrarClientesExistente();
 			break;
+		case 6:
+			new MenuController();
+			break;
 
 		default:
 			break;
 		}
 	}
 
+	public static void ActualizarEmpleado(Empleado emp) {
+		for (Cliente cliente : lstCliente) {
+			if (cliente.getEmpleado().getCedula() == emp.getCedula()) {
+				cliente.setEmpleado(emp);
+				Reserva.ActualizarCliente(cliente);
+			}
+		}
+		Cliente.Guardar();
+	}
+
 	public static void crearCliente() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
+		Scanner scn = new Scanner(System.in);
+		scn.useDelimiter("\n");
 		globalServices.clearScr();
 		System.out.println("     CREACION DE CLIENTE");
 		System.out.println("Ingrese nombre del cliente:");
-		String nom = sc.next();
+		String nom = scn.next();
 		boolean clienteisCorrect = false;
 		while (!clienteisCorrect) {
 			System.out.println("Ingrese cedula del cliente: (Ex: 1001366265)");
@@ -130,11 +146,13 @@ public class Cliente extends Persona implements Serializable {
 		}
 		try {
 			Thread.sleep(1000);
+			globalServices.GuardarSesion();
+			new MenuController();
 		} catch (InterruptedException e) {
+			globalServices.GuardarSesion();
 			new MenuController();
 		}
-		globalServices.GuardarSesion();
-		new MenuController();
+
 	}
 
 	public static void buscarCliente() {
@@ -201,6 +219,8 @@ public class Cliente extends Persona implements Serializable {
 	public static void editarCliente() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
+		Scanner scn = new Scanner(System.in);
+		scn.useDelimiter("\n");
 		globalServices.clearScr();
 		System.out.println("     EDICION CLIENTE");
 		boolean confirma = false;
@@ -222,15 +242,15 @@ public class Cliente extends Persona implements Serializable {
 						int aux2 = globalServices.validacionEntrada(2);
 						switch (aux2) {
 						case 1:
-							System.out.println("Ingrese el nuevo nombre del Empleado:");
-							String nom = sc.next();
+							System.out.println("Ingrese el nuevo nombre del Cliente:");
+							String nom = scn.next();
 							c.setNombre(nom);
 							System.out.println("Cambio de nombre exitoso");
 							break;
 						case 2:
 							boolean con = false;
 							while (!con) {
-								System.out.println("Ingrese la cedula del nuevo empleado:");
+								System.out.println("Ingrese la cedula del nuevo empleado a cargo:");
 								int cedu = sc.nextInt();
 								if (Empleado.EmpleadoExist(cedu)) {
 									Empleado p = Empleado.EmpleadoPorCedula(cedu);
@@ -262,6 +282,7 @@ public class Cliente extends Persona implements Serializable {
 							break;
 						}
 						aux1 = true;
+						Reserva.ActualizarCliente(c);
 						break;
 					}
 				}
@@ -289,16 +310,20 @@ public class Cliente extends Persona implements Serializable {
 			}
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		} else {
 			System.out.println("No hay clientes registrados");
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}
@@ -368,16 +393,20 @@ public class Cliente extends Persona implements Serializable {
 			}
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		} else {
 			System.out.println("No hay clientes registrados");
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}
@@ -418,7 +447,7 @@ public class Cliente extends Persona implements Serializable {
 		Cliente cliente = null;
 		while (!ClienteisCorrect) {
 			int ced = sc.nextInt();
-			if (Cliente.ClienteExist(ced)) {
+			if (Cliente.clienteExist(ced)) {
 				cliente = Cliente.ClientePorCedula(ced);
 				ClienteisCorrect = true;
 			} else {
@@ -518,17 +547,6 @@ public class Cliente extends Persona implements Serializable {
 		}
 	}
 
-	public static boolean ClienteExist(int cedula) {
-		boolean exist = false;
-		for (Cliente cliente : lstCliente) {
-			if (cliente.getCedula() == cedula) {
-				exist = true;
-				break;
-			}
-		}
-		return exist;
-	}
-
 	public static Cliente ClientePorCedula(int cedula) {
 		Cliente Cliente = null;
 		for (Cliente cliente : lstCliente) {
@@ -539,7 +557,7 @@ public class Cliente extends Persona implements Serializable {
 		}
 		return Cliente;
 	}
-	
+
 	public List<Reserva> getLstReserva() {
 		return lstReserva;
 	}
@@ -563,9 +581,6 @@ public class Cliente extends Persona implements Serializable {
 	public void setEmpleado(Empleado empleado) {
 		this.empleado = empleado;
 	}
-	
-	
-	
 
 	@Override
 	public String toString() {

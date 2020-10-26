@@ -180,16 +180,20 @@ public class Reserva implements Serializable {
 				}
 				try {
 					Thread.sleep(1200);
+					globalServices.GuardarSesion();
 					new MenuController();
 				} catch (InterruptedException e) {
+					globalServices.GuardarSesion();
 					new MenuController();
 				}
 			} else {
 				System.out.println("No hay habitaciones disponibles para este tipo de habitacion");
 				try {
 					Thread.sleep(1200);
+					globalServices.GuardarSesion();
 					new MenuController();
 				} catch (InterruptedException e) {
+					globalServices.GuardarSesion();
 					new MenuController();
 				}
 			}
@@ -197,12 +201,33 @@ public class Reserva implements Serializable {
 			System.out.println("No se pudo crear la reserva");
 			try {
 				Thread.sleep(1000);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}
-		globalServices.GuardarSesion();
+	}
+
+	public static void ActualizarCliente(Cliente cli) {
+		for (Reserva reserva : lstReserva) {
+			if (reserva.getCliente().getCedula() == cli.getCedula()) {
+				reserva.setCliente(cli);
+				Pago.ActualizarReserva(reserva);
+			}
+		}
+		Reserva.Guardar();
+	}
+
+	public static void ActualizarHabitacion(Habitacion hab) {
+		for (Reserva reserva : lstReserva) {
+			if (reserva.getHabitacion().getNumeroHabitacion() == hab.getNumeroHabitacion()) {
+				reserva.setHabitacion(hab);
+				Pago.ActualizarReserva(reserva);
+			}
+		}
+		Reserva.Guardar();
 	}
 
 	public static void editarReserva() {
@@ -281,6 +306,7 @@ public class Reserva implements Serializable {
 							break;
 						}
 						aux1 = true;
+						Pago.ActualizarReserva(r);
 						break;
 					}
 				}
@@ -308,16 +334,20 @@ public class Reserva implements Serializable {
 			}
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		} else {
 			System.out.println("No hay reservas registradas");
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}
@@ -452,16 +482,20 @@ public class Reserva implements Serializable {
 			}
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		} else {
 			System.out.println("No hay reservas registradas");
 			try {
 				Thread.sleep(1200);
+				globalServices.GuardarSesion();
 				new MenuController();
 			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
 				new MenuController();
 			}
 		}
