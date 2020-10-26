@@ -139,6 +139,15 @@ public class Pago implements Serializable {
 		}
 	}
 
+	public static void ActualizarReserva(Reserva rese) {
+		for (Pago pago : lstPago) {
+			if (pago.getReserva().getCliente().getCedula() == rese.getCliente().getCedula()) {
+				pago.setReserva(rese);
+			}
+		}
+		Pago.Guardar();
+	}
+
 	public static void mostrarPagosPendientes() {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);

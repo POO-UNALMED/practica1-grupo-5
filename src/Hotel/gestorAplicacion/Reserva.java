@@ -210,6 +210,26 @@ public class Reserva implements Serializable {
 		}
 	}
 
+	public static void ActualizarCliente(Cliente cli) {
+		for (Reserva reserva : lstReserva) {
+			if (reserva.getCliente().getCedula() == cli.getCedula()) {
+				reserva.setCliente(cli);
+				Pago.ActualizarReserva(reserva);
+			}
+		}
+		Reserva.Guardar();
+	}
+
+	public static void ActualizarHabitacion(Habitacion hab) {
+		for (Reserva reserva : lstReserva) {
+			if (reserva.getHabitacion().getNumeroHabitacion() == hab.getNumeroHabitacion()) {
+				reserva.setHabitacion(hab);
+				Pago.ActualizarReserva(reserva);
+			}
+		}
+		Reserva.Guardar();
+	}
+
 	public static void editarReserva() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -286,6 +306,7 @@ public class Reserva implements Serializable {
 							break;
 						}
 						aux1 = true;
+						Pago.ActualizarReserva(r);
 						break;
 					}
 				}

@@ -40,8 +40,9 @@ public class Empleado extends Persona implements Serializable {
 		System.out.println("4- Eliminar Empleado");
 		System.out.println("5- Dar Informacion");
 		System.out.println("6- Mostrar listado de empleados");
+		System.out.println("7- Regresar");
 
-		int aux = globalServices.validacionEntrada(6);
+		int aux = globalServices.validacionEntrada(7);
 
 		switch (aux) {
 		case 1:
@@ -62,6 +63,10 @@ public class Empleado extends Persona implements Serializable {
 		case 6:
 			mostrarEmpleadosExistente();
 			break;
+		case 7:
+			new MenuController();
+			break;
+
 		default:
 			break;
 		}
@@ -70,10 +75,12 @@ public class Empleado extends Persona implements Serializable {
 	public static void crearEmpleado() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
+		Scanner scn = new Scanner(System.in);
+		scn.useDelimiter("\n");
 		globalServices.clearScr();
 		System.out.println("     CREACION EMPLEADO");
 		System.out.println("Ingrese nombre del Empleado:");
-		String nom = sc.next();
+		String nom = scn.next();
 		boolean empleadoisCorrect = false;
 		while (!empleadoisCorrect) {
 			System.out.println("Ingrese cedula del Empleado: (Ex: 1001366265)");
@@ -180,8 +187,10 @@ public class Empleado extends Persona implements Serializable {
 	public static void editarEmpleado() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
+		Scanner scn = new Scanner(System.in);
+		scn.useDelimiter("\n");
 		globalServices.clearScr();
-		System.out.println("     EDICION EMPLEADO");
+		System.out.println("     EDICIÓN EMPLEADO");
 		boolean confirma = false;
 		if (Empleado.lstEmpleado.size() > 0) {
 			while (!confirma) {
@@ -202,7 +211,7 @@ public class Empleado extends Persona implements Serializable {
 						switch (aux2) {
 						case 1:
 							System.out.println("Ingrese el nuevo nombre del Empleado:");
-							String nom = sc.next();
+							String nom = scn.next();
 							e.setNombre(nom);
 							System.out.println("Cambio de nombre exitoso");
 							break;
@@ -216,6 +225,7 @@ public class Empleado extends Persona implements Serializable {
 							break;
 						}
 						aux1 = true;
+						Cliente.ActualizarEmpleado(e);
 						break;
 					}
 				}
@@ -229,7 +239,7 @@ public class Empleado extends Persona implements Serializable {
 						if (res.equals("s") || res.equals("S")) {
 							bien = true;
 						} else if (res.equals("n") || res.equals("N")) {
-							System.out.println("Edicion cancelada");
+							System.out.println("Edición cancelada");
 							bien = true;
 							confirma = true;
 						} else {
