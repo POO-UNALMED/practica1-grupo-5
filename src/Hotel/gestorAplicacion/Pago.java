@@ -291,7 +291,7 @@ public class Pago implements Serializable {
 		System.out.println("CAJA");
 		System.out.println();
 		System.out.println("Estado del Hotel POOderoso");
-		System.out.println("Egresos del dia: " + Pago.pagos);
+		System.out.println("Ultimo egreso: " + Pago.pagos);
 		System.out.println();
 		System.out.println("Ingresos obtenidos: " + Pago.caja);
 		System.out.println("Egresos obtenidos: " + Pago.egreso);

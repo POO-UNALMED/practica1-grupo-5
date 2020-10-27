@@ -32,7 +32,7 @@ public class Empleado extends Persona implements Serializable {
 		global globalServices = new global();
 		globalServices.clearScr();
 		System.out.println("Empleado   ");
-		System.out.println("    digite el número de la opción que desee:");
+		System.out.println("    digite el nï¿½mero de la opciï¿½n que desee:");
 		System.out.println("1- Crear Empleado");
 		System.out.println("2- Buscar Empleado");
 		System.out.println("3- Editar Empleado");
@@ -102,12 +102,12 @@ public class Empleado extends Persona implements Serializable {
 					if (res.equals("s") || res.equals("S")) {
 						bien = true;
 					} else if (res.equals("n") || res.equals("N")) {
-						System.out.println("Creación de empleado cancelada");
+						System.out.println("Creaciï¿½n de empleado cancelada");
 						bien = true;
 						empleadoisCorrect = true;
 					} else {
-						System.out.println("Entrada inválida");
-						System.out.print("¿Desea crearlo? S/N ");
+						System.out.println("Entrada invï¿½lida");
+						System.out.print("ï¿½Desea crearlo? S/N ");
 					}
 				}
 			}
@@ -148,7 +148,7 @@ public class Empleado extends Persona implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("No se encuentra ningun empleado registrado con esta cedula");
-					System.out.println("¿Desea volver a intentar?");
+					System.out.println("ï¿½Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -160,8 +160,8 @@ public class Empleado extends Persona implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inválida");
-							System.out.print("¿Desea volver a intentar? S/N ");
+							System.out.println("Entrada invï¿½lida");
+							System.out.print("ï¿½Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -192,7 +192,7 @@ public class Empleado extends Persona implements Serializable {
 		Scanner scn = new Scanner(System.in);
 		scn.useDelimiter("\n");
 		globalServices.clearScr();
-		System.out.println("     EDICIÓN EMPLEADO");
+		System.out.println("     EDICIï¿½N EMPLEADO");
 		boolean confirma = false;
 		if (Empleado.lstEmpleado.size() > 0) {
 			while (!confirma) {
@@ -233,7 +233,7 @@ public class Empleado extends Persona implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("No se encuentra ningun empleado registrado con esta cedula");
-					System.out.println("¿Desea volver a intentar?");
+					System.out.println("ï¿½Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -241,12 +241,12 @@ public class Empleado extends Persona implements Serializable {
 						if (res.equals("s") || res.equals("S")) {
 							bien = true;
 						} else if (res.equals("n") || res.equals("N")) {
-							System.out.println("Edición cancelada");
+							System.out.println("Ediciï¿½n cancelada");
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inválida");
-							System.out.print("¿Desea volver a intentar? S/N ");
+							System.out.println("Entrada invï¿½lida");
+							System.out.print("ï¿½Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -293,7 +293,7 @@ public class Empleado extends Persona implements Serializable {
 						System.out.println("Nombre: " + e.getNombre());
 						System.out.println("Cedula: " + e.getCedula());
 						System.out.println("Salario: " + e.getSalario());
-						System.out.println("¿Esta Seguro que desea eliminar el empleado?");
+						System.out.println("ï¿½Esta Seguro que desea eliminar el empleado?");
 						System.out.println("S/N");
 						boolean bien = false;
 						while (!bien) {
@@ -312,8 +312,8 @@ public class Empleado extends Persona implements Serializable {
 								bien = true;
 								confirma = true;
 							} else {
-								System.out.println("Entrada inválida");
-								System.out.print("¿Desea volver a intentar? S/N ");
+								System.out.println("Entrada invï¿½lida");
+								System.out.print("ï¿½Desea volver a intentar? S/N ");
 							}
 						}
 						aux1 = true;
@@ -322,7 +322,7 @@ public class Empleado extends Persona implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("No se encuentra ningun empleado registrado con esta cedula");
-					System.out.println("¿Desea volver a intentar?");
+					System.out.println("ï¿½Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -334,8 +334,8 @@ public class Empleado extends Persona implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inválida");
-							System.out.print("¿Desea volver a intentar? S/N ");
+							System.out.println("Entrada invï¿½lida");
+							System.out.print("ï¿½Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -445,7 +445,7 @@ public class Empleado extends Persona implements Serializable {
 	public static Empleado EmpleadoExist() {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Ingrese la cédula del empleado: (Ex: 1001366265)");
+		System.out.println("Ingrese la cï¿½dula del empleado: (Ex: 1001366265)");
 		boolean EmpleadoisCorrect = false;
 		Empleado employee = null;
 		while (!EmpleadoisCorrect) {
@@ -454,7 +454,7 @@ public class Empleado extends Persona implements Serializable {
 				employee = Empleado.EmpleadoPorCedula(ced);
 				EmpleadoisCorrect = true;
 			} else {
-				System.out.println("El empleado no está registrado, ¿Desea crearlo?");
+				System.out.println("El empleado no estï¿½ registrado, ï¿½Desea crearlo?");
 				System.out.print("S/N ");
 				boolean bien = false;
 				while (!bien) {
@@ -465,12 +465,12 @@ public class Empleado extends Persona implements Serializable {
 						EmpleadoisCorrect = true;
 						globalService.clearScr();
 					} else if (res.equals("n") || res.equals("N")) {
-						System.out.println("Creación de empleado cancelada");
+						System.out.println("Creaciï¿½n de empleado cancelada");
 						bien = true;
 						EmpleadoisCorrect = true;
 					} else {
-						System.out.println("Entrada inválida");
-						System.out.print("¿Desea crearlo? S/N ");
+						System.out.println("Entrada invï¿½lida");
+						System.out.print("ï¿½Desea crearlo? S/N ");
 					}
 				}
 			}
