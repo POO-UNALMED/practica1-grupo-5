@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -619,8 +620,17 @@ public class Reserva implements Serializable {
 		if (Reserva.lstReserva.size() > 0) {
 			int n = 1;
 			for (Reserva r : Reserva.lstReserva) {
+				
+				Calendar fechaIniAux = Calendar.getInstance();
+				fechaIniAux.setTime(r.getFechaInicio());
+				Calendar fechaFinAux = Calendar.getInstance();
+				fechaFinAux.setTime(r.getFechaFin());
+				String string1 = fechaIniAux.get(Calendar.DATE) + "/" + (fechaIniAux.get(Calendar.MONTH) + 1) + "/"
+						+ fechaIniAux.get(Calendar.YEAR);
+				String string2 = fechaFinAux.get(Calendar.DATE) + "/" + (fechaFinAux.get(Calendar.MONTH) + 1) + "/"
+						+ fechaFinAux.get(Calendar.YEAR);
 				System.out.println(n + "- Numero de reserva: " + r.getId() + " Cliente: " + r.getCliente().getNombre()
-						+ "\n    Fecha de reserva: Desde: " + r.getFechaInicio() + " Hasta: " + r.getFechaFin());
+						+ "\n    Fecha de reserva: Desde: " + string1 + " Hasta: " + string2);
 				n++;
 			}
 			System.out.println("Presione '1' para regresar");
