@@ -17,7 +17,7 @@ import uiMain.global;
 public class Cliente extends Persona implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private List<Reserva> lstReserva = new ArrayList<>();
+	private Reserva reserva;
 	public static int numClientes;
 	private boolean pazYSalvo = true;
 	private Empleado empleado;
@@ -34,7 +34,7 @@ public class Cliente extends Persona implements Serializable {
 		global globalServices = new global();
 		globalServices.clearScr();
 		System.out.println("Cliente   ");
-		System.out.println("    digite el número de la opción que desee:");
+		System.out.println("    digite el nï¿½mero de la opciï¿½n que desee:");
 		System.out.println("1- Crear Cliente");
 		System.out.println("2- Buscar Cliente");
 		System.out.println("3- Editar Cliente");
@@ -113,13 +113,13 @@ public class Cliente extends Persona implements Serializable {
 							if (res.equals("s") || res.equals("S")) {
 								bien = true;
 							} else if (res.equals("n") || res.equals("N")) {
-								System.out.println("Creación de cliente cancelada");
+								System.out.println("Creaciï¿½n de cliente cancelada");
 								bien = true;
 								pepe = true;
 								clienteisCorrect = true;
 							} else {
-								System.out.println("Entrada inválida");
-								System.out.print("¿Desea volver a intentar? S/N ");
+								System.out.println("Entrada invï¿½lida");
+								System.out.print("ï¿½Desea volver a intentar? S/N ");
 							}
 						}
 					}
@@ -134,12 +134,12 @@ public class Cliente extends Persona implements Serializable {
 					if (res.equals("s") || res.equals("S")) {
 						bien = true;
 					} else if (res.equals("n") || res.equals("N")) {
-						System.out.println("Creación de cliente cancelada");
+						System.out.println("Creaciï¿½n de cliente cancelada");
 						bien = true;
 						clienteisCorrect = true;
 					} else {
-						System.out.println("Entrada inválida");
-						System.out.print("¿Desea volver a intentar? S/N ");
+						System.out.println("Entrada invï¿½lida");
+						System.out.print("ï¿½Desea volver a intentar? S/N ");
 					}
 				}
 			}
@@ -179,7 +179,7 @@ public class Cliente extends Persona implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("No se encuentra ningun cliente registrado con esta cedula");
-					System.out.println("¿Desea volver a intentar?");
+					System.out.println("ï¿½Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -191,8 +191,8 @@ public class Cliente extends Persona implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inválida");
-							System.out.print("¿Desea volver a intentar? S/N ");
+							System.out.println("Entrada invï¿½lida");
+							System.out.print("ï¿½Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -259,7 +259,7 @@ public class Cliente extends Persona implements Serializable {
 									con = true;
 								} else {
 									System.out.println("No se encuentra ningun empleado con esta cedula");
-									System.out.println("¿Desea volver a intentar?");
+									System.out.println("ï¿½Desea volver a intentar?");
 									System.out.println("S/N");
 									boolean bien = false;
 									while (!bien) {
@@ -271,8 +271,8 @@ public class Cliente extends Persona implements Serializable {
 											bien = true;
 											con = true;
 										} else {
-											System.out.println("Entrada inválida");
-											System.out.print("¿Desea volver a intentar? S/N ");
+											System.out.println("Entrada invï¿½lida");
+											System.out.print("ï¿½Desea volver a intentar? S/N ");
 										}
 									}
 								}
@@ -288,7 +288,7 @@ public class Cliente extends Persona implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("No se encuentra ningun cliente registrado con esta cedula");
-					System.out.println("¿Desea volver a intentar?");
+					System.out.println("ï¿½Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -300,8 +300,8 @@ public class Cliente extends Persona implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inválida");
-							System.out.print("¿Desea volver a intentar? S/N ");
+							System.out.println("Entrada invï¿½lida");
+							System.out.print("ï¿½Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -347,7 +347,7 @@ public class Cliente extends Persona implements Serializable {
 						System.out.println("Nombre: " + c.getNombre());
 						System.out.println("Cedula: " + c.getCedula());
 						System.out.println("Empleado a cargo: " + c.getEmpleado().getNombre());
-						System.out.println("¿Esta Seguro que desea eliminar el empleado?");
+						System.out.println("ï¿½Esta Seguro que desea eliminar el empleado?");
 						System.out.println("S/N");
 						boolean bien = false;
 						while (!bien) {
@@ -361,8 +361,8 @@ public class Cliente extends Persona implements Serializable {
 								bien = true;
 								confirma = true;
 							} else {
-								System.out.println("Entrada inválida");
-								System.out.print("¿Desea volver a intentar? S/N ");
+								System.out.println("Entrada invï¿½lida");
+								System.out.print("ï¿½Desea volver a intentar? S/N ");
 							}
 						}
 						aux1 = true;
@@ -371,7 +371,7 @@ public class Cliente extends Persona implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("No se encuentra ningun cliente registrado con esta cedula");
-					System.out.println("¿Desea volver a intentar?");
+					System.out.println("ï¿½Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -383,8 +383,8 @@ public class Cliente extends Persona implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inválida");
-							System.out.print("¿Desea volver a intentar? S/N ");
+							System.out.println("Entrada invï¿½lida");
+							System.out.print("ï¿½Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -442,7 +442,7 @@ public class Cliente extends Persona implements Serializable {
 
 	public static Cliente ClienteExist() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Ingrese la cédula del cliente: (Ex: 1001366265)");
+		System.out.println("Ingrese la cï¿½dula del cliente: (Ex: 1001366265)");
 		boolean ClienteisCorrect = false;
 		Cliente cliente = null;
 		while (!ClienteisCorrect) {
@@ -451,7 +451,7 @@ public class Cliente extends Persona implements Serializable {
 				cliente = Cliente.ClientePorCedula(ced);
 				ClienteisCorrect = true;
 			} else {
-				System.out.println("El cliente no está registrado, ¿Desea crearlo?");
+				System.out.println("El cliente no estï¿½ registrado, ï¿½Desea crearlo?");
 				System.out.print("S/N ");
 				boolean bien = false;
 				while (!bien) {
@@ -461,12 +461,12 @@ public class Cliente extends Persona implements Serializable {
 						bien = true;
 						ClienteisCorrect = true;
 					} else if (res.equals("n") || res.equals("N")) {
-						System.out.println("Creación de cliente cancelada");
+						System.out.println("Creaciï¿½n de cliente cancelada");
 						bien = true;
 						ClienteisCorrect = true;
 					} else {
-						System.out.println("Entrada inválida");
-						System.out.print("¿Desea crearlo? S/N ");
+						System.out.println("Entrada invï¿½lida");
+						System.out.print("ï¿½Desea crearlo? S/N ");
 					}
 				}
 			}
@@ -557,13 +557,17 @@ public class Cliente extends Persona implements Serializable {
 		}
 		return Cliente;
 	}
-
-	public List<Reserva> getLstReserva() {
-		return lstReserva;
+	
+	public int cantidadTotal() {
+		return Cliente.lstCliente.size(); 
 	}
 
-	public void setLstReserva(Reserva r) {
-		lstReserva.add(r);
+	public Reserva getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
 	}
 
 	public boolean isPazYSalvo() {
@@ -580,6 +584,14 @@ public class Cliente extends Persona implements Serializable {
 
 	public void setEmpleado(Empleado empleado) {
 		this.empleado = empleado;
+	}
+	
+	public static List<Cliente> getLstCliente() {
+		return lstCliente;
+	}
+
+	public static void setLstCliente(List<Cliente> lstCliente) {
+		Cliente.lstCliente = lstCliente;
 	}
 
 	@Override

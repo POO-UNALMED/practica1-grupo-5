@@ -561,8 +561,14 @@ public class Habitacion implements Serializable {
 		this.numeroHabitacion = numeroHabitacion;
 	}
 
-	public int valor() {
-		return 0;
+	public static List<Habitacion> getLstHabitacion() {
+		return lstHabitacion;
 	}
+
+	public static void setLstHabitacion(List<Habitacion> lstHabitacion) {
+		Habitacion.lstHabitacion = lstHabitacion;
+	}
+	
+	
 
 }
