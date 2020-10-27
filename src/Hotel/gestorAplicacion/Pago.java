@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import uiMain.MenuController;
 import uiMain.global;
 
 public class Pago implements Serializable {
@@ -42,8 +43,9 @@ public class Pago implements Serializable {
 		System.out.println("2- Mostrar pagos pendientes");
 		System.out.println("3- Informacion de caja");
 		System.out.println("4- Pagar empleados");
+		System.out.println("5- Regresar");
 
-		int aux = globalServices.validacionEntrada(4);
+		int aux = globalServices.validacionEntrada(5);
 
 		switch (aux) {
 		case 1:
@@ -58,7 +60,9 @@ public class Pago implements Serializable {
 		case 4:
 			pagarEmpleados();
 			break;
-
+		case 5:
+			new MenuController();
+			break;
 		default:
 			break;
 		}
@@ -111,7 +115,7 @@ public class Pago implements Serializable {
 							cliente.getReserva().getPago().imprimeFactura(cliente.getReserva().getId()); // Imprime
 																											// factura
 							Pago.ingresoCaja(cliente.getReserva().getPago().getValor()); // Aumenta caja
-							Reserva.getLstReserva().remove(cliente.getReserva()); // elimina reserva de lSrRESERVA
+							Reserva.eliminarReservaPagada(cliente.getReserva()); // elimina reserva de lSrRESERVA
 							Pago.lstPago.remove(cliente.getReserva().getPago()); // ELIMINA PAGO
 							cliente.getReserva().setPago(null); // Elimina pago reserva(opcional)
 							cliente.setReserva(null); // Elimina reserva cliente

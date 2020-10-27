@@ -438,9 +438,6 @@ public class Habitacion implements Serializable {
 
 	public static boolean isAvailable(Habitacion hab, Date fechaIni, Date fechaFin) {
 		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
-		global globalServices = new global();
-		Date fecha1 = null;
-		Date fecha2 = null;
 		Calendar fechaIniAux = Calendar.getInstance();
 		fechaIniAux.setTime(fechaIni);
 		Calendar fechaFinAux = Calendar.getInstance();
@@ -454,10 +451,8 @@ public class Habitacion implements Serializable {
 		DateTime fechaFin2 = formatter.parseDateTime(string2);
 
 		for (Map.Entry<Pair<String, String>, Integer> x : hab.getBusyDates().entrySet()) {
-			fecha1 = globalServices.StringToDate(x.getKey().toString().split("=")[0]);
-			fecha2 = globalServices.StringToDate(x.getKey().toString().split("=")[1]);
-			DateTime fechaInicio1 = formatter.parseDateTime(fecha1.toString());
-			DateTime fechaFin1 = formatter.parseDateTime(fecha2.toString());
+			DateTime fechaInicio1 = formatter.parseDateTime(x.getKey().toString().split("=")[0]);
+			DateTime fechaFin1 = formatter.parseDateTime(x.getKey().toString().split("=")[1]);
 
 			Interval intervalo1 = new Interval(fechaInicio1, fechaFin1);
 			Interval intervalo2 = new Interval(fechaInicio2, fechaFin2);
