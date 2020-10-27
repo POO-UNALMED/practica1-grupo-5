@@ -26,7 +26,7 @@ public class Reserva implements Serializable {
 	private Habitacion habitacion;
 	private Pago pago;
 	private int id;
-	public static List<Reserva> lstReserva = new ArrayList<>();
+	private static List<Reserva> lstReserva = new ArrayList<>();
 
 	public Reserva(Cliente cliente, Habitacion habitacion, Date fechaInicio, Date fechaFin) {
 		numReserva++;
@@ -49,10 +49,11 @@ public class Reserva implements Serializable {
 		System.out.println("2- Buscar reserva");
 		System.out.println("3- Editar reserva");
 		System.out.println("4- Eliminar reserva");
-		System.out.println("5- Mostrar listado de reservas");
-		System.out.println("6- Regresar");
+		System.out.println("5- Cancelar reserva");
+		System.out.println("6- Mostrar listado de reservas");
+		System.out.println("7- Regresar");
 
-		int aux = globalServices.validacionEntrada(6);
+		int aux = globalServices.validacionEntrada(7);
 
 		switch (aux) {
 		case 1:
@@ -68,11 +69,15 @@ public class Reserva implements Serializable {
 			eliminarReserva();
 			break;
 		case 5:
-			mostarReservasExistente();
+			cancelarReserva();
 			break;
 		case 6:
-			new MenuController();
+			mostarReservasExistente();
 			break;
+		case 7:
+			new MenuController();
+			break;	
+			
 		default:
 			break;
 		}
@@ -90,7 +95,7 @@ public class Reserva implements Serializable {
 //		Ingreso del cliente
 		cliente = Cliente.ClienteExist();
 		globalServices.clearScr();
-		if (cliente != null) {
+		if (cliente != null || cliente.isPazYSalvo()==true) {
 			System.out.println("¿Qué tipo de habitación desea reservar?");
 			System.out.println("1- Suite    ($250.000/noche)");
 			System.out.println("2- Familiar ($110.000/noche)");
@@ -165,7 +170,7 @@ public class Reserva implements Serializable {
 							break;
 						}
 						cliente.setPazYSalvo(false);
-						cliente.setLstReserva(newReserva);
+						cliente.setReserva(newReserva);;
 						Pago.crearPago(newReserva, term);
 						System.out.println("Reserva creada exitosamente");
 						bien = true;
@@ -193,7 +198,12 @@ public class Reserva implements Serializable {
 					new MenuController();
 				}
 			}
+			
+			
 		} else {
+			if(!cliente.isPazYSalvo() || cliente!=null) {
+				System.out.println("El cliente tiene un pago pendiente");
+			}
 			System.out.println("No se pudo crear la reserva");
 			try {
 				Thread.sleep(1000);
@@ -386,6 +396,91 @@ public class Reserva implements Serializable {
 		}
 	}
 
+	
+	public static void cancelarReserva() {
+		global globalServices = new global();
+		Scanner sc = new Scanner(System.in);
+		globalServices.clearScr();
+		System.out.println("     CANCELAR RESERVA");
+		boolean confirma = false;
+		if (Reserva.lstReserva.size() > 0) {
+			while (!confirma) {
+				System.out.println("     Ingrese el numero de la reserva:");
+				int aux = globalServices.valiEntrada();
+				boolean aux1 = false;
+				for (Reserva r : Reserva.lstReserva) {
+					if (r.getId() == aux) {
+						System.out.println("Numero de reserva: " + r.getId());
+						System.out.println("Cliente: " + r.getCliente().getNombre());
+						System.out.println("Fecha de la reserva: " + r.getFecha());
+						System.out.println(
+								"Tiempo de la reserva: Desde " + r.getFechaInicio() + " hasta " + r.getFechaFin());
+						System.out.println();
+						System.out.println("¿Esta Seguro que desea cancelar la reserva?");
+						System.out.println("S/N");
+						boolean bien = false;
+						while (!bien) {
+							String res = sc.next();
+							if (res.equals("s") || res.equals("S")) {
+								bien = true;
+								r.getPago().elimarPago(r);
+								Pago.crearPagoMulta(r);
+								System.out.println("Reserva cancelada exitosamente");
+								System.out.println("Multa pendiente");
+							} else if (res.equals("n") || res.equals("N")) {
+								System.out.println("Cancelacion fallida");
+								bien = true;
+								confirma = true;
+							} else {
+								System.out.println("Entrada inválida");
+								System.out.print("¿Desea volver a intentar? S/N ");
+							}
+						}
+						aux1 = true;
+						break;
+					}
+				}
+				if (!aux1) {
+					System.out.println("Este numero de reserva no se encuentra registrado");
+					System.out.println("¿Desea volver a intentar?");
+					System.out.println("S/N");
+					boolean bien = false;
+					while (!bien) {
+						String res = sc.next();
+						if (res.equals("s") || res.equals("S")) {
+							bien = true;
+						} else if (res.equals("n") || res.equals("N")) {
+							System.out.println("Cancelacion fallida");
+							bien = true;
+							confirma = true;
+						} else {
+							System.out.println("Entrada inválida");
+							System.out.print("¿Desea volver a intentar? S/N ");
+						}
+					}
+				} else {
+					confirma = true;
+				}
+			}
+			try {
+				Thread.sleep(1200);
+				new MenuController();
+			} catch (InterruptedException e) {
+				new MenuController();
+			}
+		} else {
+			System.out.println("No hay reservas registradas");
+			try {
+				Thread.sleep(1200);
+				new MenuController();
+			} catch (InterruptedException e) {
+				new MenuController();
+			}
+		}
+
+	}
+	
+	
 	public static void eliminarReserva() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -412,7 +507,9 @@ public class Reserva implements Serializable {
 							String res = sc.next();
 							if (res.equals("s") || res.equals("S")) {
 								bien = true;
-								Pago.elimarPago(r);
+								r.getPago().elimarPago(r);
+								r.getCliente().setPazYSalvo(true);
+								r.getCliente().setReserva(null);
 								Reserva.lstReserva.remove(r);
 								System.out.println("Reserva eliminada exitosamente");
 							} else if (res.equals("n") || res.equals("N")) {
@@ -438,7 +535,7 @@ public class Reserva implements Serializable {
 						if (res.equals("s") || res.equals("S")) {
 							bien = true;
 						} else if (res.equals("n") || res.equals("N")) {
-							System.out.println("Feliz dia");
+							System.out.println("Eliminacion cancelada");
 							bien = true;
 							confirma = true;
 						} else {
@@ -610,4 +707,14 @@ public class Reserva implements Serializable {
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
+
+	public static List<Reserva> getLstReserva() {
+		return lstReserva;
+	}
+
+	public static void setLstReserva(List<Reserva> lstReserva) {
+		Reserva.lstReserva = lstReserva;
+	}
+	
+	
 }

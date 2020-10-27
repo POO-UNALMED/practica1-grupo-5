@@ -7,6 +7,7 @@ import gestorAplicacion.Empleado;
 import gestorAplicacion.Habitacion;
 import gestorAplicacion.Pago;
 import gestorAplicacion.Reserva;
+import gestorAplicacion.Persona;
 
 public class MenuController {
 	@SuppressWarnings({ "resource" })
@@ -17,7 +18,7 @@ public class MenuController {
 		globalServices.clearScr();
 		imprimirOpciones();
 
-		int aux = globalServices.validacionEntrada(7);
+		int aux = globalServices.validacionEntrada(8);
 
 		switch (aux) {
 		case 1:
@@ -39,6 +40,9 @@ public class MenuController {
 			Empleado.menuEmpleado();
 			break;
 		case 7:
+			Empleado.informacionHotel();
+			break;
+		case 8:
 			if (globalServices.GuardarSesion()) {
 				System.out.println("Sesión guardada y finalizada exitosamente");
 				break;
@@ -65,6 +69,7 @@ public class MenuController {
 		System.out.println("4- Pagos");
 		System.out.println("5- Clientes");
 		System.out.println("6- Empleados");
-		System.out.println("7- Guardar y Cerrar sesión");
+		System.out.println("7- Informacion del hotel");
+		System.out.println("8- Guardar y Cerrar sesión");
 	}
 }

@@ -17,7 +17,7 @@ import uiMain.global;
 public class Cliente extends Persona implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private List<Reserva> lstReserva = new ArrayList<>();
+	private Reserva reserva;
 	public static int numClientes;
 	private boolean pazYSalvo = true;
 	private Empleado empleado;
@@ -540,12 +540,16 @@ public class Cliente extends Persona implements Serializable {
 		return Cliente;
 	}
 	
-	public List<Reserva> getLstReserva() {
-		return lstReserva;
+	public int cantidadTotal() {
+		return Cliente.lstCliente.size(); 
 	}
 
-	public void setLstReserva(Reserva r) {
-		lstReserva.add(r);
+	public Reserva getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
 	}
 
 	public boolean isPazYSalvo() {
@@ -564,8 +568,13 @@ public class Cliente extends Persona implements Serializable {
 		this.empleado = empleado;
 	}
 	
-	
-	
+	public static List<Cliente> getLstCliente() {
+		return lstCliente;
+	}
+
+	public static void setLstCliente(List<Cliente> lstCliente) {
+		Cliente.lstCliente = lstCliente;
+	}
 
 	@Override
 	public String toString() {

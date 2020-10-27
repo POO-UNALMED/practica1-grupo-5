@@ -2,6 +2,8 @@ package gestorAplicacion;
 
 import java.io.Serializable;
 
+import uiMain.global;
+
 public abstract class Persona implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -30,5 +32,7 @@ public abstract class Persona implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	public abstract int cantidadTotal();
 
 }
