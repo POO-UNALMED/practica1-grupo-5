@@ -76,8 +76,8 @@ public class Reserva implements Serializable {
 			break;
 		case 7:
 			new MenuController();
-			break;	
-			
+			break;
+
 		default:
 			break;
 		}
@@ -95,7 +95,7 @@ public class Reserva implements Serializable {
 //		Ingreso del cliente
 		cliente = Cliente.ClienteExist();
 		globalServices.clearScr();
-		if (cliente != null || cliente.isPazYSalvo()==true) {
+		if (cliente != null || cliente.isPazYSalvo() == true) {
 			System.out.println("¿Qué tipo de habitación desea reservar?");
 			System.out.println("1- Suite    ($250.000/noche)");
 			System.out.println("2- Familiar ($110.000/noche)");
@@ -170,7 +170,8 @@ public class Reserva implements Serializable {
 							break;
 						}
 						cliente.setPazYSalvo(false);
-						cliente.setReserva(newReserva);;
+						cliente.setReserva(newReserva);
+						;
 						Pago.crearPago(newReserva, term);
 						System.out.println("Reserva creada exitosamente");
 						bien = true;
@@ -202,10 +203,9 @@ public class Reserva implements Serializable {
 					new MenuController();
 				}
 			}
-			
-			
+
 		} else {
-			if(!cliente.isPazYSalvo() || cliente!=null) {
+			if (!cliente.isPazYSalvo() || cliente != null) {
 				System.out.println("El cliente tiene un pago pendiente");
 			}
 			System.out.println("No se pudo crear la reserva");
@@ -426,7 +426,6 @@ public class Reserva implements Serializable {
 		}
 	}
 
-	
 	public static void cancelarReserva() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -509,8 +508,7 @@ public class Reserva implements Serializable {
 		}
 
 	}
-	
-	
+
 	public static void eliminarReserva() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -749,6 +747,5 @@ public class Reserva implements Serializable {
 	public static void setLstReserva(List<Reserva> lstReserva) {
 		Reserva.lstReserva = lstReserva;
 	}
-	
-	
+
 }

@@ -557,9 +557,9 @@ public class Cliente extends Persona implements Serializable {
 		}
 		return Cliente;
 	}
-	
+
 	public int cantidadTotal() {
-		return Cliente.lstCliente.size(); 
+		return Cliente.lstCliente.size();
 	}
 
 	public Reserva getReserva() {
@@ -585,7 +585,7 @@ public class Cliente extends Persona implements Serializable {
 	public void setEmpleado(Empleado empleado) {
 		this.empleado = empleado;
 	}
-	
+
 	public static List<Cliente> getLstCliente() {
 		return lstCliente;
 	}

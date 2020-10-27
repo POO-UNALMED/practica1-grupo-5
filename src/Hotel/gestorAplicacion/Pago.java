@@ -43,23 +43,22 @@ public class Pago implements Serializable {
 		System.out.println("2- Mostrar pagos pendientes");
 		System.out.println("3- Informacion de caja");
 		System.out.println("4- Pagar empleados");
-		
 
 		int aux = globalServices.validacionEntrada(4);
 
 		switch (aux) {
-			case 1:
-				pagarFactura();
-				break;
-			case 2:
-				mostrarPagosPendientes();
-				break;
-			case 3:
-				caja();
-				break;
-			case 4:
-				pagarEmpleados();
-				break;
+		case 1:
+			pagarFactura();
+			break;
+		case 2:
+			mostrarPagosPendientes();
+			break;
+		case 3:
+			caja();
+			break;
+		case 4:
+			pagarEmpleados();
+			break;
 
 		default:
 			break;
@@ -85,35 +84,37 @@ public class Pago implements Serializable {
 		System.out.println("Pago multa creado exitosamente");
 		globalServices.GuardarSesion();
 	}
-	
+
 	public static void pagarFactura() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
 		System.out.println("CANCELACION DE FACTURA ");
 		System.out.println();
-		boolean confirma=false;
-		while(!confirma) {
+		boolean confirma = false;
+		while (!confirma) {
 			System.out.println("Ingrese la c�dula del cliente: (Ex: 1001366265)");
 			int ced = sc.nextInt();
-			boolean aux=false;
-			if(Cliente.clienteExist(ced)) {
-				Cliente cliente =Cliente.ClientePorCedula(ced);
-				if(cliente.getReserva()!=null) { 
+			boolean aux = false;
+			if (Cliente.clienteExist(ced)) {
+				Cliente cliente = Cliente.ClientePorCedula(ced);
+				if (cliente.getReserva() != null) {
 					System.out.println("Pago pendinte");
-					System.out.println("--> Reserva: "+cliente.getReserva().getId()+" Valor: "+cliente.getReserva().getPago().getValor());
+					System.out.println("--> Reserva: " + cliente.getReserva().getId() + " Valor: "
+							+ cliente.getReserva().getPago().getValor());
 					System.out.println("Desea pagarlo?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
 						String res = sc.next();
 						if (res.equals("s") || res.equals("S")) {
-							cliente.getReserva().getPago().imprimeFactura(cliente.getReserva().getId());   // Imprime factura
-							Pago.ingresoCaja(cliente.getReserva().getPago().getValor());					//Aumenta caja
-							Reserva.getLstReserva().remove(cliente.getReserva());								//elimina reserva de lSrRESERVA
-							Pago.lstPago.remove(cliente.getReserva().getPago());							//ELIMINA PAGO
-							cliente.getReserva().setPago(null);												//Elimina pago reserva(opcional)
-							cliente.setReserva(null);														//Elimina reserva cliente
+							cliente.getReserva().getPago().imprimeFactura(cliente.getReserva().getId()); // Imprime
+																											// factura
+							Pago.ingresoCaja(cliente.getReserva().getPago().getValor()); // Aumenta caja
+							Reserva.getLstReserva().remove(cliente.getReserva()); // elimina reserva de lSrRESERVA
+							Pago.lstPago.remove(cliente.getReserva().getPago()); // ELIMINA PAGO
+							cliente.getReserva().setPago(null); // Elimina pago reserva(opcional)
+							cliente.setReserva(null); // Elimina reserva cliente
 							cliente.setPazYSalvo(true);
 							System.out.println("Factura pagada exitosamente");
 							bien = true;
@@ -125,17 +126,17 @@ public class Pago implements Serializable {
 							System.out.print("�Desea volver a intentar? S/N ");
 						}
 					}
-				}else {
+				} else {
 					System.out.println("Este usuario no tiene pagos pendientes");
 				}
-				aux=true;
+				aux = true;
 			}
-			if(aux) {
-				confirma=true;
+			if (aux) {
+				confirma = true;
 				System.out.println("Presione '1' para regresar");
 				sc.next();
 				Pago.menuPago();
-			}else {
+			} else {
 				System.out.println("No se encuentra ningun cliente registrado con este numero");
 				System.out.println("�Desea volver a intentar?");
 				System.out.println("S/N");
@@ -162,7 +163,7 @@ public class Pago implements Serializable {
 			Pago.menuPago();
 		}
 	}
-	
+
 	public static void pagarEmpleados() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -174,18 +175,18 @@ public class Pago implements Serializable {
 		while (!bien) {
 			String res = sc.next();
 			if (res.equals("s") || res.equals("S")) {
-				if(Empleado.getLstEmpleado().size()>0) {
-					Pago.pagos=0;
-					for(Empleado e:Empleado.getLstEmpleado()) {
-						System.out.println("--> Empleado: "+e.getNombre()+"   pagado :D");
-						Pago.pagos+=e.getSalario();
+				if (Empleado.getLstEmpleado().size() > 0) {
+					Pago.pagos = 0;
+					for (Empleado e : Empleado.getLstEmpleado()) {
+						System.out.println("--> Empleado: " + e.getNombre() + "   pagado :D");
+						Pago.pagos += e.getSalario();
 					}
 					System.out.println();
-					Pago.egreso+=Pago.pagos;
+					Pago.egreso += Pago.pagos;
 					System.out.println("Presione '1' para regresar");
 					sc.next();
 					Pago.menuPago();
-				}else {
+				} else {
 					System.out.println("No hay empleados en el sistema");
 					try {
 						Thread.sleep(1200);
@@ -209,7 +210,7 @@ public class Pago implements Serializable {
 				System.out.print("�Desea volver a intentar? S/N ");
 			}
 		}
-		
+
 	}
 
 	public static void ActualizarReserva(Reserva rese) {
@@ -227,26 +228,27 @@ public class Pago implements Serializable {
 		globalService.clearScr();
 		System.out.println("PAGOS PENDIENTES");
 		System.out.println();
-		boolean confirma=false;
-		while(!confirma) {
+		boolean confirma = false;
+		while (!confirma) {
 			System.out.println("Ingrese la cedula del cliente: (Ex: 1001366265)");
 			int ced = sc.nextInt();
-			boolean aux=false;
-			if(Cliente.clienteExist(ced)) {
-				Cliente cliente =Cliente.ClientePorCedula(ced);
-				if(cliente.getReserva()!=null) {
-					System.out.println("--> Reserva: "+cliente.getReserva().getId()+" Valor: "+cliente.getReserva().getPago().getValor());
-				}else {
+			boolean aux = false;
+			if (Cliente.clienteExist(ced)) {
+				Cliente cliente = Cliente.ClientePorCedula(ced);
+				if (cliente.getReserva() != null) {
+					System.out.println("--> Reserva: " + cliente.getReserva().getId() + " Valor: "
+							+ cliente.getReserva().getPago().getValor());
+				} else {
 					System.out.println("Este usuario no tiene pagos pendientes");
 				}
-				aux=true;
+				aux = true;
 			}
-			if(aux) {
-				confirma=true;
+			if (aux) {
+				confirma = true;
 				System.out.println("Presione '1' para regresar");
 				sc.next();
 				Pago.menuPago();
-			}else {
+			} else {
 				System.out.println("No se encuentra ningun cliente registrado con este numero");
 				System.out.println("¿Desea volver a intentar?");
 				System.out.println("S/N");
@@ -273,7 +275,7 @@ public class Pago implements Serializable {
 			Pago.menuPago();
 		}
 	}
-	
+
 	public static void caja() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -281,20 +283,20 @@ public class Pago implements Serializable {
 		System.out.println("CAJA");
 		System.out.println();
 		System.out.println("Estado del Hotel POOderoso");
-		System.out.println("Egresos del dia: "+Pago.pagos);
+		System.out.println("Egresos del dia: " + Pago.pagos);
 		System.out.println();
-		System.out.println("Ingresos obtenidos: "+Pago.caja);
-		System.out.println("Egresos obtenidos: "+Pago.egreso);
+		System.out.println("Ingresos obtenidos: " + Pago.caja);
+		System.out.println("Egresos obtenidos: " + Pago.egreso);
 		System.out.println();
 		System.out.println("Presione '1' para regresar");
 		sc.next();
 		Pago.menuPago();
 	}
-	
+
 	public static void ingresoCaja(double valor) {
-		Pago.caja+=valor;
+		Pago.caja += valor;
 	}
-	
+
 	public void imprimeFactura(int num) {
 		for (Pago p : Pago.lstPago) {
 			if (p.getReserva().getId() == num) {
@@ -314,10 +316,11 @@ public class Pago implements Serializable {
 				System.out.println("Temporada: " + tem);
 				System.out.println("Valor total a pagar: " + p.getValor());
 			}
-		}		
-	}	
+		}
+	}
 
 	public void elimarPago(Reserva re) {
+		global globalServices = new global();
 		for (Pago pe : Pago.lstPago) {
 			if (pe == re.getPago()) {
 				Pago.lstPago.remove(pe);

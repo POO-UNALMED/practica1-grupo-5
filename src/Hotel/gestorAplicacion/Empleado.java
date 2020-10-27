@@ -533,9 +533,9 @@ public class Empleado extends Persona implements Serializable {
 		}
 		return Empleado;
 	}
-	
+
 	public int cantidadTotal() {
-		return Empleado.lstEmpleado.size(); 
+		return Empleado.lstEmpleado.size();
 	}
 
 	public static List<Empleado> getLstEmpleado() {
@@ -561,22 +561,22 @@ public class Empleado extends Persona implements Serializable {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-	
+
 	public static void informacionHotel() {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
 		globalService.clearScr();
-		Persona p= Empleado.getLstEmpleado().get(0);
+		Persona p = Empleado.getLstEmpleado().get(0);
 		System.out.println("El Hotel POOderoso cuenta altualmente con:");
-		System.out.println("Total de empleados: "+p.cantidadTotal());
-		if(Cliente.getLstCliente().size()>0) {
-			p=Cliente.getLstCliente().get(0);
-			System.out.println("Total de clientes: "+p.cantidadTotal());
-		}else {
+		System.out.println("Total de empleados: " + p.cantidadTotal());
+		if (Cliente.getLstCliente().size() > 0) {
+			p = Cliente.getLstCliente().get(0);
+			System.out.println("Total de clientes: " + p.cantidadTotal());
+		} else {
 			System.out.println("Total de empleados: 0");
 		}
-		System.out.println("Total de habitaciones: "+Habitacion.getLstHabitacion().size());
-		System.out.println("Total de reservas: "+Reserva.getLstReserva().size());
+		System.out.println("Total de habitaciones: " + Habitacion.getLstHabitacion().size());
+		System.out.println("Total de reservas: " + Reserva.getLstReserva().size());
 		System.out.println();
 		System.out.println("Presione '1' para regresar");
 		sc.next();

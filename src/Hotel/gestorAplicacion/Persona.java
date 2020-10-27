@@ -32,7 +32,7 @@ public abstract class Persona implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public abstract int cantidadTotal();
 
 }

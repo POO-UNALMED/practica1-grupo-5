@@ -568,7 +568,5 @@ public class Habitacion implements Serializable {
 	public static void setLstHabitacion(List<Habitacion> lstHabitacion) {
 		Habitacion.lstHabitacion = lstHabitacion;
 	}
-	
-	
 
 }
