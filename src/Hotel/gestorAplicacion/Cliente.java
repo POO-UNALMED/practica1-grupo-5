@@ -288,7 +288,7 @@ public class Cliente extends Persona implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("No se encuentra ningun cliente registrado con esta cedula");
-					System.out.println("ï¿½Desea volver a intentar?");
+					System.out.println("¿Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -300,8 +300,8 @@ public class Cliente extends Persona implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada invï¿½lida");
-							System.out.print("ï¿½Desea volver a intentar? S/N ");
+							System.out.println("Entrada invalida");
+							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -311,20 +311,20 @@ public class Cliente extends Persona implements Serializable {
 			try {
 				Thread.sleep(1200);
 				globalServices.GuardarSesion();
-				new MenuController();
+				Cliente.menuCliente();
 			} catch (InterruptedException e) {
 				globalServices.GuardarSesion();
-				new MenuController();
+				Cliente.menuCliente();
 			}
 		} else {
 			System.out.println("No hay clientes registrados");
 			try {
 				Thread.sleep(1200);
 				globalServices.GuardarSesion();
-				new MenuController();
+				Cliente.menuCliente();
 			} catch (InterruptedException e) {
 				globalServices.GuardarSesion();
-				new MenuController();
+				Cliente.menuCliente();
 			}
 		}
 	}
@@ -354,15 +354,20 @@ public class Cliente extends Persona implements Serializable {
 							String res = sc.next();
 							if (res.equals("s") || res.equals("S")) {
 								bien = true;
-								Cliente.lstCliente.remove(c);
-								System.out.println("Eliminacion del cliente exitosa");
+								if(c.isPazYSalvo()) {
+									Cliente.lstCliente.remove(c);
+									System.out.println("Eliminacion del cliente exitosa");
+								}else {
+									System.out.println("No se puede eliminar el cliente ya que tiene una deuda");
+								}
+								
 							} else if (res.equals("n") || res.equals("N")) {
 								System.out.println("Eliminacion del cliente cancelada");
 								bien = true;
 								confirma = true;
 							} else {
-								System.out.println("Entrada invï¿½lida");
-								System.out.print("ï¿½Desea volver a intentar? S/N ");
+								System.out.println("Entrada invalida");
+								System.out.print("¿Desea volver a intentar? S/N ");
 							}
 						}
 						aux1 = true;
@@ -371,7 +376,7 @@ public class Cliente extends Persona implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("No se encuentra ningun cliente registrado con esta cedula");
-					System.out.println("ï¿½Desea volver a intentar?");
+					System.out.println("Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -383,8 +388,8 @@ public class Cliente extends Persona implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada invï¿½lida");
-							System.out.print("ï¿½Desea volver a intentar? S/N ");
+							System.out.println("Entrada invalida");
+							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -394,20 +399,20 @@ public class Cliente extends Persona implements Serializable {
 			try {
 				Thread.sleep(1200);
 				globalServices.GuardarSesion();
-				new MenuController();
+				Cliente.menuCliente();
 			} catch (InterruptedException e) {
 				globalServices.GuardarSesion();
-				new MenuController();
+				Cliente.menuCliente();
 			}
 		} else {
 			System.out.println("No hay clientes registrados");
 			try {
 				Thread.sleep(1200);
 				globalServices.GuardarSesion();
-				new MenuController();
+				Cliente.menuCliente();
 			} catch (InterruptedException e) {
 				globalServices.GuardarSesion();
-				new MenuController();
+				Cliente.menuCliente();
 			}
 		}
 

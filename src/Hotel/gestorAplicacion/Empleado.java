@@ -296,6 +296,11 @@ public class Empleado extends Persona implements Serializable {
 						while (!bien) {
 							String res = sc.next();
 							if (res.equals("s") || res.equals("S")) {
+								for(Cliente c:Cliente.getLstCliente()) {
+									if(c.getEmpleado().getNombre()==e.getNombre()) {
+										c.getEmpleado().setNombre(null);
+									}
+								}
 								bien = true;
 								Empleado.lstEmpleado.remove(e);
 								System.out.println("Eliminacion del empleado exitosa");

@@ -43,8 +43,9 @@ public class Pago implements Serializable {
 		System.out.println("2- Mostrar pagos pendientes");
 		System.out.println("3- Informacion de caja");
 		System.out.println("4- Pagar empleados");
+		System.out.println("5- Regresar");
 
-		int aux = globalServices.validacionEntrada(4);
+		int aux = globalServices.validacionEntrada(5);
 
 		switch (aux) {
 		case 1:
@@ -59,7 +60,9 @@ public class Pago implements Serializable {
 		case 4:
 			pagarEmpleados();
 			break;
-
+		case 5:
+			new MenuController();
+			break;
 		default:
 			break;
 		}
