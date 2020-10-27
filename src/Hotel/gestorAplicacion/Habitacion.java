@@ -87,9 +87,9 @@ public class Habitacion implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static void crearHabitacion() {
 		global globalServices = new global();
-		Scanner sc = new Scanner(System.in);
 		Scanner scn = new Scanner(System.in);
 		scn.useDelimiter("\n");
 		globalServices.clearScr();
@@ -125,6 +125,7 @@ public class Habitacion implements Serializable {
 
 	}
 
+	@SuppressWarnings("resource")
 	public static void buscarHabitacion() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -186,6 +187,7 @@ public class Habitacion implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static void editarHabitacion() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -291,6 +293,7 @@ public class Habitacion implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static void eliminarHabitacion() {
 		System.out.println("     ELIMINAR HABITACION");
 		global globalServices = new global();
@@ -375,6 +378,7 @@ public class Habitacion implements Serializable {
 
 	}
 
+	@SuppressWarnings("resource")
 	public static void mostrarHabitacionesExistente() {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
@@ -522,12 +526,12 @@ public class Habitacion implements Serializable {
 		return !error;
 	}
 
-	public int getNumero() {
+	public static int getNumero() {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public static void setNumero(int numero) {
+		Habitacion.numero = numero;
 	}
 
 	public Map<Pair<String, String>, Integer> getBusyDates() {

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import uiMain.MenuController;
 import uiMain.global;
 
 public class Pago implements Serializable {
@@ -85,6 +84,7 @@ public class Pago implements Serializable {
 		globalServices.GuardarSesion();
 	}
 
+	@SuppressWarnings("resource")
 	public static void pagarFactura() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -156,6 +156,7 @@ public class Pago implements Serializable {
 				}
 			}
 		}
+		globalServices.GuardarSesion();
 		try {
 			Thread.sleep(1200);
 			Pago.menuPago();
@@ -164,6 +165,7 @@ public class Pago implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static void pagarEmpleados() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -222,6 +224,7 @@ public class Pago implements Serializable {
 		Pago.Guardar();
 	}
 
+	@SuppressWarnings("resource")
 	public static void mostrarPagosPendientes() {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
@@ -276,6 +279,7 @@ public class Pago implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static void caja() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -368,6 +372,30 @@ public class Pago implements Serializable {
 			error = true;
 		}
 		return !error;
+	}
+
+	public static double getPagos() {
+		return pagos;
+	}
+
+	public static void setPagos(double pagos) {
+		Pago.pagos = pagos;
+	}
+
+	public static double getEgreso() {
+		return egreso;
+	}
+
+	public static void setEgreso(double egreso) {
+		Pago.egreso = egreso;
+	}
+
+	public static double getCaja() {
+		return caja;
+	}
+
+	public static void setCaja(double caja) {
+		Pago.caja = caja;
 	}
 
 	public double getValor() {

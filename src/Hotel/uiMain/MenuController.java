@@ -7,10 +7,9 @@ import gestorAplicacion.Empleado;
 import gestorAplicacion.Habitacion;
 import gestorAplicacion.Pago;
 import gestorAplicacion.Reserva;
-import gestorAplicacion.Persona;
 
 public class MenuController {
-	@SuppressWarnings({ "resource" })
+	@SuppressWarnings({ "resource", "unused" })
 	public MenuController() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);

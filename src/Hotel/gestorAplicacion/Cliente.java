@@ -79,6 +79,7 @@ public class Cliente extends Persona implements Serializable {
 		Cliente.Guardar();
 	}
 
+	@SuppressWarnings("resource")
 	public static void crearCliente() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -155,6 +156,7 @@ public class Cliente extends Persona implements Serializable {
 
 	}
 
+	@SuppressWarnings("resource")
 	public static void buscarCliente() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -216,6 +218,7 @@ public class Cliente extends Persona implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static void editarCliente() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -329,6 +332,7 @@ public class Cliente extends Persona implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static void eliminarCliente() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -347,7 +351,7 @@ public class Cliente extends Persona implements Serializable {
 						System.out.println("Nombre: " + c.getNombre());
 						System.out.println("Cedula: " + c.getCedula());
 						System.out.println("Empleado a cargo: " + c.getEmpleado().getNombre());
-						System.out.println("ï¿½Esta Seguro que desea eliminar el empleado?");
+						System.out.println("¿Esta Seguro que desea eliminar el empleado?");
 						System.out.println("S/N");
 						boolean bien = false;
 						while (!bien) {
@@ -361,8 +365,8 @@ public class Cliente extends Persona implements Serializable {
 								bien = true;
 								confirma = true;
 							} else {
-								System.out.println("Entrada invï¿½lida");
-								System.out.print("ï¿½Desea volver a intentar? S/N ");
+								System.out.println("Entrada invalida");
+								System.out.print("¿Desea volver a intentar? S/N ");
 							}
 						}
 						aux1 = true;
@@ -371,7 +375,7 @@ public class Cliente extends Persona implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("No se encuentra ningun cliente registrado con esta cedula");
-					System.out.println("ï¿½Desea volver a intentar?");
+					System.out.println("¿Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -384,7 +388,7 @@ public class Cliente extends Persona implements Serializable {
 							confirma = true;
 						} else {
 							System.out.println("Entrada invï¿½lida");
-							System.out.print("ï¿½Desea volver a intentar? S/N ");
+							System.out.print("¿Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -413,6 +417,7 @@ public class Cliente extends Persona implements Serializable {
 
 	}
 
+	@SuppressWarnings("resource")
 	public static void mostrarClientesExistente() {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
@@ -440,6 +445,7 @@ public class Cliente extends Persona implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static Cliente ClienteExist() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Ingrese la cï¿½dula del cliente: (Ex: 1001366265)");
@@ -506,11 +512,10 @@ public class Cliente extends Persona implements Serializable {
 		return !error;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked" })
 	public static boolean Cargar() {
 		ObjectInputStream ois;
 		boolean error = true;
-		List<Cliente> clientes = new ArrayList<>();
 		File ClientesFile = new File("src/Hotel/BaseDatos/Clientes");
 
 		try {
@@ -533,8 +538,8 @@ public class Cliente extends Persona implements Serializable {
 		return !error;
 	}
 
+	@SuppressWarnings({ "resource" })
 	private static Cliente newCliente(int cedula) {
-		Scanner sc = new Scanner(System.in);
 		Scanner scf = new Scanner(System.in);
 		scf.useDelimiter("\n");
 		System.out.println("Ingrese el nombre del cliente: ");
@@ -592,6 +597,14 @@ public class Cliente extends Persona implements Serializable {
 
 	public static void setLstCliente(List<Cliente> lstCliente) {
 		Cliente.lstCliente = lstCliente;
+	}
+
+	public static int getNumClientes() {
+		return numClientes;
+	}
+
+	public static void setNumClientes(int numClientes) {
+		Cliente.numClientes = numClientes;
 	}
 
 	@Override

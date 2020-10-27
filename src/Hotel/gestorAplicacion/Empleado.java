@@ -8,7 +8,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -72,6 +71,7 @@ public class Empleado extends Persona implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static void crearEmpleado() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -123,6 +123,7 @@ public class Empleado extends Persona implements Serializable {
 
 	}
 
+	@SuppressWarnings("resource")
 	public static void buscarEmpleado() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -184,6 +185,7 @@ public class Empleado extends Persona implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static void editarEmpleado() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -272,6 +274,7 @@ public class Empleado extends Persona implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static void eliminarEmpleado() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -358,7 +361,6 @@ public class Empleado extends Persona implements Serializable {
 
 	public static void darInfo() {
 		global globalServices = new global();
-		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
 		System.out.println("    INFORMACION");
 		System.out.println("Que tipo de informacion desea pedir?");
@@ -391,6 +393,7 @@ public class Empleado extends Persona implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static void mostrarEmpleadosExistente() {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
@@ -420,6 +423,7 @@ public class Empleado extends Persona implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static Empleado newEmpleado(int cedula) {
 		Scanner sc = new Scanner(System.in);
 		Scanner scf = new Scanner(System.in);
@@ -432,6 +436,7 @@ public class Empleado extends Persona implements Serializable {
 		return new Empleado(cedula, nombre, salario);
 	}
 
+	@SuppressWarnings("resource")
 	public static Empleado EmpleadoExist() {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
@@ -562,6 +567,7 @@ public class Empleado extends Persona implements Serializable {
 		this.activo = activo;
 	}
 
+	@SuppressWarnings("resource")
 	public static void informacionHotel() {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);

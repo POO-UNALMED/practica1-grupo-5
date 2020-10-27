@@ -2,14 +2,9 @@ package uiMain;
 
 import java.util.Scanner;
 
-import gestorAplicacion.Cliente;
-import gestorAplicacion.Empleado;
-import gestorAplicacion.Habitacion;
-import gestorAplicacion.Reserva;
-
 public class Main {
 
-	@SuppressWarnings({ "resource" })
+	@SuppressWarnings({ "resource", "unused" })
 	public static void main(String[] args) {
 
 		global globalServices = new global();
