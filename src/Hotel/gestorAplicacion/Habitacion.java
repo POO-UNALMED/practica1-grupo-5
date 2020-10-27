@@ -27,7 +27,7 @@ public class Habitacion implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private static int numero;
-	private Map<Pair<Date, Date>, Integer> busyDates = new HashMap<>();
+	private Map<Pair<String, String>, Integer> busyDates = new HashMap<>();
 	private String tipo;
 	private String descripcion;
 	private int precioDia;
@@ -432,7 +432,6 @@ public class Habitacion implements Serializable {
 		return lst;
 	}
 
-	@SuppressWarnings("deprecation")
 	public static boolean isAvailable(Habitacion hab, Date fechaIni, Date fechaFin) {
 		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
 		global globalServices = new global();
@@ -450,7 +449,7 @@ public class Habitacion implements Serializable {
 		DateTime fechaInicio2 = formatter.parseDateTime(string1);
 		DateTime fechaFin2 = formatter.parseDateTime(string2);
 
-		for (Map.Entry<Pair<Date, Date>, Integer> x : hab.getBusyDates().entrySet()) {
+		for (Map.Entry<Pair<String, String>, Integer> x : hab.getBusyDates().entrySet()) {
 			fecha1 = globalServices.StringToDate(x.getKey().toString().split("=")[0]);
 			fecha2 = globalServices.StringToDate(x.getKey().toString().split("=")[1]);
 			DateTime fechaInicio1 = formatter.parseDateTime(fecha1.toString());
@@ -470,8 +469,18 @@ public class Habitacion implements Serializable {
 	}
 
 	public static void ocuparHabitacion(Habitacion hab, Date fechaIni, Date fechaFin, int idReserva) {
-		Pair<Date, Date> fechas = new Pair<>(fechaIni, fechaFin);
+		Calendar fechaIniAux = Calendar.getInstance();
+		fechaIniAux.setTime(fechaIni);
+		Calendar fechaFinAux = Calendar.getInstance();
+		fechaFinAux.setTime(fechaFin);
+		String string1 = fechaIniAux.get(Calendar.DATE) + "/" + (fechaIniAux.get(Calendar.MONTH) + 1) + "/"
+				+ fechaIniAux.get(Calendar.YEAR);
+		String string2 = fechaFinAux.get(Calendar.DATE) + "/" + (fechaFinAux.get(Calendar.MONTH) + 1) + "/"
+				+ fechaFinAux.get(Calendar.YEAR);
+
+		Pair<String, String> fechas = new Pair<>(string1, string2);
 		hab.busyDates.put(fechas, idReserva);
+		Reserva.ActualizarHabitacion(hab);
 	}
 
 	public static boolean Guardar() {
@@ -521,11 +530,11 @@ public class Habitacion implements Serializable {
 		this.numero = numero;
 	}
 
-	public Map<Pair<Date, Date>, Integer> getBusyDates() {
+	public Map<Pair<String, String>, Integer> getBusyDates() {
 		return busyDates;
 	}
 
-	public void setBusyDates(Map<Pair<Date, Date>, Integer> busyDates) {
+	public void setBusyDates(Map<Pair<String, String>, Integer> busyDates) {
 		this.busyDates = busyDates;
 	}
 
