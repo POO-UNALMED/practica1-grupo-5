@@ -380,7 +380,7 @@ public class Cliente extends Persona implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("No se encuentra ningun cliente registrado con esta cedula");
-					System.out.println("¿Desea volver a intentar?");
+					System.out.println("Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -393,7 +393,7 @@ public class Cliente extends Persona implements Serializable {
 							confirma = true;
 						} else {
 							System.out.println("Entrada invalida");
-							System.out.print("¿Desea volver a intentar? S/N ");
+							System.out.print("Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -427,7 +427,7 @@ public class Cliente extends Persona implements Serializable {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
 		globalService.clearScr();
-		System.out.println("    CLIENTES EXISTENTES ACTUALMENTE");
+		System.out.println("    CLIENTES EXISTENTES ACTUALMENTE\n");
 		if (Cliente.lstCliente.size() > 0) {
 			int n = 1;
 			for (Cliente c : Cliente.lstCliente) {

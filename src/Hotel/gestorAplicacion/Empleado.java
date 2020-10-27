@@ -376,16 +376,16 @@ public class Empleado extends Persona implements Serializable {
 		switch (tipo) {
 		case 1:
 			System.out.println("Las habitaciones Sencillas cuenta con capacidad para dos personas(1 cama, 1 bano)");
-			System.out.println("Poseen un costo de: 55.000$");
+			System.out.println("Poseen un costo de: $55.000");
 			break;
 		case 2:
 			System.out.println("Las habitaciones Familiares cuenta con capacidad para 6 personas(3 camas, 2 bano)");
-			System.out.println("Poseen un costo de: 110.000$");
+			System.out.println("Poseen un costo de: $110.000");
 			break;
 		case 3:
 			System.out.println(
 					"Las habitaciones Suits cuenta con capacidad para 6 personas(3 camas, 2 bano, 1 salon, 1 jacuzzy)");
-			System.out.println("Poseen un costo de: 250.000$");
+			System.out.println("Poseen un costo de: $250.000");
 			break;
 		default:
 			break;
@@ -403,15 +403,14 @@ public class Empleado extends Persona implements Serializable {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
 		globalService.clearScr();
-		System.out.println("    EMPLEADOS EXISTENTES ACTUALMENTE");
+		System.out.println("    EMPLEADOS EXISTENTES ACTUALMENTE \n");
 		if (Empleado.lstEmpleado.size() > 0) {
 			int n = 1;
 			for (Empleado e : Empleado.lstEmpleado) {
 				System.out.println(n + "- Nombre: " + e.getNombre() + "\n   Cedula: " + e.getCedula() + " Salario: "
-						+ e.getSalario());
+						+ e.getSalario() + "\n");
 				n++;
 			}
-			System.out.println();
 			System.out.println("Total de empleados: " + Empleado.lstEmpleado.size());
 			System.out.println("Presione '1' para regresar");
 			sc.next();
