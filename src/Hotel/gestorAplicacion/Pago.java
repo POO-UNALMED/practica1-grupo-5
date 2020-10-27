@@ -38,7 +38,7 @@ public class Pago implements Serializable {
 		global globalServices = new global();
 		globalServices.clearScr();
 		System.out.println("Pagos   ");
-		System.out.println("    digite el n�mero de la opci�n que desee:");
+		System.out.println("    digite el numero de la opcion que desee:");
 		System.out.println("1- Pagar factura");
 		System.out.println("2- Mostrar pagos pendientes");
 		System.out.println("3- Informacion de caja");
@@ -88,6 +88,17 @@ public class Pago implements Serializable {
 		globalServices.GuardarSesion();
 	}
 
+	public static void eliminarPagoRealizado(Pago p) {
+		int index = 0;
+		for (int i = 0; i < lstPago.size(); i++) {
+			if (lstPago.get(i).reserva == p.getReserva()) {
+				index = i;
+				break;
+			}
+		}
+		Pago.lstPago.remove(index);
+	}
+
 	@SuppressWarnings("resource")
 	public static void pagarFactura() {
 		global globalServices = new global();
@@ -97,7 +108,7 @@ public class Pago implements Serializable {
 		System.out.println();
 		boolean confirma = false;
 		while (!confirma) {
-			System.out.println("Ingrese la c�dula del cliente: (Ex: 1001366265)");
+			System.out.println("Ingrese la cedula del cliente: (Ex: 1001366265)");
 			int ced = sc.nextInt();
 			boolean aux = false;
 			if (Cliente.clienteExist(ced)) {
@@ -116,7 +127,7 @@ public class Pago implements Serializable {
 																											// factura
 							Pago.ingresoCaja(cliente.getReserva().getPago().getValor()); // Aumenta caja
 							Reserva.eliminarReservaPagada(cliente.getReserva()); // elimina reserva de lSrRESERVA
-							Pago.lstPago.remove(cliente.getReserva().getPago()); // ELIMINA PAGO
+							Pago.eliminarPagoRealizado(cliente.getReserva().getPago()); // ELIMINA PAGO
 							cliente.getReserva().setPago(null); // Elimina pago reserva(opcional)
 							cliente.setReserva(null); // Elimina reserva cliente
 							cliente.setPazYSalvo(true);
