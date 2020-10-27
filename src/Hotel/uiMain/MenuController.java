@@ -2,8 +2,14 @@ package uiMain;
 
 import java.util.Scanner;
 
+import gestorAplicacion.Cliente;
+import gestorAplicacion.Empleado;
+import gestorAplicacion.Habitacion;
+import gestorAplicacion.Pago;
+import gestorAplicacion.Reserva;
+
 public class MenuController {
-	@SuppressWarnings({ "resource" })
+	@SuppressWarnings({ "resource", "unused" })
 	public MenuController() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -11,30 +17,42 @@ public class MenuController {
 		globalServices.clearScr();
 		imprimirOpciones();
 
-		int aux = globalServices.validacionEntrada(7);
+		int aux = globalServices.validacionEntrada(8);
 
 		switch (aux) {
 		case 1:
-			new ReservaController();
+			Reserva.menuReserva();
 			break;
 		case 2:
 
 			break;
 		case 3:
-
+			Habitacion.menuHabitacion();
 			break;
 		case 4:
-
+			Pago.menuPago();
 			break;
 		case 5:
-
+			Cliente.menuCliente();
 			break;
 		case 6:
-
+			Empleado.menuEmpleado();
 			break;
 		case 7:
-			System.out.println("Sesión finalizada");
+			Empleado.informacionHotel();
 			break;
+		case 8:
+			if (globalServices.GuardarSesion()) {
+				System.out.println("Sesión guardada y finalizada exitosamente");
+				break;
+			} else {
+				System.out.println("Ocurrió un error al guardar, intentelo nuevamente");
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+				}
+				new MenuController();
+			}
 
 		default:
 			break;
@@ -50,6 +68,7 @@ public class MenuController {
 		System.out.println("4- Pagos");
 		System.out.println("5- Clientes");
 		System.out.println("6- Empleados");
-		System.out.println("7- Cerrar sesión");
+		System.out.println("7- Informacion del hotel");
+		System.out.println("8- Guardar y Cerrar sesión");
 	}
 }

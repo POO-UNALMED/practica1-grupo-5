@@ -1,6 +1,10 @@
 package gestorAplicacion;
 
-public abstract class Persona {
+import java.io.Serializable;
+
+public abstract class Persona implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private int cedula;
 	private String nombre;
 
@@ -26,5 +30,7 @@ public abstract class Persona {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	public abstract int cantidadTotal();
 
 }
