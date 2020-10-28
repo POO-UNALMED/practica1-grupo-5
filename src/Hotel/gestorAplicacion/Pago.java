@@ -91,7 +91,7 @@ public class Pago implements Serializable {
 	public static void eliminarPagoRealizado(Pago p) {
 		int index = 0;
 		for (int i = 0; i < lstPago.size(); i++) {
-			if (lstPago.get(i).reserva == p.getReserva()) {
+			if (lstPago.get(i).reserva.getId() == p.getReserva().getId()) {
 				index = i;
 				break;
 			}
@@ -126,13 +126,11 @@ public class Pago implements Serializable {
 							cliente.getReserva().getPago().imprimeFactura(cliente.getReserva().getId()); // Imprime
 																											// factura
 							Pago.ingresoCaja(cliente.getReserva().getPago().getValor()); // Aumenta caja
-							Reserva.eliminarReservaPagada(cliente.getReserva()); // elimina reserva de lSrRESERVA
-							Pago.eliminarPagoRealizado(cliente.getReserva().getPago()); // ELIMINA PAGO
+							Reserva.eliminarReservaPagada(cliente.getReserva()); // elimina reserva y pago de lStRESERVA
+							cliente.setPazYSalvo(true);
 							cliente.getReserva().setPago(null); // Elimina pago reserva(opcional)
 							cliente.setReserva(null); // Elimina reserva cliente
-							cliente.setPazYSalvo(true);
-							System.out.println();
-							System.out.println("Factura pagada exitosamente");
+							System.out.println("\nFactura pagada exitosamente");
 							bien = true;
 						} else if (res.equals("n") || res.equals("N")) {
 							System.out.println("Cancelado");
@@ -340,10 +338,10 @@ public class Pago implements Serializable {
 		}
 	}
 
-	public void elimarPago(Reserva re) {
+	public static void elimarPago(Reserva re) {
 		global globalServices = new global();
 		for (Pago pe : Pago.lstPago) {
-			if (pe == re.getPago()) {
+			if (pe.getReserva().getId() == re.getId()) {
 				Pago.lstPago.remove(pe);
 				System.out.println("Pago eliminado");
 				break;

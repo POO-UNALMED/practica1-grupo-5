@@ -361,7 +361,7 @@ public class Cliente extends Persona implements Serializable {
 							if (res.equals("s") || res.equals("S")) {
 								bien = true;
 								if (c.isPazYSalvo()) {
-									Cliente.lstCliente.remove(c);
+									eliminarCliente(c);
 									System.out.println("Eliminacion del cliente exitosa");
 								} else {
 									System.out.println("No se puede eliminar el cliente ya que tiene una deuda");
@@ -424,6 +424,26 @@ public class Cliente extends Persona implements Serializable {
 
 	}
 
+	private static void eliminarCliente(Cliente c) {
+		for (int i = 0; i < lstCliente.size(); i++) {
+			if (lstCliente.get(i).getCedula() == c.getCedula()) {
+				lstCliente.remove(i);
+				break;
+			}
+		}
+		Reserva.EliminarCliente(c);
+	}
+
+	public static void EliminarEmpleado(Empleado e) {
+		for (int j = 0; j < lstCliente.size(); j++) {
+			if (lstCliente.get(j).getEmpleado().getCedula() == e.getCedula()) {
+				lstCliente.get(j).setEmpleado(null);
+				Reserva.ActualizarCliente(lstCliente.get(j));
+			}
+		}
+		Cliente.Guardar();
+	}
+
 	@SuppressWarnings("resource")
 	public static void mostrarClientesExistente() {
 		global globalService = new global();
@@ -439,7 +459,7 @@ public class Cliente extends Persona implements Serializable {
 					n++;
 
 				} else {
-					System.out.println(n + "- Nombre: " + c.getNombre() + "\n   Cedula: " + c.getCedula());
+					System.out.println(n + "- Nombre: " + c.getNombre() + "\n   Cedula: " + c.getCedula() + "\n");
 					n++;
 				}
 			}

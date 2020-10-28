@@ -44,6 +44,7 @@ public class MenuController {
 		case 8:
 			if (globalServices.GuardarSesion()) {
 				System.out.println("Sesión guardada y finalizada exitosamente");
+				System.exit(0);
 				break;
 			} else {
 				System.out.println("Ocurrió un error al guardar, intentelo nuevamente");

@@ -115,9 +115,9 @@ public class Empleado extends Persona implements Serializable {
 		globalServices.GuardarSesion();
 		try {
 			Thread.sleep(1000);
-			new MenuController();
+			menuEmpleado();
 		} catch (InterruptedException e) {
-			new MenuController();
+			menuEmpleado();
 		}
 
 	}
@@ -298,13 +298,8 @@ public class Empleado extends Persona implements Serializable {
 						while (!bien) {
 							String res = sc.next();
 							if (res.equals("s") || res.equals("S")) {
-								for (Cliente c : Cliente.getLstCliente()) {
-									if (c.getEmpleado().getCedula() == e.getCedula()) {
-										c.getEmpleado().setNombre(null);
-									}
-								}
+								eliminarEmpleado(e);
 								bien = true;
-								Empleado.lstEmpleado.remove(e);
 								System.out.println("Eliminacion del empleado exitosa");
 							} else if (res.equals("n") || res.equals("N")) {
 								System.out.println("Eliminacion del empleado cancelada");
@@ -350,7 +345,7 @@ public class Empleado extends Persona implements Serializable {
 				new MenuController();
 			}
 		} else {
-			System.out.println("No empleados registrados");
+			System.out.println("No hay empleados registrados");
 			try {
 				Thread.sleep(1200);
 				globalServices.GuardarSesion();
@@ -361,6 +356,16 @@ public class Empleado extends Persona implements Serializable {
 			}
 		}
 
+	}
+
+	public static void eliminarEmpleado(Empleado e) {
+		for (int i = 0; i < lstEmpleado.size(); i++) {
+			if (lstEmpleado.get(i).getCedula() == e.getCedula()) {
+				lstEmpleado.remove(i);
+				break;
+			}
+		}
+		Cliente.EliminarEmpleado(e);
 	}
 
 	@SuppressWarnings("resource")

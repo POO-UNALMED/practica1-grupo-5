@@ -352,7 +352,7 @@ public class Habitacion implements Serializable {
 							String res = sc.next();
 							if (res.equals("s") || res.equals("S")) {
 								bien = true;
-								Habitacion.lstHabitacion.remove(h);
+								eliminarHabitacion(h);
 								System.out.println("Eliminacion exitosa");
 							} else if (res.equals("n") || res.equals("N")) {
 								System.out.println("Eliminacion cancelada");
@@ -410,6 +410,39 @@ public class Habitacion implements Serializable {
 			}
 		}
 
+	}
+
+	private static void eliminarHabitacion(Habitacion h) {
+		for (int i = 0; i < lstHabitacion.size(); i++) {
+			if (lstHabitacion.get(i).getNumeroHabitacion() == h.getNumeroHabitacion()) {
+				lstHabitacion.remove(i);
+				Reserva.EliminarHabitacion(h);
+			}
+		}
+		Habitacion.Guardar();
+	}
+
+	public static void eliminarReserva(Reserva r) {
+
+		Calendar fechaIniAux = Calendar.getInstance();
+		fechaIniAux.setTime(r.getFechaInicio());
+		Calendar fechaFinAux = Calendar.getInstance();
+		fechaFinAux.setTime(r.getFechaFin());
+		String string1 = fechaIniAux.get(Calendar.DATE) + "/" + (fechaIniAux.get(Calendar.MONTH) + 1) + "/"
+				+ fechaIniAux.get(Calendar.YEAR);
+		String string2 = fechaFinAux.get(Calendar.DATE) + "/" + (fechaFinAux.get(Calendar.MONTH) + 1) + "/"
+				+ fechaFinAux.get(Calendar.YEAR);
+
+		for (Map.Entry<Pair<String, String>, Integer> x : r.getHabitacion().getBusyDates().entrySet()) {
+			String fechaInicio1 = x.getKey().toString().split("=")[0];
+			String fechaFin1 = x.getKey().toString().split("=")[1];
+
+			if (fechaInicio1.equals(string1) && fechaFin1.equals(string2) && x.getValue() == r.getId()) {
+				r.getHabitacion().getBusyDates().remove(x.getKey());
+			}
+		}
+		Reserva.ActualizarHabitacion(r.getHabitacion());
+		Habitacion.Guardar();
 	}
 
 	@SuppressWarnings("resource")
