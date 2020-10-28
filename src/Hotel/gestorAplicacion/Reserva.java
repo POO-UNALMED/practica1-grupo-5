@@ -95,7 +95,8 @@ public class Reserva implements Serializable {
 		System.out.println("1- Verificar disponibilidad de habitacion para el cliente");
 		System.out.println("2- Asignar habitacion al cliente");
 		System.out.println("3- Mostrar habitaciones disponibles");
-		int tipo = globalServices.validacionEntrada(3);
+		System.out.println("4- Regresar");
+		int tipo = globalServices.validacionEntrada(4);
 		switch (tipo) {
 		case 1:
 			Date hoy = new Date();
@@ -150,6 +151,9 @@ public class Reserva implements Serializable {
 					System.out.println();
 				}
 			}
+			break;
+		case 4:
+			new MenuController();
 			break;
 		default:
 			break;
