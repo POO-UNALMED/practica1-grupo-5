@@ -527,6 +527,10 @@ public class Habitacion implements Serializable {
 				System.out.println("------------------------------------------------------");
 				System.out.println("");
 				globalServices.clearScr();
+				try {
+					Thread.sleep(2600);
+				} catch (InterruptedException e) {
+				}
 				menuHabitacion();
 			}
 		}
