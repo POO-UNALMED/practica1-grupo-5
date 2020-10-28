@@ -24,7 +24,7 @@ public class MenuController {
 			Reserva.menuReserva();
 			break;
 		case 2:
-
+			Reserva.checkIn();
 			break;
 		case 3:
 			Habitacion.menuHabitacion();
