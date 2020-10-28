@@ -64,9 +64,10 @@ public class Habitacion implements Serializable {
 		System.out.println("3- Editar habitación");
 		System.out.println("4- Eliminar habitación");
 		System.out.println("5- Mostrar listado de habitaciones");
-		System.out.println("6- Regresar");
+		System.out.println("6- Verificar disponibilidad");
+		System.out.println("7- Regresar");
 
-		int aux = globalServices.validacionEntrada(6);
+		int aux = globalServices.validacionEntrada(7);
 
 		switch (aux) {
 		case 1:
@@ -85,6 +86,9 @@ public class Habitacion implements Serializable {
 			mostrarHabitacionesExistente();
 			break;
 		case 6:
+			habitacionesDisponible();
+			break;
+		case 7:
 			new MenuController();
 			break;
 		default:
@@ -479,6 +483,75 @@ public class Habitacion implements Serializable {
 			} catch (InterruptedException e) {
 				Habitacion.menuHabitacion();
 			}
+		}
+	}
+	
+	
+	public static void habitacionesDisponible() {
+		global globalServices = new global();
+		Scanner sc = new Scanner(System.in);
+		globalServices.clearScr();
+		System.out.println("     VERIFICACION DE HABITACIONES\n");
+		Date fecha1 = new Date();
+		Date fecha2 = new Date();
+		boolean DateisCorrect = false;
+		boolean valid = false;
+		while (!valid) {
+			System.out.println("Fechas");
+			System.out.println("   Desde:");
+			while (!DateisCorrect) {
+				fecha1 = globalServices.StringToDate(sc.next());
+				if (fecha1 != null) {
+					DateisCorrect = true;
+				} else {
+					System.out.println("Ocurrio un problema ingresando la fecha, intentelo nuevamente");
+				}
+			}
+
+			DateisCorrect = false;
+			System.out.println("   Hasta:");
+			while (!DateisCorrect) {
+				fecha2 = globalServices.StringToDate(sc.next());
+				if (fecha2 != null) {
+					DateisCorrect = true;
+				} else {
+					System.out.println("Ocurrio un problema ingresando la fecha, intentelo nuevamente");
+				}
+			}
+			if (fecha1.compareTo(fecha2) <= 0) {
+				valid = true;
+			} else {
+				DateisCorrect = false;
+				System.out.println("Tiempo de reserva invalido, por favor intente de nuevo");
+				System.out.println("------------------------------------------------------");
+				System.out.println("");
+				globalServices.clearScr();
+				menuHabitacion();
+			}
+		}
+		System.out.println("Que tipo de habitacion desea?");
+		System.out.println("1- Sencilla");
+		System.out.println("2- Familiar");
+		System.out.println("3- Suite");
+		int tipo1 = globalServices.validacionEntrada(3);
+		List<Habitacion> lsthab = new ArrayList<>();
+		lsthab = Habitacion.habitacionesDisponiblesPorTipo(tipo1, fecha1, fecha2);
+		if (lsthab.size() > 0) {
+			for (Habitacion h : lsthab) {
+				System.out.println("--> Numero de habitacion: " + h.getNumeroHabitacion() + " Descripcion: "
+						+ h.getDescripcion());
+				System.out.println();
+			}
+			System.out.println();
+			System.out.println("Presione '1' para regresar");
+			sc.next();
+			menuHabitacion();
+		} else {
+			System.out.println("No hay habitaciones disponibles para este tipo.");
+			System.out.println();
+			System.out.println("Presione '1' para regresar");
+			sc.next();
+			menuHabitacion();
 		}
 	}
 
