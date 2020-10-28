@@ -602,7 +602,7 @@ public class Empleado extends Persona implements Serializable {
 			System.out.println("Listado:\n");
 			p.mostrarTotal();
 		} else {
-			System.out.println("Total de empleados: 0");
+			System.out.println("Total de clientes: 0");
 		}
 		if (Habitacion.getLstHabitacion().size() > 0) {
 			System.out.println("\nTotal de habitaciones: " + Habitacion.getLstHabitacion().size());

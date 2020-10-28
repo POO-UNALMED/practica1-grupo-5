@@ -128,8 +128,8 @@ public class Reserva implements Serializable {
 			if (lsthabi.size() > 0) {
 				hay = true;
 				for (Habitacion h : lsthabi) {
-					System.out.println("--> Numero de habitacion: " + h.getNumeroHabitacion() + " Descripcion: "
-							+ h.getDescripcion());
+					System.out.println("--> Tipo Habitacion: " + h.getTipo() + "\n    Numero de habitacion: "
+							+ h.getNumeroHabitacion() + " Descripcion: " + h.getDescripcion());
 					System.out.println();
 				}
 			}
