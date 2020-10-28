@@ -150,7 +150,7 @@ public class Habitacion implements Serializable {
 		}
 		globalServices.GuardarSesion();
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			Habitacion.menuHabitacion();
 			;
 		} catch (InterruptedException e) {
@@ -205,18 +205,18 @@ public class Habitacion implements Serializable {
 				}
 			}
 			try {
-				Thread.sleep(1200);
-				new MenuController();
+				Thread.sleep(3000);
+				menuHabitacion();
 			} catch (InterruptedException e) {
-				new MenuController();
+				menuHabitacion();
 			}
 		} else {
 			System.out.println("No hay habitaciones registradas");
 			try {
-				Thread.sleep(1200);
-				new MenuController();
+				Thread.sleep(3000);
+				menuHabitacion();
 			} catch (InterruptedException e) {
-				new MenuController();
+				menuHabitacion();
 			}
 		}
 	}
@@ -307,22 +307,22 @@ public class Habitacion implements Serializable {
 				}
 			}
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				globalServices.GuardarSesion();
-				new MenuController();
+				menuHabitacion();
 			} catch (InterruptedException e) {
 				globalServices.GuardarSesion();
-				new MenuController();
+				menuHabitacion();
 			}
 		} else {
 			System.out.println("No hay habitaciones registradas");
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				globalServices.GuardarSesion();
-				new MenuController();
+				menuHabitacion();
 			} catch (InterruptedException e) {
 				globalServices.GuardarSesion();
-				new MenuController();
+				menuHabitacion();
 			}
 		}
 	}
@@ -391,22 +391,22 @@ public class Habitacion implements Serializable {
 				}
 			}
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				globalServices.GuardarSesion();
-				new MenuController();
+				menuHabitacion();
 			} catch (InterruptedException e) {
 				globalServices.GuardarSesion();
-				new MenuController();
+				menuHabitacion();
 			}
 		} else {
 			System.out.println("No hay habitaciones registradas");
 			try {
 				Thread.sleep(1200);
 				globalServices.GuardarSesion();
-				new MenuController();
+				menuHabitacion();
 			} catch (InterruptedException e) {
 				globalServices.GuardarSesion();
-				new MenuController();
+				menuHabitacion();
 			}
 		}
 
@@ -467,7 +467,7 @@ public class Habitacion implements Serializable {
 		} else {
 			System.out.println("No hay habitaciones existentes por el momento.");
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				Habitacion.menuHabitacion();
 			} catch (InterruptedException e) {
 				Habitacion.menuHabitacion();

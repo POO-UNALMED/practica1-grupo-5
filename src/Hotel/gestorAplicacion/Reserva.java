@@ -270,7 +270,7 @@ public class Reserva implements Serializable {
 					System.out.println("No hay habitaciones disponibles para este tipo.");
 				}
 				try {
-					Thread.sleep(1200);
+					Thread.sleep(3000);
 					globalServices.GuardarSesion();
 					Reserva.menuReserva();
 				} catch (InterruptedException e) {
@@ -280,7 +280,7 @@ public class Reserva implements Serializable {
 			} else {
 				System.out.println("El cliente tiene un pago pendiente");
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(3000);
 					globalServices.GuardarSesion();
 					Reserva.menuReserva();
 				} catch (InterruptedException e) {
@@ -291,7 +291,7 @@ public class Reserva implements Serializable {
 		} else {
 			System.out.println("No se pudo crear la reserva");
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(3000);
 				globalServices.GuardarSesion();
 				Reserva.menuReserva();
 			} catch (InterruptedException e) {
@@ -408,7 +408,7 @@ public class Reserva implements Serializable {
 						}
 					}
 					try {
-						Thread.sleep(1200);
+						Thread.sleep(3000);
 						globalServices.GuardarSesion();
 						Reserva.menuReserva();
 					} catch (InterruptedException e) {
@@ -418,7 +418,7 @@ public class Reserva implements Serializable {
 				} else {
 					System.out.println("No hay habitaciones disponibles para este tipo de habitacion");
 					try {
-						Thread.sleep(1200);
+						Thread.sleep(3000);
 						globalServices.GuardarSesion();
 						Reserva.menuReserva();
 					} catch (InterruptedException e) {
@@ -429,7 +429,7 @@ public class Reserva implements Serializable {
 			} else {
 				System.out.println("El cliente tiene un pago pendiente");
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(3000);
 					globalServices.GuardarSesion();
 					Reserva.menuReserva();
 				} catch (InterruptedException e) {
@@ -440,7 +440,7 @@ public class Reserva implements Serializable {
 		} else {
 			System.out.println("No se pudo crear la reserva");
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(3000);
 				globalServices.GuardarSesion();
 				Reserva.menuReserva();
 			} catch (InterruptedException e) {
@@ -553,7 +553,7 @@ public class Reserva implements Serializable {
 				}
 			}
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				Reserva.menuReserva();
 			} catch (InterruptedException e) {
 				Reserva.menuReserva();
@@ -561,7 +561,7 @@ public class Reserva implements Serializable {
 		} else {
 			System.out.println("No hay reservas registradas");
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				Reserva.menuReserva();
 			} catch (InterruptedException e) {
 				Reserva.menuReserva();
@@ -647,7 +647,7 @@ public class Reserva implements Serializable {
 				}
 			}
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				Reserva.menuReserva();
 			} catch (InterruptedException e) {
 				Reserva.menuReserva();
@@ -655,7 +655,7 @@ public class Reserva implements Serializable {
 		} else {
 			System.out.println("No hay reservas registradas");
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				Reserva.menuReserva();
 			} catch (InterruptedException e) {
 				Reserva.menuReserva();
@@ -742,7 +742,7 @@ public class Reserva implements Serializable {
 				}
 			}
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				globalServices.GuardarSesion();
 				Reserva.menuReserva();
 			} catch (InterruptedException e) {
@@ -752,7 +752,7 @@ public class Reserva implements Serializable {
 		} else {
 			System.out.println("No hay reservas registradas");
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				globalServices.GuardarSesion();
 				Reserva.menuReserva();
 			} catch (InterruptedException e) {
@@ -807,7 +807,7 @@ public class Reserva implements Serializable {
 		} else {
 			System.out.println("No hay reservas existentes por el momento.");
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				Reserva.menuReserva();
 			} catch (InterruptedException e) {
 				Reserva.menuReserva();

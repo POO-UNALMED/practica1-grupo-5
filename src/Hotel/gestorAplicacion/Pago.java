@@ -172,7 +172,7 @@ public class Pago implements Serializable {
 		}
 		globalServices.GuardarSesion();
 		try {
-			Thread.sleep(1200);
+			Thread.sleep(3000);
 			Pago.menuPago();
 		} catch (InterruptedException e) {
 			Pago.menuPago();
@@ -216,7 +216,7 @@ public class Pago implements Serializable {
 				System.out.println("Cancelado");
 				bien = true;
 				try {
-					Thread.sleep(1200);
+					Thread.sleep(3000);
 					Pago.menuPago();
 				} catch (InterruptedException e) {
 					Pago.menuPago();
@@ -287,7 +287,7 @@ public class Pago implements Serializable {
 			}
 		}
 		try {
-			Thread.sleep(1200);
+			Thread.sleep(3000);
 			Pago.menuPago();
 		} catch (InterruptedException e) {
 			Pago.menuPago();
