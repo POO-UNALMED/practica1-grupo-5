@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,13 +19,11 @@ public class Empleado extends Persona implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private float salario;
-	private boolean activo;
 	private static List<Empleado> lstEmpleado = new ArrayList<>();
 
 	public Empleado(int cedula, String nombre, float salario) {
 		super(cedula, nombre);
 		this.salario = salario;
-		this.activo = true;
 		lstEmpleado.add(this);
 	}
 
@@ -366,6 +365,7 @@ public class Empleado extends Persona implements Serializable {
 
 	public static void darInfo() {
 		global globalServices = new global();
+		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
 		System.out.println("    INFORMACION");
 		System.out.println("Que tipo de informacion desea pedir?");
@@ -390,12 +390,10 @@ public class Empleado extends Persona implements Serializable {
 		default:
 			break;
 		}
-		try {
-			Thread.sleep(1200);
-			Empleado.menuEmpleado();
-		} catch (InterruptedException e) {
-			Empleado.menuEmpleado();
-		}
+		System.out.println();
+		System.out.println("Presione '1' para regresar");
+		sc.next();
+		Empleado.menuEmpleado();
 	}
 
 	@SuppressWarnings("resource")
@@ -546,6 +544,13 @@ public class Empleado extends Persona implements Serializable {
 	public int cantidadTotal() {
 		return Empleado.lstEmpleado.size();
 	}
+	
+	public void mostrarTotal() {
+		for (Empleado e : Empleado.lstEmpleado) {
+			System.out.println("---> Nombre: " + e.getNombre() + "\n   Cedula: " + e.getCedula() + " Salario: "
+					+ e.getSalario() + "\n");
+		}
+	}
 
 	public static List<Empleado> getLstEmpleado() {
 		return lstEmpleado;
@@ -563,39 +568,64 @@ public class Empleado extends Persona implements Serializable {
 		this.salario = salario;
 	}
 
-	public boolean isActivo() {
-		return activo;
-	}
-
-	public void setActivo(boolean activo) {
-		this.activo = activo;
-	}
-
 	@SuppressWarnings("resource")
 	public static void informacionHotel() {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
 		globalService.clearScr();
+		
+		//En este metodo se usa de ligadura dinamica en 2 ocaciones para hacer uso de los metodos de la clase Cliente
+		//y Empleado, que heredan de la clase abstract Persona.
+		
 		Persona p = Empleado.getLstEmpleado().get(0);
-		System.out.println("El Hotel POOderoso cuenta altualmente con:");
+		System.out.println("El Hotel POOderoso cuenta altualmente con:\n");
 		System.out.println("Total de empleados: " + p.cantidadTotal());
+		System.out.println("Listado:\n");
+		p.mostrarTotal();
 		if (Cliente.getLstCliente().size() > 0) {
 			p = Cliente.getLstCliente().get(0);
 			System.out.println("Total de clientes: " + p.cantidadTotal());
+			System.out.println("Listado:\n");
+			p.mostrarTotal();
 		} else {
 			System.out.println("Total de empleados: 0");
 		}
-		System.out.println("Total de habitaciones: " + Habitacion.getLstHabitacion().size());
-		System.out.println("Total de reservas: " + Reserva.getLstReserva().size());
+		if (Habitacion.getLstHabitacion().size() > 0) {
+			System.out.println("Total de habitaciones: " + Habitacion.getLstHabitacion().size());
+			System.out.println("Listado:\n");
+			for (Habitacion h : Habitacion.getLstHabitacion()) {
+				System.out.println("---> Numero de habitacion: " + h.getNumeroHabitacion() + " Descripcion: "
+						+ h.getDescripcion() + "\n   Tipo: " + h.getTipo() + "  Precio por dia : " + h.getPrecioDia());
+			}
+		} else {
+			System.out.println("Total de habitaciones: 0");
+		}
+		if (Reserva.getLstReserva().size() > 0) {
+			System.out.println();
+			System.out.println("Total de reservas: " + Reserva.getLstReserva().size());
+			System.out.println("Listado:\n");
+			for (Reserva r : Reserva.getLstReserva()) {
+				// Se le da formato a las fechas para que imprima dd/mm/yyyy
+				Calendar fechaIniAux = Calendar.getInstance();
+				fechaIniAux.setTime(r.getFechaInicio());
+				Calendar fechaFinAux = Calendar.getInstance();
+				fechaFinAux.setTime(r.getFechaFin());
+				String string1 = fechaIniAux.get(Calendar.DATE) + "/" + (fechaIniAux.get(Calendar.MONTH) + 1) + "/"
+						+ fechaIniAux.get(Calendar.YEAR);
+				String string2 = fechaFinAux.get(Calendar.DATE) + "/" + (fechaFinAux.get(Calendar.MONTH) + 1) + "/"
+						+ fechaFinAux.get(Calendar.YEAR);
+				
+				System.out.println("---> Numero de reserva: " + r.getId() + " Cliente: " + r.getCliente().getNombre()
+						+ "\n    Fecha de reserva: Desde: " + string1 + " Hasta: " + string2);
+			}
+		} else {
+			System.out.println();
+			System.out.println("Total de reservas: 0");
+		}
 		System.out.println();
 		System.out.println("Presione '1' para regresar");
 		sc.next();
 		new MenuController();
-	}
-
-	@Override
-	public String toString() {
-		return null;
 	}
 
 }

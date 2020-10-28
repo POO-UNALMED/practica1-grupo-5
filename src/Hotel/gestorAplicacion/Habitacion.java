@@ -48,6 +48,10 @@ public class Habitacion implements Serializable {
 		this.descripcion = descripcion;
 		Habitacion.lstHabitacion.add(this);
 	}
+	
+	public Habitacion(String tipo) {
+		this(tipo, "");
+	}
 
 	public static void menuHabitacion() {
 		global globalServices = new global();
@@ -90,6 +94,7 @@ public class Habitacion implements Serializable {
 	@SuppressWarnings("resource")
 	public static void crearHabitacion() {
 		global globalServices = new global();
+		Scanner sc = new Scanner(System.in);
 		Scanner scn = new Scanner(System.in);
 		scn.useDelimiter("\n");
 		globalServices.clearScr();
@@ -99,28 +104,56 @@ public class Habitacion implements Serializable {
 		System.out.println("2- Familiar");
 		System.out.println("3- Suite");
 		int tipo = globalServices.validacionEntrada(3);
-		System.out.println("¿Qué descripción posee la habitación?");
-		String a = scn.next();
-		switch (tipo) {
-		case 1:
-			new Habitacion("Sencilla", a);
-			break;
-		case 2:
-			new Habitacion("Familiar", a);
-			break;
-		case 3:
-			new Habitacion("Suite", a);
-			break;
-		default:
-			break;
-		}
-		System.out.println("Habitacion creada exitosamente");
+		System.out.println("Desea crear la habitacion con una descricion?");
+		System.out.println("S/N");
+		boolean bien = false;
+		while (!bien) {
+			String res = sc.next();
+			if (res.equals("s") || res.equals("S")) {
+				System.out.println("¿Qué descripción posee la habitación?");
+				String a = scn.next();
+				switch (tipo) {
+				case 1:
+					new Habitacion("Sencilla", a);
+					break;
+				case 2:
+					new Habitacion("Familiar", a);
+					break;
+				case 3:
+					new Habitacion("Suite", a);
+					break;
+				default:
+					break;
+				}
+				System.out.println("Habitacion creada exitosamente");
+				bien=true;
+			} else if (res.equals("n") || res.equals("N")) {
+				switch (tipo) {
+				case 1:
+					new Habitacion("Sencilla");
+					break;
+				case 2:
+					new Habitacion("Familiar");
+					break;
+				case 3:
+					new Habitacion("Suite");
+					break;
+				default:
+					break;
+				}
+				System.out.println("Habitacion creada exitosamente");
+				bien=true;
+			} else {
+				System.out.println("Entrada invalida");
+				System.out.print("Desea crearlo? S/N ");
+			}
+		}		
 		globalServices.GuardarSesion();
 		try {
 			Thread.sleep(1000);
-			new MenuController();
+			Habitacion.menuHabitacion();;
 		} catch (InterruptedException e) {
-			new MenuController();
+			Habitacion.menuHabitacion();
 		}
 
 	}
@@ -413,13 +446,13 @@ public class Habitacion implements Serializable {
 		List<Habitacion> lst = new ArrayList<>();
 		switch (tipo) {
 		case 1:
-			tipoHab = "Suite";
+			tipoHab = "Sencilla";
 			break;
 		case 2:
 			tipoHab = "Familiar";
 			break;
 		case 3:
-			tipoHab = "Sencilla";
+			tipoHab = "Suite";
 			break;
 		default:
 			break;

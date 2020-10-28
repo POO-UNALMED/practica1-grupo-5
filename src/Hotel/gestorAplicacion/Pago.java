@@ -42,7 +42,7 @@ public class Pago implements Serializable {
 		System.out.println("1- Pagar factura");
 		System.out.println("2- Mostrar pagos pendientes");
 		System.out.println("3- Informacion de caja");
-		System.out.println("4- Pagar empleados");
+		System.out.println("4- Pagar empleados (nomina)");
 		System.out.println("5- Regresar");
 
 		int aux = globalServices.validacionEntrada(5);
@@ -131,6 +131,7 @@ public class Pago implements Serializable {
 							cliente.getReserva().setPago(null); // Elimina pago reserva(opcional)
 							cliente.setReserva(null); // Elimina reserva cliente
 							cliente.setPazYSalvo(true);
+							System.out.println();
 							System.out.println("Factura pagada exitosamente");
 							bien = true;
 						} else if (res.equals("n") || res.equals("N")) {
@@ -244,7 +245,7 @@ public class Pago implements Serializable {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
 		globalService.clearScr();
-		System.out.println("PAGOS PENDIENTES");
+		System.out.println("PAGOS PENDIENTES\n");
 		System.out.println();
 		boolean confirma = false;
 		while (!confirma) {
@@ -263,6 +264,7 @@ public class Pago implements Serializable {
 			}
 			if (aux) {
 				confirma = true;
+				System.out.println();
 				System.out.println("Presione '1' para regresar");
 				sc.next();
 				Pago.menuPago();

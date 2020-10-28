@@ -5,10 +5,9 @@ import java.io.Serializable;
 public abstract class Persona implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private int cedula;
-	private String nombre;
+	protected int cedula;
+	protected String nombre;
 
-	public abstract String toString();
 
 	public Persona(int cedula, String nombre) {
 		this.cedula = cedula;
@@ -32,5 +31,6 @@ public abstract class Persona implements Serializable {
 	}
 
 	public abstract int cantidadTotal();
+	public abstract void mostrarTotal();
 
 }

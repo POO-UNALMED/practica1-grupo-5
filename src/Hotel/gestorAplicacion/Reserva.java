@@ -83,6 +83,222 @@ public class Reserva implements Serializable {
 			break;
 		}
 	}
+	
+	public static void checkIn() {
+		global globalServices = new global();
+		Scanner sc = new Scanner(System.in);
+		globalServices.clearScr();
+		System.out.println("     CHECK IN");
+		System.out.println("Area para atender a clientes que llegan sin ninguna reserva\n");
+		System.out.println("Cual es su solicitud?");
+		System.out.println("1- Verificar disponibilidad de habitacion para el cliente");
+		System.out.println("2- Asignar habitacion al cliente");
+		System.out.println("3- Mostrar habitaciones disponibles");
+		int tipo = globalServices.validacionEntrada(3);
+		switch (tipo) {
+		case 1:
+			Date hoy = new Date();
+			Date fechaF = Reserva.validFecha();
+			System.out.print("Que tipo de habitacion desea?");
+			System.out.println("1- Sencilla");
+			System.out.println("2- Familiar");
+			System.out.println("3- Suite");
+			int tipo1 = globalServices.validacionEntrada(3);
+			List<Habitacion> lsthab = new ArrayList<>();
+			lsthab=Habitacion.habitacionesDisponiblesPorTipo(tipo1, hoy, fechaF);
+			if(lsthab.size()>0) {
+				for(Habitacion h:lsthab) {
+					System.out.println("--> Numero de habitacion: "+h.getNumeroHabitacion()+" Descripcion: "+h.getDescripcion());
+					System.out.println();
+				}
+			}else {
+				System.out.println("No hay habitaciones disponibles para este tipo.");
+			}	
+			break;
+		case 2:
+			Date hoy1=new Date();
+			Date fechaFin = Reserva.validFecha();
+			Reserva.crearReserva(hoy1,fechaFin);
+			break;
+		case 3:
+			Date hoy3=new Date();
+			Date fechaFin2 = Reserva.validFecha();
+			List<Habitacion> lsthabi = new ArrayList<>();
+			lsthabi=Habitacion.habitacionesDisponiblesPorTipo(1, hoy3, fechaFin2);
+			if(lsthabi.size()>0) {
+				for(Habitacion h:lsthabi) {
+					System.out.println("--> Numero de habitacion: "+h.getNumeroHabitacion()+" Descripcion: "+h.getDescripcion());
+					System.out.println();
+				}
+			}
+			lsthabi=Habitacion.habitacionesDisponiblesPorTipo(2, hoy3, fechaFin2);
+			if(lsthabi.size()>0) {
+				for(Habitacion h:lsthabi) {
+					System.out.println("--> Numero de habitacion: "+h.getNumeroHabitacion()+" Descripcion: "+h.getDescripcion());
+					System.out.println();
+				}
+			}
+			lsthabi=Habitacion.habitacionesDisponiblesPorTipo(3, hoy3, fechaFin2);
+			if(lsthabi.size()>0) {
+				for(Habitacion h:lsthabi) {
+					System.out.println("--> Numero de habitacion: "+h.getNumeroHabitacion()+" Descripcion: "+h.getDescripcion());
+					System.out.println();
+				}
+			}
+			break;
+		default:
+			break;
+		}
+		System.out.println();
+		System.out.println("Presione '1' para regresar");
+		sc.next();
+		Reserva.menuReserva();
+	}
+	
+	public static Date validFecha() {
+		global globalServices = new global();
+		Scanner sc = new Scanner(System.in);
+		Date hoy = new Date();
+		Date fechaF = new Date();
+		boolean valid=false;
+		while(!valid) {
+			System.out.println("Ingrese fecha final");
+			boolean DateisCorrect = false;
+			while (!DateisCorrect) {
+				fechaF = globalServices.StringToDate(sc.next());
+				if (fechaF != null) {
+					DateisCorrect = true;
+				} else {
+					System.out.println("Ocurrio un problema ingresando la fecha, intentelo nuevamente");
+				}
+			}
+			if (hoy.compareTo(fechaF) <= 0) {
+				valid = true;
+			}
+			else {
+				System.out.println("Ingreso una fecha antigua");
+				System.out.println("Desea volver a intentar?");
+				System.out.println("S/N");
+				boolean bien=false;
+				while (!bien) {
+					String res = sc.next();
+					if (res.equals("s") || res.equals("S")) {
+						bien = true;
+					} else if (res.equals("n") || res.equals("N")) {
+						System.out.println("Cancelando");
+						bien = true;
+						valid=true;
+					} else {
+						System.out.println("Entrada inválida");
+						System.out.print("¿Desea volver a intentar? S/N ");
+					}
+				}
+				
+			}
+		}
+		return fechaF;
+		
+	}
+	
+	public static void crearReserva(Date fechaIn,Date fechaFin) {
+		global globalServices = new global();
+		Scanner sc = new Scanner(System.in);
+		Cliente cliente = null;
+		cliente = Cliente.ClienteExist();
+		if (cliente != null) {
+			boolean paz = cliente.isPazYSalvo();
+			if (paz == true) {
+				System.out.println("¿Qué tipo de habitación desea reservar?");
+				System.out.println("1- Suite    ($250.000/noche)");
+				System.out.println("2- Familiar ($110.000/noche)");
+				System.out.println("3- Sencilla ($55.000/noche)");
+				int tipo = globalServices.validacionEntrada(3);
+				List<Habitacion> lsthab = new ArrayList<>();
+				lsthab=Habitacion.habitacionesDisponiblesPorTipo(tipo, fechaIn, fechaFin);
+				if(lsthab.size()>0) {
+					for (int i = 0; i < lsthab.size(); i++) {
+						System.out.println((i + 1) + "- N°" + lsthab.get(i).getNumeroHabitacion() + "   -> "
+								+ lsthab.get(i).getDescripcion());
+					}
+					int aux = globalServices.validacionEntrada(lsthab.size());
+					System.out.println("Que temporada es?");
+					System.out.println("1- Alta");
+					System.out.println("2- Baja");
+					int aux2 = globalServices.validacionEntrada(2);
+					boolean term = false;
+					switch (aux2) {
+					case 1:
+						term = true;
+						break;
+					case 2:
+						term = false;
+						break;
+					default:
+						break;
+					}
+					Reserva newReserva = new Reserva(cliente, lsthab.get(aux - 1), fechaIn, fechaFin);
+					System.out.println("¿Desea confirmar la reserva?");
+					System.out.print("S/N ");
+					boolean bien = false;
+					while (!bien) {
+						String res = sc.next();
+						if (res.equals("s") || res.equals("S")) {
+							Habitacion.ocuparHabitacion(lsthab.get(aux - 1), fechaIn, fechaFin,
+									newReserva.getId());
+							cliente.setPazYSalvo(false);
+							cliente.setReserva(newReserva);
+							;
+							Pago.crearPago(newReserva, term);
+							System.out.println("Numero de reserva: "+newReserva.getId());
+							System.out.println("Reserva creada exitosamente");
+							bien = true;
+						} else if (res.equals("n") || res.equals("N")) {
+							System.out.println("Cancelanding reserva...");
+							Reserva.lstReserva.remove(newReserva);
+							bien = true;
+						} else {
+							System.out.println("Entrada inválida");
+							System.out.print("¿Desea confirmar la reserva? S/N ");
+						}
+					}
+			
+				}else {
+					System.out.println("No hay habitaciones disponibles para este tipo.");
+				}
+				try {
+					Thread.sleep(1200);
+					globalServices.GuardarSesion();
+					Reserva.menuReserva();
+				} catch (InterruptedException e) {
+					globalServices.GuardarSesion();
+					Reserva.menuReserva();
+				}
+			}else {
+				System.out.println("El cliente tiene un pago pendiente");
+				try {
+					Thread.sleep(1000);
+					globalServices.GuardarSesion();
+					Reserva.menuReserva();
+				} catch (InterruptedException e) {
+					globalServices.GuardarSesion();
+					Reserva.menuReserva();
+				}
+			}
+		} else {
+			System.out.println("No se pudo crear la reserva");
+			try {
+				Thread.sleep(1000);
+				globalServices.GuardarSesion();
+				Reserva.menuReserva();
+			} catch (InterruptedException e) {
+				globalServices.GuardarSesion();
+				Reserva.menuReserva();
+
+			}
+		}
+			
+	}
+	
 
 	@SuppressWarnings("resource")
 	public static void crearReserva() {
@@ -92,7 +308,7 @@ public class Reserva implements Serializable {
 		Cliente cliente = null;
 		boolean DateisCorrect = false;
 		boolean valid = false;
-		System.out.println("     NUEVA RESERVA");
+		System.out.println("     NUEVA RESERVA\n");
 
 //		Ingreso del cliente
 		cliente = Cliente.ClienteExist();
@@ -178,6 +394,7 @@ public class Reserva implements Serializable {
 							cliente.setReserva(newReserva);
 							;
 							Pago.crearPago(newReserva, term);
+							System.out.println("Numero de reserva: "+newReserva.getId());
 							System.out.println("Reserva creada exitosamente");
 							bien = true;
 						} else if (res.equals("n") || res.equals("N")) {
@@ -258,7 +475,7 @@ public class Reserva implements Serializable {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
-		System.out.println("     EDICION RESERVA");
+		System.out.println("     EDICION RESERVA\n");
 		boolean confirma = false;
 		if (Reserva.lstReserva.size() > 0) {
 			while (!confirma) {
@@ -382,7 +599,7 @@ public class Reserva implements Serializable {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
-		System.out.println("     BUSQUEDA DE RESERVA");
+		System.out.println("     BUSQUEDA DE RESERVA\n");
 		boolean confirma = false;
 		if (Reserva.lstReserva.size() > 0) {
 			while (!confirma) {
@@ -391,13 +608,23 @@ public class Reserva implements Serializable {
 				boolean aux1 = false;
 				for (Reserva r : Reserva.lstReserva) {
 					if (r.getId() == aux) {
+						// Se le da formato a las fechas para que imprima dd/mm/yyyy
+						Calendar fechaIniAux = Calendar.getInstance();
+						fechaIniAux.setTime(r.getFechaInicio());
+						Calendar fechaFinAux = Calendar.getInstance();
+						fechaFinAux.setTime(r.getFechaFin());
+						String string1 = fechaIniAux.get(Calendar.DATE) + "/" + (fechaIniAux.get(Calendar.MONTH) + 1) + "/"
+								+ fechaIniAux.get(Calendar.YEAR);
+						String string2 = fechaFinAux.get(Calendar.DATE) + "/" + (fechaFinAux.get(Calendar.MONTH) + 1) + "/"
+								+ fechaFinAux.get(Calendar.YEAR);
+						
 						System.out.println("Esta es su reserva: ");
 						System.out.println();
 						System.out.println("Numero de reserva: " + r.getId());
 						System.out.println("Cliente: " + r.getCliente().getNombre());
 						System.out.println("Fecha de la reserva: " + r.getFecha());
 						System.out.println(
-								"Tiempo de la reserva: Desde " + r.getFechaInicio() + " hasta " + r.getFechaFin());
+								"Tiempo de la reserva: Desde " + string1 + " hasta " + string2);
 						aux1 = true;
 						break;
 					}
@@ -422,6 +649,7 @@ public class Reserva implements Serializable {
 					}
 				} else {
 					confirma = true;
+					System.out.println();
 					System.out.println("Presione '1' para regresar");
 					sc.next();
 					Reserva.menuReserva();
@@ -449,7 +677,7 @@ public class Reserva implements Serializable {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
-		System.out.println("     CANCELAR RESERVA");
+		System.out.println("     CANCELAR RESERVA\n");
 		boolean confirma = false;
 		if (Reserva.lstReserva.size() > 0) {
 			while (!confirma) {
@@ -458,11 +686,21 @@ public class Reserva implements Serializable {
 				boolean aux1 = false;
 				for (Reserva r : Reserva.lstReserva) {
 					if (r.getId() == aux) {
+						// Se le da formato a las fechas para que imprima dd/mm/yyyy
+						Calendar fechaIniAux = Calendar.getInstance();
+						fechaIniAux.setTime(r.getFechaInicio());
+						Calendar fechaFinAux = Calendar.getInstance();
+						fechaFinAux.setTime(r.getFechaFin());
+						String string1 = fechaIniAux.get(Calendar.DATE) + "/" + (fechaIniAux.get(Calendar.MONTH) + 1) + "/"
+								+ fechaIniAux.get(Calendar.YEAR);
+						String string2 = fechaFinAux.get(Calendar.DATE) + "/" + (fechaFinAux.get(Calendar.MONTH) + 1) + "/"
+								+ fechaFinAux.get(Calendar.YEAR);
+
 						System.out.println("Numero de reserva: " + r.getId());
 						System.out.println("Cliente: " + r.getCliente().getNombre());
 						System.out.println("Fecha de la reserva: " + r.getFecha());
 						System.out.println(
-								"Tiempo de la reserva: Desde " + r.getFechaInicio() + " hasta " + r.getFechaFin());
+								"Tiempo de la reserva: Desde " + string1 + " hasta " + string2);
 						System.out.println();
 						System.out.println("¿Esta Seguro que desea cancelar la reserva?");
 						System.out.println("S/N");
@@ -533,7 +771,7 @@ public class Reserva implements Serializable {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
-		System.out.println("     ELIMINAR RESERVA");
+		System.out.println("     ELIMINAR RESERVA\n");
 		boolean confirma = false;
 		if (Reserva.lstReserva.size() > 0) {
 			while (!confirma) {
@@ -542,11 +780,21 @@ public class Reserva implements Serializable {
 				boolean aux1 = false;
 				for (Reserva r : Reserva.lstReserva) {
 					if (r.getId() == aux) {
+						// Se le da formato a las fechas para que imprima dd/mm/yyyy
+						Calendar fechaIniAux = Calendar.getInstance();
+						fechaIniAux.setTime(r.getFechaInicio());
+						Calendar fechaFinAux = Calendar.getInstance();
+						fechaFinAux.setTime(r.getFechaFin());
+						String string1 = fechaIniAux.get(Calendar.DATE) + "/" + (fechaIniAux.get(Calendar.MONTH) + 1) + "/"
+								+ fechaIniAux.get(Calendar.YEAR);
+						String string2 = fechaFinAux.get(Calendar.DATE) + "/" + (fechaFinAux.get(Calendar.MONTH) + 1) + "/"
+								+ fechaFinAux.get(Calendar.YEAR);
+						
 						System.out.println("Numero de reserva: " + r.getId());
 						System.out.println("Cliente: " + r.getCliente().getNombre());
 						System.out.println("Fecha de la reserva: " + r.getFecha());
 						System.out.println(
-								"Tiempo de la reserva: Desde " + r.getFechaInicio() + " hasta " + r.getFechaFin());
+								"Tiempo de la reserva: Desde " + string1 + " hasta " + string2);
 						System.out.println();
 						System.out.println("¿Esta Seguro que desea eliminar la reserva?");
 						System.out.println("S/N");
@@ -633,11 +881,11 @@ public class Reserva implements Serializable {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
 		globalService.clearScr();
-		System.out.println("    RESERVAS EXISTENTES ACTUALMENTE");
+		System.out.println("    RESERVAS EXISTENTES ACTUALMENTE\n");
 		if (Reserva.lstReserva.size() > 0) {
 			int n = 1;
 			for (Reserva r : Reserva.lstReserva) {
-
+				// Se le da formato a las fechas para que imprima dd/mm/yyyy
 				Calendar fechaIniAux = Calendar.getInstance();
 				fechaIniAux.setTime(r.getFechaInicio());
 				Calendar fechaFinAux = Calendar.getInstance();
@@ -646,10 +894,12 @@ public class Reserva implements Serializable {
 						+ fechaIniAux.get(Calendar.YEAR);
 				String string2 = fechaFinAux.get(Calendar.DATE) + "/" + (fechaFinAux.get(Calendar.MONTH) + 1) + "/"
 						+ fechaFinAux.get(Calendar.YEAR);
+				
 				System.out.println(n + "- Numero de reserva: " + r.getId() + " Cliente: " + r.getCliente().getNombre()
 						+ "\n    Fecha de reserva: Desde: " + string1 + " Hasta: " + string2);
 				n++;
 			}
+			System.out.println();
 			System.out.println("Presione '1' para regresar");
 			sc.next();
 			Reserva.menuReserva();
