@@ -1,4 +1,4 @@
-package gestorAplicacion;
+package gestorAplicacion.Hotel;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import gestorAplicacion.Terceros.Cliente;
 import uiMain.MenuController;
 import uiMain.global;
 

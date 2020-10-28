@@ -2,11 +2,11 @@ package uiMain;
 
 import java.util.Scanner;
 
-import gestorAplicacion.Cliente;
-import gestorAplicacion.Empleado;
-import gestorAplicacion.Habitacion;
-import gestorAplicacion.Pago;
-import gestorAplicacion.Reserva;
+import gestorAplicacion.Hotel.Habitacion;
+import gestorAplicacion.Hotel.Pago;
+import gestorAplicacion.Hotel.Reserva;
+import gestorAplicacion.Terceros.Cliente;
+import gestorAplicacion.Terceros.Empleado;
 
 public class MenuController {
 	@SuppressWarnings({ "resource", "unused" })

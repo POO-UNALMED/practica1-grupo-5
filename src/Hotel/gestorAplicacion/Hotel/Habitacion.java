@@ -1,7 +1,7 @@
 /*Esta clase es la que controla los datos relacionados a las habitaciones que tiene hotel,
  controlando el valor de cada habitaci�n seg�n su tipo y su descripci�n si la tiene*/
 
-package gestorAplicacion;
+package gestorAplicacion.Hotel;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,7 +39,7 @@ public class Habitacion implements Serializable {
 	private static List<Habitacion> lstHabitacion = new ArrayList<>();
 
 	// Constructor
-	
+
 	public Habitacion(String tipo, String descripcion) {
 		Habitacion.numero++;
 		this.numeroHabitacion = Habitacion.numero;
@@ -59,8 +59,8 @@ public class Habitacion implements Serializable {
 		this(tipo, "");
 	}
 
-	//Creaci�n del men� de habitaci�n
-	
+	// Creaci�n del men� de habitaci�n
+
 	public static void menuHabitacion() {
 		global globalServices = new global();
 		globalServices.clearScr();
@@ -102,7 +102,7 @@ public class Habitacion implements Serializable {
 			break;
 		}
 	}
-	
+
 	// M�todo que crea una habitacion en la base de datos
 
 	@SuppressWarnings("resource")
@@ -172,8 +172,8 @@ public class Habitacion implements Serializable {
 		}
 
 	}
-	
-	//M�todo que permite buscar la id de una habitacion en la base de datos
+
+	// M�todo que permite buscar la id de una habitacion en la base de datos
 
 	@SuppressWarnings("resource")
 	public static void buscarHabitacion() {
@@ -237,8 +237,8 @@ public class Habitacion implements Serializable {
 		}
 	}
 
-	//M�todo que permite modificar tipo o descripcion de una habitacion
-	
+	// M�todo que permite modificar tipo o descripcion de una habitacion
+
 	@SuppressWarnings("resource")
 	public static void editarHabitacion() {
 		global globalServices = new global();
@@ -435,8 +435,8 @@ public class Habitacion implements Serializable {
 		}
 
 	}
-	
-	//M�todo para mostrar las habitaciones existentes en el hotel
+
+	// M�todo para mostrar las habitaciones existentes en el hotel
 
 	private static void eliminarHabitacion(Habitacion h) {
 		for (int i = 0; i < lstHabitacion.size(); i++) {
@@ -605,8 +605,9 @@ public class Habitacion implements Serializable {
 		return lst;
 	}
 
-	//M�todo para verificar la disponibilidad de una habitacion en una fecha especifica
-	
+	// M�todo para verificar la disponibilidad de una habitacion en una fecha
+	// especifica
+
 	public static boolean isAvailable(Habitacion hab, Date fechaIni, Date fechaFin) {
 		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
 		Calendar fechaIniAux = Calendar.getInstance();
@@ -638,9 +639,12 @@ public class Habitacion implements Serializable {
 		return available;
 	}
 
-	/*M�todo para asignar una habitacion, debe verificar que la fecha sea valida, es decir, 
-	que no sea del pasado o que la fecha inicial sea mayor a la fecha final*/
-	
+	/*
+	 * M�todo para asignar una habitacion, debe verificar que la fecha sea valida,
+	 * es decir, que no sea del pasado o que la fecha inicial sea mayor a la fecha
+	 * final
+	 */
+
 	public static void ocuparHabitacion(Habitacion hab, Date fechaIni, Date fechaFin, int idReserva) {
 		Calendar fechaIniAux = Calendar.getInstance();
 		fechaIniAux.setTime(fechaIni);
@@ -656,8 +660,8 @@ public class Habitacion implements Serializable {
 		Reserva.ActualizarHabitacion(hab);
 	}
 
-	//M�todo para guardar cambios en la base de datos de Habitacion
-	
+	// M�todo para guardar cambios en la base de datos de Habitacion
+
 	public static boolean Guardar() {
 		ObjectOutputStream oos;
 		boolean error = true;
@@ -674,8 +678,8 @@ public class Habitacion implements Serializable {
 		return !error;
 	}
 
-	//M�todo para cargar los datos almacenados en la base de datos de Habitacion
-	
+	// M�todo para cargar los datos almacenados en la base de datos de Habitacion
+
 	@SuppressWarnings("unchecked")
 	public static boolean Cargar() {
 		ObjectInputStream ois;

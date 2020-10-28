@@ -1,6 +1,11 @@
-package gestorAplicacion;
+package uiMain;
 
 import java.io.Serializable;
+
+import gestorAplicacion.Hotel.Habitacion;
+import gestorAplicacion.Hotel.Pago;
+import gestorAplicacion.Hotel.Reserva;
+import gestorAplicacion.Terceros.Cliente;
 
 public class Info implements Serializable {
 

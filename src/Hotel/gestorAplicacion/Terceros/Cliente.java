@@ -1,6 +1,6 @@
 /*Esta clase hereda de persona, representa a los clientes que son creados/llamados por otras clases como lo son:
  * Empleado,Reserva,Habitacion,Pago. Su funcion es Ocupar las habitaciones reservadas y realizar los pagos de las mismas(deudas y multas).*/
-package gestorAplicacion;
+package gestorAplicacion.Terceros;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import gestorAplicacion.Hotel.Reserva;
 import uiMain.MenuController;
 import uiMain.global;
 
@@ -24,7 +25,8 @@ public class Cliente extends Persona implements Serializable {
 	private boolean pazYSalvo = true;
 	private Empleado empleado;
 	private static List<Cliente> lstCliente = new ArrayList<>();
-	//Constructor Cliente
+
+	// Constructor Cliente
 	public Cliente(int cedula, String nombre, Empleado empleado) {
 		super(cedula, nombre);
 		this.empleado = empleado;
@@ -35,6 +37,7 @@ public class Cliente extends Persona implements Serializable {
 	public Cliente(int cedula, String nombre) {
 		this(cedula, nombre, null);
 	}
+
 	// Metodo que imprime en la interfaz de usuario.
 	public static void menuCliente() {
 		global globalServices = new global();
@@ -87,7 +90,10 @@ public class Cliente extends Persona implements Serializable {
 			Cliente.Guardar();
 		}
 	}
-	//Metodo que se encarga de ingresar a la base de datos los datos del cliente. las llamadas a global services, se encargan de hacer la validacion de los datos ingresados.
+
+	// Metodo que se encarga de ingresar a la base de datos los datos del cliente.
+	// las llamadas a global services, se encargan de hacer la validacion de los
+	// datos ingresados.
 	@SuppressWarnings("resource")
 	public static void crearCliente() {
 		global globalServices = new global();
@@ -162,6 +168,7 @@ public class Cliente extends Persona implements Serializable {
 		}
 
 	}
+
 	// Busca y verifica los clientes ingresados en la base de datos.
 	@SuppressWarnings("resource")
 	public static void buscarCliente() {
@@ -224,6 +231,7 @@ public class Cliente extends Persona implements Serializable {
 			}
 		}
 	}
+
 	// Modifica la informacion (Nombre,Cedula) de un cliente creado previamente.
 	@SuppressWarnings("resource")
 	public static void editarCliente() {
@@ -338,7 +346,8 @@ public class Cliente extends Persona implements Serializable {
 			}
 		}
 	}
-	//Borra el cliente de la base de datos siempre y cuando exista.
+
+	// Borra el cliente de la base de datos siempre y cuando exista.
 	@SuppressWarnings("resource")
 	public static void eliminarCliente() {
 		global globalServices = new global();
@@ -428,7 +437,8 @@ public class Cliente extends Persona implements Serializable {
 		}
 
 	}
-	//Sobrecarga de metodo eliminar.
+
+	// Sobrecarga de metodo eliminar.
 	private static void eliminarCliente(Cliente c) {
 		for (int i = 0; i < lstCliente.size(); i++) {
 			if (lstCliente.get(i).getCedula() == c.getCedula()) {
@@ -438,7 +448,7 @@ public class Cliente extends Persona implements Serializable {
 		}
 		Reserva.EliminarCliente(c);
 	}
-	
+
 	public static void EliminarEmpleado(Empleado e) {
 		for (int j = 0; j < lstCliente.size(); j++) {
 			if (lstCliente.get(j).getEmpleado().getCedula() == e.getCedula()) {
@@ -448,7 +458,8 @@ public class Cliente extends Persona implements Serializable {
 		}
 		Cliente.Guardar();
 	}
-	//Recorre la lista de clientes que se encuentra en la base de datos.
+
+	// Recorre la lista de clientes que se encuentra en la base de datos.
 	@SuppressWarnings("resource")
 	public static void mostrarClientesExistente() {
 		global globalService = new global();
@@ -482,7 +493,8 @@ public class Cliente extends Persona implements Serializable {
 			}
 		}
 	}
-	//Verifica que el cliente exista, y que sus atributos sean validos.
+
+	// Verifica que el cliente exista, y que sus atributos sean validos.
 	@SuppressWarnings("resource")
 	public static Cliente ClienteExist() {
 		Scanner sc = new Scanner(System.in);
@@ -518,7 +530,7 @@ public class Cliente extends Persona implements Serializable {
 		}
 		return cliente;
 	}
-	
+
 	public static boolean clienteExist(int cedula) {
 		boolean exist = false;
 		if (Cliente.lstCliente.size() > 0) {
@@ -533,7 +545,9 @@ public class Cliente extends Persona implements Serializable {
 			return exist;
 		}
 	}
-	// Guarda en el archivo binario llamado Clientes la informacion ingresada por consola.
+
+	// Guarda en el archivo binario llamado Clientes la informacion ingresada por
+	// consola.
 	public static boolean Guardar() {
 		ObjectOutputStream oos;
 		boolean error = true;
@@ -549,7 +563,9 @@ public class Cliente extends Persona implements Serializable {
 		}
 		return !error;
 	}
-	// Lee y carga los datos binarios del archivo Clientes ingresados en sesiones anteriores.
+
+	// Lee y carga los datos binarios del archivo Clientes ingresados en sesiones
+	// anteriores.
 	@SuppressWarnings({ "unchecked" })
 	public static boolean Cargar() {
 		ObjectInputStream ois;
@@ -575,7 +591,7 @@ public class Cliente extends Persona implements Serializable {
 		}
 		return !error;
 	}
-	
+
 	@SuppressWarnings({ "resource" })
 	private static Cliente newCliente(int cedula) {
 		Scanner scf = new Scanner(System.in);

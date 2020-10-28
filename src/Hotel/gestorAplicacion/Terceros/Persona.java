@@ -1,7 +1,7 @@
 /*Esta clase es la clase padre de las clases empleado  y cliente, al ser abstracta, su función es
  obligar a implementar sus métodos abstractos a sus hijos y asignarle unos atributos heredados en común*/
 
-package gestorAplicacion;
+package gestorAplicacion.Terceros;
 
 import java.io.Serializable;
 
