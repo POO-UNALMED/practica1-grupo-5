@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -447,6 +448,7 @@ public class Habitacion implements Serializable {
 
 	@SuppressWarnings("resource")
 	public static void mostrarHabitacionesExistente() {
+		DecimalFormat moneda = new DecimalFormat("###,###");
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
 		globalService.clearScr();
@@ -455,7 +457,8 @@ public class Habitacion implements Serializable {
 			int n = 1;
 			for (Habitacion h : Habitacion.lstHabitacion) {
 				System.out.println(n + "- Numero de habitacion: " + h.getNumeroHabitacion() + " Descripcion: "
-						+ h.getDescripcion() + "\n   Tipo: " + h.getTipo() + "  Precio por dia : " + h.getPrecioDia());
+						+ h.getDescripcion() + "\n   Tipo: " + h.getTipo() + "  Precio por dia : $ "
+						+ moneda.format(h.getPrecioDia()));
 				n++;
 			}
 			System.out.println();

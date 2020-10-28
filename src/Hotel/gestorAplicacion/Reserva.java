@@ -149,7 +149,7 @@ public class Reserva implements Serializable {
 			}
 			break;
 		case 4:
-			new MenuController();
+			Reserva.checkIn();
 			break;
 		default:
 			break;
@@ -449,7 +449,7 @@ public class Reserva implements Serializable {
 
 			}
 		}
-		
+
 	}
 
 	public static void ActualizarCliente(Cliente cli) {

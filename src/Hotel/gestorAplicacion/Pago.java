@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -101,6 +102,7 @@ public class Pago implements Serializable {
 
 	@SuppressWarnings("resource")
 	public static void pagarFactura() {
+		DecimalFormat moneda = new DecimalFormat("###,###");
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
@@ -115,8 +117,8 @@ public class Pago implements Serializable {
 				Cliente cliente = Cliente.ClientePorCedula(ced);
 				if (cliente.getReserva() != null) {
 					System.out.println("Pago pendinte");
-					System.out.println("--> Reserva: " + cliente.getReserva().getId() + " Valor: "
-							+ cliente.getReserva().getPago().getValor());
+					System.out.println("--> Reserva: " + cliente.getReserva().getId() + " Valor: $ "
+							+ moneda.format(cliente.getReserva().getPago().getValor()));
 					System.out.println("Desea pagarlo?");
 					System.out.println("S/N");
 					boolean bien = false;
@@ -226,7 +228,7 @@ public class Pago implements Serializable {
 				System.out.print("Desea volver a intentar? S/N ");
 			}
 		}
-
+		globalServices.GuardarSesion();
 	}
 
 	public static void ActualizarReserva(Reserva rese) {
@@ -240,6 +242,7 @@ public class Pago implements Serializable {
 
 	@SuppressWarnings("resource")
 	public static void mostrarPagosPendientes() {
+		DecimalFormat moneda = new DecimalFormat("###,###");
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
 		globalService.clearScr();
@@ -253,8 +256,8 @@ public class Pago implements Serializable {
 			if (Cliente.clienteExist(ced)) {
 				Cliente cliente = Cliente.ClientePorCedula(ced);
 				if (cliente.getReserva() != null) {
-					System.out.println("--> Reserva: " + cliente.getReserva().getId() + " Valor: "
-							+ cliente.getReserva().getPago().getValor());
+					System.out.println("--> Reserva: " + cliente.getReserva().getId() + " Valor: $ "
+							+ moneda.format(cliente.getReserva().getPago().getValor()));
 				} else {
 					System.out.println("Este usuario no tiene pagos pendientes");
 				}
@@ -296,16 +299,17 @@ public class Pago implements Serializable {
 
 	@SuppressWarnings("resource")
 	public static void caja() {
+		DecimalFormat moneda = new DecimalFormat("###,###");
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
 		System.out.println("CAJA");
 		System.out.println();
 		System.out.println("Estado del Hotel POOderoso");
-		System.out.println("Ultimo egreso: " + Pago.pagos);
+		System.out.println("Ultimo egreso: $ " + moneda.format(Pago.pagos));
 		System.out.println();
-		System.out.println("Ingresos obtenidos: " + Pago.caja);
-		System.out.println("Egresos obtenidos: " + Pago.egreso);
+		System.out.println("Ingresos obtenidos: $ " + moneda.format(Pago.caja));
+		System.out.println("Egresos obtenidos: $ " + moneda.format(Pago.egreso));
 		System.out.println();
 		System.out.println("Presione '1' para regresar");
 		sc.next();
@@ -317,6 +321,7 @@ public class Pago implements Serializable {
 	}
 
 	public void imprimeFactura(int num) {
+		DecimalFormat moneda = new DecimalFormat("###,###");
 		for (Pago p : Pago.lstPago) {
 			if (p.getReserva().getId() == num) {
 				System.out.println();
@@ -325,7 +330,8 @@ public class Pago implements Serializable {
 				System.out.println();
 				System.out.println("Cliente: " + p.getReserva().getCliente().getNombre());
 				System.out.println("Habitacion tipo: " + p.getReserva().getHabitacion().getTipo());
-				System.out.println("Costo por noche: " + p.getReserva().getHabitacion().getPrecioDia());
+				System.out
+						.println("Costo por noche: $ " + moneda.format(p.getReserva().getHabitacion().getPrecioDia()));
 				String tem = null;
 				if (p.isTemporadaAlta()) {
 					tem = "ALTA";
@@ -333,7 +339,7 @@ public class Pago implements Serializable {
 					tem = "BAJA";
 				}
 				System.out.println("Temporada: " + tem);
-				System.out.println("Valor total a pagar: " + p.getValor());
+				System.out.println("Valor total a pagar: $ " + moneda.format(p.getValor()));
 			}
 		}
 	}

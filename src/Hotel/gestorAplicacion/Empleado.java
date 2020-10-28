@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -552,9 +553,10 @@ public class Empleado extends Persona implements Serializable {
 	}
 
 	public void mostrarTotal() {
+		DecimalFormat moneda = new DecimalFormat("###,###");
 		for (Empleado e : Empleado.lstEmpleado) {
-			System.out.println("---> Nombre: " + e.getNombre() + "\n   Cedula: " + e.getCedula() + " Salario: "
-					+ e.getSalario() + "\n");
+			System.out.println("---> Nombre: " + e.getNombre() + "\n   Cedula: " + e.getCedula() + " Salario: $ "
+					+ moneda.format(e.getSalario()) + "\n");
 		}
 	}
 
@@ -576,6 +578,7 @@ public class Empleado extends Persona implements Serializable {
 
 	@SuppressWarnings("resource")
 	public static void informacionHotel() {
+		DecimalFormat moneda = new DecimalFormat("###,###");
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
 		globalService.clearScr();
@@ -602,7 +605,8 @@ public class Empleado extends Persona implements Serializable {
 			System.out.println("Listado:\n");
 			for (Habitacion h : Habitacion.getLstHabitacion()) {
 				System.out.println("---> Numero de habitacion: " + h.getNumeroHabitacion() + " Descripcion: "
-						+ h.getDescripcion() + "\n   Tipo: " + h.getTipo() + "  Precio por dia : " + h.getPrecioDia());
+						+ h.getDescripcion() + "\n   Tipo: " + h.getTipo() + "  Precio por dia : $ "
+						+ moneda.format(h.getPrecioDia()));
 			}
 		} else {
 			System.out.println("Total de habitaciones: 0");
