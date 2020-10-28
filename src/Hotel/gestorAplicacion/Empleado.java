@@ -115,7 +115,7 @@ public class Empleado extends Persona implements Serializable {
 		}
 		globalServices.GuardarSesion();
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			menuEmpleado();
 		} catch (InterruptedException e) {
 			menuEmpleado();
@@ -169,18 +169,18 @@ public class Empleado extends Persona implements Serializable {
 				}
 			}
 			try {
-				Thread.sleep(1200);
-				new MenuController();
+				Thread.sleep(3000);
+				Empleado.menuEmpleado();
 			} catch (InterruptedException e) {
-				new MenuController();
+				Empleado.menuEmpleado();
 			}
 		} else {
 			System.out.println("No hay empleados registrados");
 			try {
-				Thread.sleep(1200);
-				new MenuController();
+				Thread.sleep(3000);
+				Empleado.menuEmpleado();
 			} catch (InterruptedException e) {
-				new MenuController();
+				Empleado.menuEmpleado();
 			}
 		}
 	}
@@ -254,22 +254,22 @@ public class Empleado extends Persona implements Serializable {
 				}
 			}
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				globalServices.GuardarSesion();
-				new MenuController();
+				Empleado.menuEmpleado();
 			} catch (InterruptedException e) {
 				globalServices.GuardarSesion();
-				new MenuController();
+				Empleado.menuEmpleado();
 			}
 		} else {
 			System.out.println("No hay empleados registrados");
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				globalServices.GuardarSesion();
-				new MenuController();
+				Empleado.menuEmpleado();
 			} catch (InterruptedException e) {
 				globalServices.GuardarSesion();
-				new MenuController();
+				Empleado.menuEmpleado();
 			}
 		}
 	}
@@ -338,22 +338,22 @@ public class Empleado extends Persona implements Serializable {
 				}
 			}
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				globalServices.GuardarSesion();
-				new MenuController();
+				Empleado.menuEmpleado();
 			} catch (InterruptedException e) {
 				globalServices.GuardarSesion();
-				new MenuController();
+				Empleado.menuEmpleado();
 			}
 		} else {
 			System.out.println("No hay empleados registrados");
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				globalServices.GuardarSesion();
-				new MenuController();
+				Empleado.menuEmpleado();
 			} catch (InterruptedException e) {
 				globalServices.GuardarSesion();
-				new MenuController();
+				Empleado.menuEmpleado();
 			}
 		}
 
@@ -424,7 +424,7 @@ public class Empleado extends Persona implements Serializable {
 		} else {
 			System.out.println("No hay empleados existentes por el momento.");
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				Empleado.menuEmpleado();
 			} catch (InterruptedException e) {
 				Empleado.menuEmpleado();

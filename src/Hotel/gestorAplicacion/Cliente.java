@@ -148,7 +148,7 @@ public class Cliente extends Persona implements Serializable {
 			}
 		}
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			globalServices.GuardarSesion();
 			Cliente.menuCliente();
 		} catch (InterruptedException e) {
@@ -204,18 +204,18 @@ public class Cliente extends Persona implements Serializable {
 				}
 			}
 			try {
-				Thread.sleep(1200);
-				new MenuController();
+				Thread.sleep(3000);
+				Cliente.menuCliente();
 			} catch (InterruptedException e) {
-				new MenuController();
+				Cliente.menuCliente();
 			}
 		} else {
 			System.out.println("No hay clientes registrados");
 			try {
-				Thread.sleep(1200);
-				new MenuController();
+				Thread.sleep(3000);
+				Cliente.menuCliente();
 			} catch (InterruptedException e) {
-				new MenuController();
+				Cliente.menuCliente();
 			}
 		}
 	}
@@ -314,7 +314,7 @@ public class Cliente extends Persona implements Serializable {
 				}
 			}
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				globalServices.GuardarSesion();
 				Cliente.menuCliente();
 			} catch (InterruptedException e) {
@@ -324,7 +324,7 @@ public class Cliente extends Persona implements Serializable {
 		} else {
 			System.out.println("No hay clientes registrados");
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				globalServices.GuardarSesion();
 				Cliente.menuCliente();
 			} catch (InterruptedException e) {
@@ -403,7 +403,7 @@ public class Cliente extends Persona implements Serializable {
 				}
 			}
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				globalServices.GuardarSesion();
 				Cliente.menuCliente();
 			} catch (InterruptedException e) {
@@ -413,7 +413,7 @@ public class Cliente extends Persona implements Serializable {
 		} else {
 			System.out.println("No hay clientes registrados");
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				globalServices.GuardarSesion();
 				Cliente.menuCliente();
 			} catch (InterruptedException e) {
@@ -470,7 +470,7 @@ public class Cliente extends Persona implements Serializable {
 		} else {
 			System.out.println("No hay clientes existentes por el momento.");
 			try {
-				Thread.sleep(1200);
+				Thread.sleep(3000);
 				Cliente.menuCliente();
 			} catch (InterruptedException e) {
 				Cliente.menuCliente();
