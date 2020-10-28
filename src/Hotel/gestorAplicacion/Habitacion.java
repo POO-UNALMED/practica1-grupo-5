@@ -48,7 +48,7 @@ public class Habitacion implements Serializable {
 		this.descripcion = descripcion;
 		Habitacion.lstHabitacion.add(this);
 	}
-	
+
 	public Habitacion(String tipo) {
 		this(tipo, "");
 	}
@@ -126,7 +126,7 @@ public class Habitacion implements Serializable {
 					break;
 				}
 				System.out.println("Habitacion creada exitosamente");
-				bien=true;
+				bien = true;
 			} else if (res.equals("n") || res.equals("N")) {
 				switch (tipo) {
 				case 1:
@@ -142,16 +142,17 @@ public class Habitacion implements Serializable {
 					break;
 				}
 				System.out.println("Habitacion creada exitosamente");
-				bien=true;
+				bien = true;
 			} else {
 				System.out.println("Entrada invalida");
 				System.out.print("Desea crearlo? S/N ");
 			}
-		}		
+		}
 		globalServices.GuardarSesion();
 		try {
 			Thread.sleep(1000);
-			Habitacion.menuHabitacion();;
+			Habitacion.menuHabitacion();
+			;
 		} catch (InterruptedException e) {
 			Habitacion.menuHabitacion();
 		}

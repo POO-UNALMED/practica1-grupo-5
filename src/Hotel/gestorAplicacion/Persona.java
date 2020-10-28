@@ -8,7 +8,6 @@ public abstract class Persona implements Serializable {
 	protected int cedula;
 	protected String nombre;
 
-
 	public Persona(int cedula, String nombre) {
 		this.cedula = cedula;
 		this.nombre = nombre;
@@ -31,6 +30,7 @@ public abstract class Persona implements Serializable {
 	}
 
 	public abstract int cantidadTotal();
+
 	public abstract void mostrarTotal();
 
 }
