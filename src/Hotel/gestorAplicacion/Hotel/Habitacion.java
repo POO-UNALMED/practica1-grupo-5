@@ -1,5 +1,5 @@
 /*Esta clase es la que controla los datos relacionados a las habitaciones que tiene hotel,
- controlando el valor de cada habitaci�n seg�n su tipo y su descripci�n si la tiene*/
+ controlando el valor de cada habitacion segun su tipo y su descripcion si la tiene*/
 
 package gestorAplicacion.Hotel;
 
@@ -59,17 +59,17 @@ public class Habitacion implements Serializable {
 		this(tipo, "");
 	}
 
-	// Creaci�n del men� de habitaci�n
+	// Creacion del menu de habitacion
 
 	public static void menuHabitacion() {
 		global globalServices = new global();
 		globalServices.clearScr();
 		System.out.println("Habitaciones   ");
-		System.out.println("    digite el n�mero de la opci�n que desee:");
-		System.out.println("1- Crear habitaci�n");
-		System.out.println("2- Buscar habitaci�n");
-		System.out.println("3- Editar habitaci�n");
-		System.out.println("4- Eliminar habitaci�n");
+		System.out.println("    digite el numero de la opcion que desee:");
+		System.out.println("1- Crear habitacion");
+		System.out.println("2- Buscar habitacion");
+		System.out.println("3- Editar habitacion");
+		System.out.println("4- Eliminar habitacion");
 		System.out.println("5- Mostrar listado de habitaciones");
 		System.out.println("6- Verificar disponibilidad");
 		System.out.println("7- Regresar");
@@ -103,7 +103,7 @@ public class Habitacion implements Serializable {
 		}
 	}
 
-	// M�todo que crea una habitacion en la base de datos
+	// Mwtodo que crea una habitacion en la base de datos
 
 	@SuppressWarnings("resource")
 	public static void crearHabitacion() {
@@ -113,18 +113,18 @@ public class Habitacion implements Serializable {
 		scn.useDelimiter("\n");
 		globalServices.clearScr();
 		System.out.println("     CREACION HABITACION");
-		System.out.println("�Que tipo de Habitacion desea crear?");
+		System.out.println("Que tipo de Habitacion desea crear?");
 		System.out.println("1- Sencilla");
 		System.out.println("2- Familiar");
 		System.out.println("3- Suite");
 		int tipo = globalServices.validacionEntrada(3);
-		System.out.println("Desea crear la habitacion con una descricion?");
+		System.out.println("Desea crear la habitacion con una descripcion?");
 		System.out.println("S/N");
 		boolean bien = false;
 		while (!bien) {
 			String res = sc.next();
 			if (res.equals("s") || res.equals("S")) {
-				System.out.println("�Qu� descripci�n posee la habitaci�n?");
+				System.out.println("Que descripcion posee la habitacion?");
 				String a = scn.next();
 				switch (tipo) {
 				case 1:
@@ -173,7 +173,7 @@ public class Habitacion implements Serializable {
 
 	}
 
-	// M�todo que permite buscar la id de una habitacion en la base de datos
+	// Metodo que permite buscar la id de una habitacion en la base de datos
 
 	@SuppressWarnings("resource")
 	public static void buscarHabitacion() {
@@ -200,7 +200,7 @@ public class Habitacion implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("Este numero de habitacion no se encuentra registrado");
-					System.out.println("�Desea volver a intentar?");
+					System.out.println("Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -212,8 +212,8 @@ public class Habitacion implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inv�lida");
-							System.out.print("�Desea volver a intentar? S/N ");
+							System.out.println("Entrada invalida");
+							System.out.print("Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -237,7 +237,7 @@ public class Habitacion implements Serializable {
 		}
 	}
 
-	// M�todo que permite modificar tipo o descripcion de una habitacion
+	// Metodo que permite modificar tipo o descripcion de una habitacion
 
 	@SuppressWarnings("resource")
 	public static void editarHabitacion() {
@@ -304,7 +304,7 @@ public class Habitacion implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("No se encuentra ninguna habitacion registrada con este numero");
-					System.out.println("�Desea volver a intentar?");
+					System.out.println("Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -316,8 +316,8 @@ public class Habitacion implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inv�lida");
-							System.out.print("�Desea volver a intentar? S/N ");
+							System.out.println("Entrada invalida");
+							System.out.print("Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -345,7 +345,7 @@ public class Habitacion implements Serializable {
 		}
 	}
 
-	// M�todo que elimina la habitacion de la base de datos
+	// Metodo que elimina la habitacion de la base de datos
 
 	@SuppressWarnings("resource")
 	public static void eliminarHabitacion() {
@@ -366,7 +366,7 @@ public class Habitacion implements Serializable {
 							System.out.println("Tipo: " + h.getTipo());
 							System.out.println("Descripcion: " + h.getDescripcion());
 							System.out.println();
-							System.out.println("�Esta Seguro que desea eliminar la Habitacion?");
+							System.out.println("Esta Seguro que desea eliminar la Habitacion?");
 							System.out.print("S/N ");
 							boolean bien = false;
 							while (!bien) {
@@ -380,8 +380,8 @@ public class Habitacion implements Serializable {
 									bien = true;
 									confirma = true;
 								} else {
-									System.out.println("Entrada inv�lida");
-									System.out.print("�Desea volver a intentar? S/N ");
+									System.out.println("Entrada invalida");
+									System.out.print("Desea volver a intentar? S/N ");
 								}
 							}
 							aux1 = true;
@@ -394,7 +394,7 @@ public class Habitacion implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("Este numero de habitacion no se encuentra registrado");
-					System.out.println("�Desea volver a intentar?");
+					System.out.println("Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -406,8 +406,8 @@ public class Habitacion implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inv�lida");
-							System.out.print("�Desea volver a intentar? S/N ");
+							System.out.println("Entrada invalida");
+							System.out.print("Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -436,7 +436,7 @@ public class Habitacion implements Serializable {
 
 	}
 
-	// M�todo para mostrar las habitaciones existentes en el hotel
+	// Metodo para mostrar las habitaciones existentes en el hotel
 
 	private static void eliminarHabitacion(Habitacion h) {
 		for (int i = 0; i < lstHabitacion.size(); i++) {
@@ -605,7 +605,7 @@ public class Habitacion implements Serializable {
 		return lst;
 	}
 
-	// M�todo para verificar la disponibilidad de una habitacion en una fecha
+	// Metodo para verificar la disponibilidad de una habitacion en una fecha
 	// especifica
 
 	public static boolean isAvailable(Habitacion hab, Date fechaIni, Date fechaFin) {
@@ -640,7 +640,7 @@ public class Habitacion implements Serializable {
 	}
 
 	/*
-	 * M�todo para asignar una habitacion, debe verificar que la fecha sea valida,
+	 * Metodo para asignar una habitacion, debe verificar que la fecha sea valida,
 	 * es decir, que no sea del pasado o que la fecha inicial sea mayor a la fecha
 	 * final
 	 */
@@ -660,7 +660,7 @@ public class Habitacion implements Serializable {
 		Reserva.ActualizarHabitacion(hab);
 	}
 
-	// M�todo para guardar cambios en la base de datos de Habitacion
+	// Metodo para guardar cambios en la base de datos de Habitacion
 
 	public static boolean Guardar() {
 		ObjectOutputStream oos;
@@ -678,7 +678,7 @@ public class Habitacion implements Serializable {
 		return !error;
 	}
 
-	// M�todo para cargar los datos almacenados en la base de datos de Habitacion
+	// Metodo para cargar los datos almacenados en la base de datos de Habitacion
 
 	@SuppressWarnings("unchecked")
 	public static boolean Cargar() {
