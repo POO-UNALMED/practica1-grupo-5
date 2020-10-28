@@ -485,14 +485,14 @@ public class Habitacion implements Serializable {
 			}
 		}
 	}
-	
-	
+
+	@SuppressWarnings("resource")
 	public static void habitacionesDisponible() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
 		System.out.println("     VERIFICACION DE HABITACIONES\n");
-		
+
 		Date fecha1 = new Date();
 		Date fecha2 = new Date();
 		boolean DateisCorrect = false;
@@ -539,8 +539,8 @@ public class Habitacion implements Serializable {
 		lsthab = Habitacion.habitacionesDisponiblesPorTipo(tipo1, fecha1, fecha2);
 		if (lsthab.size() > 0) {
 			for (Habitacion h : lsthab) {
-				System.out.println("--> Numero de habitacion: " + h.getNumeroHabitacion() + " Descripcion: "
-						+ h.getDescripcion());
+				System.out.println(
+						"--> Numero de habitacion: " + h.getNumeroHabitacion() + " Descripcion: " + h.getDescripcion());
 				System.out.println();
 			}
 			System.out.println();
