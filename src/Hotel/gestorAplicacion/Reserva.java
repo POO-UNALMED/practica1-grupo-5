@@ -45,7 +45,7 @@ public class Reserva implements Serializable {
 		global globalServices = new global();
 		globalServices.clearScr();
 		System.out.println("Reservas   ");
-		System.out.println("    digite el número de la opción que desee:");
+		System.out.println("    digite el nï¿½mero de la opciï¿½n que desee:");
 		System.out.println("1- Crear reserva");
 		System.out.println("2- Buscar reserva");
 		System.out.println("3- Editar reserva");
@@ -92,7 +92,7 @@ public class Reserva implements Serializable {
 		Cliente cliente = null;
 		boolean DateisCorrect = false;
 		boolean valid = false;
-		System.out.println("     NUEVA RESERVA");
+		System.out.println("     NUEVA RESERVA\n");
 
 //		Ingreso del cliente
 		cliente = Cliente.ClienteExist();
@@ -100,7 +100,7 @@ public class Reserva implements Serializable {
 		if (cliente != null) {
 			boolean paz = cliente.isPazYSalvo();
 			if (paz == true) {
-				System.out.println("¿Qué tipo de habitación desea reservar?");
+				System.out.println("Â¿QuÃ© tipo de habitaciÃ³n desea reservar?");
 				System.out.println("1- Suite    ($250.000/noche)");
 				System.out.println("2- Familiar ($110.000/noche)");
 				System.out.println("3- Sencilla ($55.000/noche)");
@@ -145,13 +145,13 @@ public class Reserva implements Serializable {
 				lstHabitaciones = Habitacion.habitacionesDisponiblesPorTipo(tipo, fecha1, fecha2);
 				if (lstHabitaciones.size() > 0) {
 					for (int i = 0; i < lstHabitaciones.size(); i++) {
-						System.out.println((i + 1) + "- N°" + lstHabitaciones.get(i).getNumeroHabitacion() + "   -> "
+						System.out.println((i + 1) + "- NÂ°" + lstHabitaciones.get(i).getNumeroHabitacion() + "   -> "
 								+ lstHabitaciones.get(i).getDescripcion());
 					}
 					int aux = globalServices.validacionEntrada(lstHabitaciones.size());
 
 					Reserva newReserva = new Reserva(cliente, lstHabitaciones.get(aux - 1), fecha1, fecha2);
-					System.out.println("¿Desea confirmar la reserva?");
+					System.out.println("Â¿Desea confirmar la reserva?");
 					System.out.print("S/N ");
 					boolean bien = false;
 					while (!bien) {
@@ -178,6 +178,7 @@ public class Reserva implements Serializable {
 							cliente.setReserva(newReserva);
 							;
 							Pago.crearPago(newReserva, term);
+							System.out.println("Numero de reserva: "+newReserva.getId());
 							System.out.println("Reserva creada exitosamente");
 							bien = true;
 						} else if (res.equals("n") || res.equals("N")) {
@@ -185,8 +186,8 @@ public class Reserva implements Serializable {
 							Reserva.lstReserva.remove(newReserva);
 							bien = true;
 						} else {
-							System.out.println("Entrada inválida");
-							System.out.print("¿Desea confirmar la reserva? S/N ");
+							System.out.println("Entrada invÃ¡lida");
+							System.out.print("Â¿Desea confirmar la reserva? S/N ");
 						}
 					}
 					try {
@@ -336,7 +337,7 @@ public class Reserva implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("No se encuentra ninguna reserva registrada con este numero");
-					System.out.println("¿Desea volver a intentar?");
+					System.out.println("ï¿½Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -348,8 +349,8 @@ public class Reserva implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inválida");
-							System.out.print("¿Desea volver a intentar? S/N ");
+							System.out.println("Entrada invï¿½lida");
+							System.out.print("ï¿½Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -404,7 +405,7 @@ public class Reserva implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("Este numero de reserva no se encuentra registrado");
-					System.out.println("¿Desea volver a intentar?");
+					System.out.println("ï¿½Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -416,8 +417,8 @@ public class Reserva implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inválida");
-							System.out.print("¿Desea volver a intentar? S/N ");
+							System.out.println("Entrada invï¿½lida");
+							System.out.print("ï¿½Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -464,7 +465,7 @@ public class Reserva implements Serializable {
 						System.out.println(
 								"Tiempo de la reserva: Desde " + r.getFechaInicio() + " hasta " + r.getFechaFin());
 						System.out.println();
-						System.out.println("¿Esta Seguro que desea cancelar la reserva?");
+						System.out.println("ï¿½Esta Seguro que desea cancelar la reserva?");
 						System.out.println("S/N");
 						boolean bien = false;
 						while (!bien) {
@@ -480,8 +481,8 @@ public class Reserva implements Serializable {
 								bien = true;
 								confirma = true;
 							} else {
-								System.out.println("Entrada inválida");
-								System.out.print("¿Desea volver a intentar? S/N ");
+								System.out.println("Entrada invï¿½lida");
+								System.out.print("ï¿½Desea volver a intentar? S/N ");
 							}
 						}
 						aux1 = true;
@@ -490,7 +491,7 @@ public class Reserva implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("Este numero de reserva no se encuentra registrado");
-					System.out.println("¿Desea volver a intentar?");
+					System.out.println("ï¿½Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -502,8 +503,8 @@ public class Reserva implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inválida");
-							System.out.print("¿Desea volver a intentar? S/N ");
+							System.out.println("Entrada invï¿½lida");
+							System.out.print("ï¿½Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -548,7 +549,7 @@ public class Reserva implements Serializable {
 						System.out.println(
 								"Tiempo de la reserva: Desde " + r.getFechaInicio() + " hasta " + r.getFechaFin());
 						System.out.println();
-						System.out.println("¿Esta Seguro que desea eliminar la reserva?");
+						System.out.println("ï¿½Esta Seguro que desea eliminar la reserva?");
 						System.out.println("S/N");
 						boolean bien = false;
 						while (!bien) {
@@ -565,8 +566,8 @@ public class Reserva implements Serializable {
 								bien = true;
 								confirma = true;
 							} else {
-								System.out.println("Entrada inválida");
-								System.out.print("¿Desea volver a intentar? S/N ");
+								System.out.println("Entrada invï¿½lida");
+								System.out.print("ï¿½Desea volver a intentar? S/N ");
 							}
 						}
 						aux1 = true;
@@ -575,7 +576,7 @@ public class Reserva implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("Este numero de reserva no se encuentra registrado");
-					System.out.println("¿Desea volver a intentar?");
+					System.out.println("ï¿½Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -587,8 +588,8 @@ public class Reserva implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inválida");
-							System.out.print("¿Desea volver a intentar? S/N ");
+							System.out.println("Entrada invï¿½lida");
+							System.out.print("ï¿½Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -637,7 +638,6 @@ public class Reserva implements Serializable {
 		if (Reserva.lstReserva.size() > 0) {
 			int n = 1;
 			for (Reserva r : Reserva.lstReserva) {
-
 				Calendar fechaIniAux = Calendar.getInstance();
 				fechaIniAux.setTime(r.getFechaInicio());
 				Calendar fechaFinAux = Calendar.getInstance();
