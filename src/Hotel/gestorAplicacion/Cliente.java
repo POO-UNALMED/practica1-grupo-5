@@ -75,12 +75,15 @@ public class Cliente extends Persona implements Serializable {
 
 	public static void ActualizarEmpleado(Empleado emp) {
 		for (Cliente cliente : lstCliente) {
-			if (cliente.getEmpleado().getCedula() == emp.getCedula()) {
-				cliente.setEmpleado(emp);
-				Reserva.ActualizarCliente(cliente);
+			if (cliente.getEmpleado() != null) {
+
+				if (cliente.getEmpleado().getCedula() == emp.getCedula()) {
+					cliente.setEmpleado(emp);
+					Reserva.ActualizarCliente(cliente);
+				}
 			}
+			Cliente.Guardar();
 		}
-		Cliente.Guardar();
 	}
 
 	@SuppressWarnings("resource")
@@ -353,7 +356,7 @@ public class Cliente extends Persona implements Serializable {
 						System.out.println("Nombre: " + c.getNombre());
 						System.out.println("Cedula: " + c.getCedula());
 						System.out.println("Empleado a cargo: " + c.getEmpleado().getNombre());
-						System.out.println("Esta Seguro que desea eliminar el empleado?");
+						System.out.println("Esta Seguro que desea eliminar el cliente?");
 						System.out.println("S/N");
 						boolean bien = false;
 						while (!bien) {
@@ -490,7 +493,7 @@ public class Cliente extends Persona implements Serializable {
 				cliente = Cliente.ClientePorCedula(ced);
 				ClienteisCorrect = true;
 			} else {
-				System.out.println("El cliente no est registrado, Desea crearlo?");
+				System.out.println("El cliente no esta registrado, Desea crearlo?");
 				System.out.print("S/N ");
 				boolean bien = false;
 				while (!bien) {

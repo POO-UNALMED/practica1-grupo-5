@@ -342,30 +342,35 @@ public class Habitacion implements Serializable {
 				boolean aux1 = false;
 				for (Habitacion h : Habitacion.lstHabitacion) {
 					if (h.getNumeroHabitacion() == aux) {
-						System.out.println("Numero de habitacion: " + h.getNumeroHabitacion());
-						System.out.println("Tipo: " + h.getTipo());
-						System.out.println("Descripcion: " + h.getDescripcion());
-						System.out.println();
-						System.out.println("¿Esta Seguro que desea eliminar la Habitacion?");
-						System.out.println("S/N");
-						boolean bien = false;
-						while (!bien) {
-							String res = sc.next();
-							if (res.equals("s") || res.equals("S")) {
-								bien = true;
-								eliminarHabitacion(h);
-								System.out.println("Eliminacion exitosa");
-							} else if (res.equals("n") || res.equals("N")) {
-								System.out.println("Eliminacion cancelada");
-								bien = true;
-								confirma = true;
-							} else {
-								System.out.println("Entrada inválida");
-								System.out.print("¿Desea volver a intentar? S/N ");
+						if (h.getBusyDates().size() <= 0) {
+							System.out.println("Numero de habitacion: " + h.getNumeroHabitacion());
+							System.out.println("Tipo: " + h.getTipo());
+							System.out.println("Descripcion: " + h.getDescripcion());
+							System.out.println();
+							System.out.println("¿Esta Seguro que desea eliminar la Habitacion?");
+							System.out.print("S/N ");
+							boolean bien = false;
+							while (!bien) {
+								String res = sc.next();
+								if (res.equals("s") || res.equals("S")) {
+									bien = true;
+									eliminarHabitacion(h);
+									System.out.println("Eliminacion exitosa");
+								} else if (res.equals("n") || res.equals("N")) {
+									System.out.println("Eliminacion cancelada");
+									bien = true;
+									confirma = true;
+								} else {
+									System.out.println("Entrada inválida");
+									System.out.print("¿Desea volver a intentar? S/N ");
+								}
 							}
+							aux1 = true;
+							break;
+						} else {
+							System.out.println("La habitacion no se puede eliminar, tiene reservas pendientes");
+							aux1 = true;
 						}
-						aux1 = true;
-						break;
 					}
 				}
 				if (!aux1) {
@@ -377,7 +382,6 @@ public class Habitacion implements Serializable {
 						String res = sc.next();
 						if (res.equals("s") || res.equals("S")) {
 							bien = true;
-							System.out.println("Eliminacion exitosa");
 						} else if (res.equals("n") || res.equals("N")) {
 							System.out.println("Eliminacion cancelada");
 							bien = true;

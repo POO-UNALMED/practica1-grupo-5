@@ -125,6 +125,7 @@ public class Empleado extends Persona implements Serializable {
 
 	@SuppressWarnings("resource")
 	public static void buscarEmpleado() {
+		DecimalFormat moneda = new DecimalFormat("###,###");
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
@@ -141,7 +142,7 @@ public class Empleado extends Persona implements Serializable {
 						System.out.println();
 						System.out.println("Nombre: " + e.getNombre());
 						System.out.println("Cedula: " + e.getCedula());
-						System.out.println("Salario: " + e.getSalario());
+						System.out.println("Salario: " + moneda.format(e.getSalario()));
 						aux1 = true;
 						break;
 					}
@@ -187,6 +188,7 @@ public class Empleado extends Persona implements Serializable {
 
 	@SuppressWarnings("resource")
 	public static void editarEmpleado() {
+		DecimalFormat moneda = new DecimalFormat("###,###");
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
 		Scanner scn = new Scanner(System.in);
@@ -204,7 +206,7 @@ public class Empleado extends Persona implements Serializable {
 						System.out.println("Datos del empleado");
 						System.out.println("Nombre: " + e.getNombre());
 						System.out.println("Cedula: " + e.getCedula());
-						System.out.println("Salario: " + e.getSalario());
+						System.out.println("Salario: $ " + moneda.format(e.getSalario()));
 						System.out.println();
 						System.out.println("Que edicion desea realizar?");
 						System.out.println("1- Editar nombre");
@@ -228,6 +230,7 @@ public class Empleado extends Persona implements Serializable {
 						}
 						aux1 = true;
 						Cliente.ActualizarEmpleado(e);
+						globalServices.GuardarSesion();
 						break;
 					}
 				}
@@ -405,6 +408,7 @@ public class Empleado extends Persona implements Serializable {
 
 	@SuppressWarnings("resource")
 	public static void mostrarEmpleadosExistente() {
+		DecimalFormat moneda = new DecimalFormat("###,###");
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
 		globalService.clearScr();
@@ -412,8 +416,8 @@ public class Empleado extends Persona implements Serializable {
 		if (Empleado.lstEmpleado.size() > 0) {
 			int n = 1;
 			for (Empleado e : Empleado.lstEmpleado) {
-				System.out.println(n + "- Nombre: " + e.getNombre() + "\n   Cedula: " + e.getCedula() + " Salario: "
-						+ e.getSalario() + "\n");
+				System.out.println(n + "- Nombre: " + e.getNombre() + "\n   Cedula: " + e.getCedula() + " Salario: $ "
+						+ moneda.format(e.getSalario()) + "\n");
 				n++;
 			}
 			System.out.println("Total de empleados: " + Empleado.lstEmpleado.size());
@@ -601,7 +605,7 @@ public class Empleado extends Persona implements Serializable {
 			System.out.println("Total de empleados: 0");
 		}
 		if (Habitacion.getLstHabitacion().size() > 0) {
-			System.out.println("Total de habitaciones: " + Habitacion.getLstHabitacion().size());
+			System.out.println("\nTotal de habitaciones: " + Habitacion.getLstHabitacion().size());
 			System.out.println("Listado:\n");
 			for (Habitacion h : Habitacion.getLstHabitacion()) {
 				System.out.println("---> Numero de habitacion: " + h.getNumeroHabitacion() + " Descripcion: "
@@ -609,7 +613,7 @@ public class Empleado extends Persona implements Serializable {
 						+ moneda.format(h.getPrecioDia()));
 			}
 		} else {
-			System.out.println("Total de habitaciones: 0");
+			System.out.println("\nTotal de habitaciones: 0");
 		}
 		if (Reserva.getLstReserva().size() > 0) {
 			System.out.println();

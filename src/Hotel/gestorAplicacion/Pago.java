@@ -129,7 +129,8 @@ public class Pago implements Serializable {
 																											// factura
 							Pago.ingresoCaja(cliente.getReserva().getPago().getValor()); // Aumenta caja
 							Reserva.eliminarReservaPagada(cliente.getReserva()); // elimina reserva y pago de lStRESERVA
-							cliente.setPazYSalvo(true);
+							Habitacion.eliminarReserva(cliente.getReserva()); // Se elimina la reserva que ya finalizó
+							cliente.setPazYSalvo(true); // El cliente ahora queda a paz y salvo
 							cliente.getReserva().setPago(null); // Elimina pago reserva(opcional)
 							cliente.setReserva(null); // Elimina reserva cliente
 							System.out.println("\nFactura pagada exitosamente");
@@ -199,15 +200,30 @@ public class Pago implements Serializable {
 						System.out.println("--> Empleado: " + e.getNombre() + "   pagado :D");
 						Pago.pagos += e.getSalario();
 					}
-					System.out.println();
 					Pago.egreso += Pago.pagos;
-					System.out.println("Presione '1' para regresar");
-					sc.next();
+					System.out.println("Desea ver la caja?");
+					System.out.println("S/N");
+					boolean buenon = false;
+					while (!buenon) {
+						String resp = sc.next();
+						if (resp.equals("s") || resp.equals("S")) {
+							Pago.caja();
+							buenon = true;
+						} else if (resp.equals("n") || resp.equals("N")) {
+							buenon = true;
+						} else {
+							System.out.println("Entrada invalida");
+							System.out.print("Desea volver a intentar? S/N ");
+						}
+
+					}
+					System.out.println();
+
 					Pago.menuPago();
 				} else {
 					System.out.println("No hay empleados en el sistema");
 					try {
-						Thread.sleep(1200);
+						Thread.sleep(1500);
 						Pago.menuPago();
 					} catch (InterruptedException e) {
 						Pago.menuPago();
@@ -229,6 +245,7 @@ public class Pago implements Serializable {
 			}
 		}
 		globalServices.GuardarSesion();
+
 	}
 
 	public static void ActualizarReserva(Reserva rese) {

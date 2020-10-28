@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
 
-	@SuppressWarnings({ "resource" })
+	@SuppressWarnings({ "resource", "unused" })
 	public static void main(String[] args) {
 
 		global globalServices = new global();
@@ -20,7 +20,7 @@ public class Main {
 		while (tru) {
 
 			try {
-				Thread.sleep(500);
+				Thread.sleep(350);
 			} catch (InterruptedException e) {
 			}
 			System.out.print(".");
@@ -33,13 +33,13 @@ public class Main {
 		System.out.println("Conexión exitosa");
 
 		boolean cargaron = globalServices.CargarSesion();
-		if (cargaron) {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
-			new MenuController();
+//		if (cargaron) {
+		try {
+			Thread.sleep(600);
+		} catch (InterruptedException e) {
 		}
+		new MenuController();
+//		}
 
 	}
 

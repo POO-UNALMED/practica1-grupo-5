@@ -88,7 +88,7 @@ public class Reserva implements Serializable {
 		System.out.println("     CHECK IN");
 		System.out.println("Area para atender a clientes que llegan sin ninguna reserva\n");
 		System.out.println("Cual es su solicitud?");
-		System.out.println("1- Verificar disponibilidad de habitacion para el cliente");
+		System.out.println("1- Verificar disponibilidad de habitacion por tipo");
 		System.out.println("2- Asignar habitacion al cliente");
 		System.out.println("3- Mostrar habitaciones disponibles");
 		System.out.println("4- Regresar");
@@ -120,11 +120,13 @@ public class Reserva implements Serializable {
 			Reserva.crearReserva(hoy1, fechaFin);
 			break;
 		case 3:
+			boolean hay = false;
 			Date hoy3 = new Date();
 			Date fechaFin2 = Reserva.validFecha();
 			List<Habitacion> lsthabi = new ArrayList<>();
 			lsthabi = Habitacion.habitacionesDisponiblesPorTipo(1, hoy3, fechaFin2);
 			if (lsthabi.size() > 0) {
+				hay = true;
 				for (Habitacion h : lsthabi) {
 					System.out.println("--> Numero de habitacion: " + h.getNumeroHabitacion() + " Descripcion: "
 							+ h.getDescripcion());
@@ -133,6 +135,7 @@ public class Reserva implements Serializable {
 			}
 			lsthabi = Habitacion.habitacionesDisponiblesPorTipo(2, hoy3, fechaFin2);
 			if (lsthabi.size() > 0) {
+				hay = true;
 				for (Habitacion h : lsthabi) {
 					System.out.println("--> Numero de habitacion: " + h.getNumeroHabitacion() + " Descripcion: "
 							+ h.getDescripcion());
@@ -141,15 +144,19 @@ public class Reserva implements Serializable {
 			}
 			lsthabi = Habitacion.habitacionesDisponiblesPorTipo(3, hoy3, fechaFin2);
 			if (lsthabi.size() > 0) {
+				hay = true;
 				for (Habitacion h : lsthabi) {
 					System.out.println("--> Numero de habitacion: " + h.getNumeroHabitacion() + " Descripcion: "
 							+ h.getDescripcion());
 					System.out.println();
 				}
 			}
+			if (!hay) {
+				System.out.println("No hay habitaciones disponibles hasta esa fecha");
+			}
 			break;
 		case 4:
-			Reserva.checkIn();
+			new MenuController();
 			break;
 		default:
 			break;
@@ -272,20 +279,20 @@ public class Reserva implements Serializable {
 				try {
 					Thread.sleep(3000);
 					globalServices.GuardarSesion();
-					Reserva.menuReserva();
+					Reserva.checkIn();
 				} catch (InterruptedException e) {
 					globalServices.GuardarSesion();
-					Reserva.menuReserva();
+					Reserva.checkIn();
 				}
 			} else {
 				System.out.println("El cliente tiene un pago pendiente");
 				try {
 					Thread.sleep(3000);
 					globalServices.GuardarSesion();
-					Reserva.menuReserva();
+					Reserva.checkIn();
 				} catch (InterruptedException e) {
 					globalServices.GuardarSesion();
-					Reserva.menuReserva();
+					Reserva.checkIn();
 				}
 			}
 		} else {
@@ -293,10 +300,10 @@ public class Reserva implements Serializable {
 			try {
 				Thread.sleep(3000);
 				globalServices.GuardarSesion();
-				Reserva.menuReserva();
+				Reserva.checkIn();
 			} catch (InterruptedException e) {
 				globalServices.GuardarSesion();
-				Reserva.menuReserva();
+				Reserva.checkIn();
 
 			}
 		}
