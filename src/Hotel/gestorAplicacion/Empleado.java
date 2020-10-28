@@ -1,3 +1,5 @@
+/*La clase empleado hereda de persona, es la encargada de ejecutar las funciones administrativas dentro del hotel.
+ *  el empleado es quien crea las habitaciones y las reservas en el sistema, tambien tienen asociado un sueldo, el cual se les paga con las ganancias del hotel */
 package gestorAplicacion;
 
 import java.io.File;
@@ -27,7 +29,7 @@ public class Empleado extends Persona implements Serializable {
 		this.salario = salario;
 		lstEmpleado.add(this);
 	}
-
+	// Metodo que imprime la interfaz grafica de los empleados del hotel, permite crear y modificar empleados.
 	public static void menuEmpleado() {
 		global globalServices = new global();
 		globalServices.clearScr();
@@ -70,7 +72,8 @@ public class Empleado extends Persona implements Serializable {
 			break;
 		}
 	}
-
+	// Crea el objeto empleado en el sistema y lo guarda en la base de datos verificando su previa existencia.
+	// le atribuye nombre,cedula y salario.
 	@SuppressWarnings("resource")
 	public static void crearEmpleado() {
 		global globalServices = new global();
@@ -122,7 +125,7 @@ public class Empleado extends Persona implements Serializable {
 		}
 
 	}
-
+	// Busca los empleados previamente creados en el sistema.
 	@SuppressWarnings("resource")
 	public static void buscarEmpleado() {
 		DecimalFormat moneda = new DecimalFormat("###,###");
@@ -185,7 +188,7 @@ public class Empleado extends Persona implements Serializable {
 			}
 		}
 	}
-
+	// Metodo que permite modificar los atributos de los empleados creados en el sistema.
 	@SuppressWarnings("resource")
 	public static void editarEmpleado() {
 		DecimalFormat moneda = new DecimalFormat("###,###");
@@ -276,7 +279,7 @@ public class Empleado extends Persona implements Serializable {
 			}
 		}
 	}
-
+	// Borra de la base de datos un empleado previamente existente.
 	@SuppressWarnings("resource")
 	public static void eliminarEmpleado() {
 		global globalServices = new global();
@@ -361,7 +364,7 @@ public class Empleado extends Persona implements Serializable {
 		}
 
 	}
-
+	// Sobrecarga del metodo borrar.
 	public static void eliminarEmpleado(Empleado e) {
 		for (int i = 0; i < lstEmpleado.size(); i++) {
 			if (lstEmpleado.get(i).getCedula() == e.getCedula()) {
@@ -371,7 +374,7 @@ public class Empleado extends Persona implements Serializable {
 		}
 		Cliente.EliminarEmpleado(e);
 	}
-
+	// Metodo que imprime la informacion que le brindan los empleados a los clientes que preguntan por las habitaciones del hotel
 	@SuppressWarnings("resource")
 	public static void darInfo() {
 		global globalServices = new global();
@@ -405,7 +408,7 @@ public class Empleado extends Persona implements Serializable {
 		sc.next();
 		Empleado.menuEmpleado();
 	}
-
+	// Recorre la lista de empleados del sistema e imprime sus atributos.
 	@SuppressWarnings("resource")
 	public static void mostrarEmpleadosExistente() {
 		DecimalFormat moneda = new DecimalFormat("###,###");
@@ -435,7 +438,7 @@ public class Empleado extends Persona implements Serializable {
 			}
 		}
 	}
-
+	
 	@SuppressWarnings("resource")
 	public static Empleado newEmpleado(int cedula) {
 		Scanner sc = new Scanner(System.in);
@@ -448,7 +451,7 @@ public class Empleado extends Persona implements Serializable {
 
 		return new Empleado(cedula, nombre, salario);
 	}
-
+	// Verifica que el empleado exista en la base de datos, en caso de que no lo este permite crearlo.
 	@SuppressWarnings("resource")
 	public static Empleado EmpleadoExist() {
 		global globalService = new global();
@@ -486,7 +489,7 @@ public class Empleado extends Persona implements Serializable {
 		}
 		return employee;
 	}
-
+	// Guarda la informacion ingresada por consola en la base de datos, en el archivo binario Empleado
 	public static boolean Guardar() {
 		ObjectOutputStream oos;
 		boolean error = true;
@@ -502,7 +505,7 @@ public class Empleado extends Persona implements Serializable {
 		}
 		return !error;
 	}
-
+	// Carga la informacion desde la base de datos de los empleados creados en previas sesiones.
 	@SuppressWarnings("unchecked")
 	public static boolean Cargar() {
 		ObjectInputStream ois;
@@ -525,7 +528,7 @@ public class Empleado extends Persona implements Serializable {
 		}
 		return !error;
 	}
-
+	// Verifica que un empleado exista ingresando su numero de cedula
 	public static boolean EmpleadoExist(int cedula) {
 		boolean exist = false;
 		if (Empleado.lstEmpleado.size() > 0) {
@@ -540,7 +543,7 @@ public class Empleado extends Persona implements Serializable {
 			return exist;
 		}
 	}
-
+	
 	public static Empleado EmpleadoPorCedula(int cedula) {
 		Empleado Empleado = null;
 		for (Empleado empleado : lstEmpleado) {
@@ -579,7 +582,7 @@ public class Empleado extends Persona implements Serializable {
 	public void setSalario(float salario) {
 		this.salario = salario;
 	}
-
+	//Metodo que se encarga de imprimir la informacion del hotel, incluyedo # de clientes, empleados habitaciones y reservas
 	@SuppressWarnings("resource")
 	public static void informacionHotel() {
 		DecimalFormat moneda = new DecimalFormat("###,###");
