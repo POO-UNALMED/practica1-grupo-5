@@ -492,6 +492,7 @@ public class Habitacion implements Serializable {
 		Scanner sc = new Scanner(System.in);
 		globalServices.clearScr();
 		System.out.println("     VERIFICACION DE HABITACIONES\n");
+		
 		Date fecha1 = new Date();
 		Date fecha2 = new Date();
 		boolean DateisCorrect = false;
