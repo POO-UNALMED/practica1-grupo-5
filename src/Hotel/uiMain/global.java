@@ -183,9 +183,10 @@ public class global {
 		}
 		return success;
 	}
-	
-	public interface dataBase{
+
+	public interface dataBase {
 		void Guardar();
+
 		void Cargar();
 	}
 

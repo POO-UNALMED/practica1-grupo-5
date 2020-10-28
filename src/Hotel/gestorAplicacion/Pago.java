@@ -138,8 +138,8 @@ public class Pago implements Serializable {
 							System.out.println("Cancelado");
 							bien = true;
 						} else {
-							System.out.println("Entrada inv�lida");
-							System.out.print("�Desea volver a intentar? S/N ");
+							System.out.println("Entrada invalida");
+							System.out.print("Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -154,7 +154,7 @@ public class Pago implements Serializable {
 				Pago.menuPago();
 			} else {
 				System.out.println("No se encuentra ningun cliente registrado con este numero");
-				System.out.println("�Desea volver a intentar?");
+				System.out.println("Desea volver a intentar?");
 				System.out.println("S/N");
 				boolean bien = false;
 				while (!bien) {
@@ -166,8 +166,8 @@ public class Pago implements Serializable {
 						bien = true;
 						confirma = true;
 					} else {
-						System.out.println("Entrada inv�lida");
-						System.out.print("�Desea volver a intentar? S/N ");
+						System.out.println("Entrada invalida");
+						System.out.print("Desea volver a intentar? S/N ");
 					}
 				}
 			}
@@ -224,8 +224,8 @@ public class Pago implements Serializable {
 					Pago.menuPago();
 				}
 			} else {
-				System.out.println("Entrada inv�lida");
-				System.out.print("�Desea volver a intentar? S/N ");
+				System.out.println("Entrada invalida");
+				System.out.print("Desea volver a intentar? S/N ");
 			}
 		}
 
@@ -282,8 +282,8 @@ public class Pago implements Serializable {
 						bien = true;
 						confirma = true;
 					} else {
-						System.out.println("Entrada inv�lida");
-						System.out.print("�Desea volver a intentar? S/N ");
+						System.out.println("Entrada invalida");
+						System.out.print("Desea volver a intentar? S/N ");
 					}
 				}
 			}

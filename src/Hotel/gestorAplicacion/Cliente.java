@@ -29,15 +29,16 @@ public class Cliente extends Persona implements Serializable {
 		numClientes++;
 		lstCliente.add(this);
 	}
+
 	public Cliente(int cedula, String nombre) {
-		this(cedula,nombre,null);
+		this(cedula, nombre, null);
 	}
 
 	public static void menuCliente() {
 		global globalServices = new global();
 		globalServices.clearScr();
 		System.out.println("Cliente   ");
-		System.out.println("    digite el n�mero de la opci�n que desee:");
+		System.out.println("    digite el numero de la opcion que desee:");
 		System.out.println("1- Crear Cliente");
 		System.out.println("2- Buscar Cliente");
 		System.out.println("3- Editar Cliente");
@@ -115,7 +116,7 @@ public class Cliente extends Persona implements Serializable {
 							System.out.println("No existe empleado con esa cedula");
 							bien1 = true;
 							clienteisCorrect = true;
-						}							
+						}
 					} else if (res.equals("n") || res.equals("N")) {
 						new Cliente(ced, nom);
 						System.out.println("Creacion exitosa");
@@ -125,7 +126,7 @@ public class Cliente extends Persona implements Serializable {
 						System.out.println("Entrada invalida");
 						System.out.print("Desea volver a intentar? S/N ");
 					}
-				}							
+				}
 			} else {
 				System.out.println("Ya existe un cliente con esa cedula");
 				System.out.println("Desea volver a intentar?");
@@ -182,7 +183,7 @@ public class Cliente extends Persona implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("No se encuentra ningun cliente registrado con esta cedula");
-					System.out.println("�Desea volver a intentar?");
+					System.out.println("Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -194,8 +195,8 @@ public class Cliente extends Persona implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inv�lida");
-							System.out.print("�Desea volver a intentar? S/N ");
+							System.out.println("Entrada invalida");
+							System.out.print("Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -263,7 +264,7 @@ public class Cliente extends Persona implements Serializable {
 									con = true;
 								} else {
 									System.out.println("No se encuentra ningun empleado con esta cedula");
-									System.out.println("�Desea volver a intentar?");
+									System.out.println("Desea volver a intentar?");
 									System.out.println("S/N");
 									boolean bien = false;
 									while (!bien) {
@@ -275,8 +276,8 @@ public class Cliente extends Persona implements Serializable {
 											bien = true;
 											con = true;
 										} else {
-											System.out.println("Entrada inv�lida");
-											System.out.print("�Desea volver a intentar? S/N ");
+											System.out.println("Entrada invalida");
+											System.out.print("Desea volver a intentar? S/N ");
 										}
 									}
 								}
@@ -292,7 +293,7 @@ public class Cliente extends Persona implements Serializable {
 				}
 				if (!aux1) {
 					System.out.println("No se encuentra ningun cliente registrado con esta cedula");
-					System.out.println("¿Desea volver a intentar?");
+					System.out.println("Desea volver a intentar?");
 					System.out.println("S/N");
 					boolean bien = false;
 					while (!bien) {
@@ -305,7 +306,7 @@ public class Cliente extends Persona implements Serializable {
 							confirma = true;
 						} else {
 							System.out.println("Entrada invalida");
-							System.out.print("¿Desea volver a intentar? S/N ");
+							System.out.print("Desea volver a intentar? S/N ");
 						}
 					}
 				} else {
@@ -352,7 +353,7 @@ public class Cliente extends Persona implements Serializable {
 						System.out.println("Nombre: " + c.getNombre());
 						System.out.println("Cedula: " + c.getCedula());
 						System.out.println("Empleado a cargo: " + c.getEmpleado().getNombre());
-						System.out.println("�Esta Seguro que desea eliminar el empleado?");
+						System.out.println("Esta Seguro que desea eliminar el empleado?");
 						System.out.println("S/N");
 						boolean bien = false;
 						while (!bien) {
@@ -372,7 +373,7 @@ public class Cliente extends Persona implements Serializable {
 								confirma = true;
 							} else {
 								System.out.println("Entrada invalida");
-								System.out.print("¿Desea volver a intentar? S/N ");
+								System.out.print("Desea volver a intentar? S/N ");
 							}
 						}
 						aux1 = true;
@@ -432,12 +433,12 @@ public class Cliente extends Persona implements Serializable {
 		if (Cliente.lstCliente.size() > 0) {
 			int n = 1;
 			for (Cliente c : Cliente.lstCliente) {
-				if(c.getEmpleado()!=null) {
+				if (c.getEmpleado() != null) {
 					System.out.println(n + "- Nombre: " + c.getNombre() + "\n   Cedula: " + c.getCedula()
-					+ " Empleado a Cargo: " + c.getEmpleado().getNombre());
+							+ " Empleado a Cargo: " + c.getEmpleado().getNombre());
 					n++;
-					
-				}else {
+
+				} else {
 					System.out.println(n + "- Nombre: " + c.getNombre() + "\n   Cedula: " + c.getCedula());
 					n++;
 				}
@@ -460,7 +461,7 @@ public class Cliente extends Persona implements Serializable {
 	@SuppressWarnings("resource")
 	public static Cliente ClienteExist() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Ingrese la c�dula del cliente: (Ex: 1001366265)");
+		System.out.println("Ingrese la cedula del cliente: (Ex: 1001366265)");
 		boolean ClienteisCorrect = false;
 		Cliente cliente = null;
 		while (!ClienteisCorrect) {
@@ -469,7 +470,7 @@ public class Cliente extends Persona implements Serializable {
 				cliente = Cliente.ClientePorCedula(ced);
 				ClienteisCorrect = true;
 			} else {
-				System.out.println("El cliente no est� registrado, �Desea crearlo?");
+				System.out.println("El cliente no est registrado, Desea crearlo?");
 				System.out.print("S/N ");
 				boolean bien = false;
 				while (!bien) {
@@ -479,12 +480,12 @@ public class Cliente extends Persona implements Serializable {
 						bien = true;
 						ClienteisCorrect = true;
 					} else if (res.equals("n") || res.equals("N")) {
-						System.out.println("Creaci�n de cliente cancelada");
+						System.out.println("Creacin de cliente cancelada");
 						bien = true;
 						ClienteisCorrect = true;
 					} else {
-						System.out.println("Entrada inv�lida");
-						System.out.print("�Desea crearlo? S/N ");
+						System.out.println("Entrada invlida");
+						System.out.print("Desea crearlo? S/N ");
 					}
 				}
 			}
@@ -578,19 +579,19 @@ public class Cliente extends Persona implements Serializable {
 	public int cantidadTotal() {
 		return Cliente.lstCliente.size();
 	}
-	
+
 	public void mostrarTotal() {
 		for (Cliente c : Cliente.lstCliente) {
-			if(c.getEmpleado()!=null) {
+			if (c.getEmpleado() != null) {
 				System.out.println("---> Nombre: " + c.getNombre() + "\n   Cedula: " + c.getCedula()
-				+ " Empleado a Cargo: " + c.getEmpleado().getNombre());
-				
-			}else {
+						+ " Empleado a Cargo: " + c.getEmpleado().getNombre());
+
+			} else {
 				System.out.println("---> Nombre: " + c.getNombre() + "\n   Cedula: " + c.getCedula());
 			}
 		}
 	}
-	
+
 	public Reserva getReserva() {
 		return reserva;
 	}

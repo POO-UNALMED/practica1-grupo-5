@@ -159,7 +159,7 @@ public class Empleado extends Persona implements Serializable {
 							bien = true;
 							confirma = true;
 						} else {
-							System.out.println("Entrada inv�lida");
+							System.out.println("Entrada invalida");
 							System.out.print("Desea volver a intentar? S/N ");
 						}
 					}
@@ -363,6 +363,7 @@ public class Empleado extends Persona implements Serializable {
 
 	}
 
+	@SuppressWarnings("resource")
 	public static void darInfo() {
 		global globalServices = new global();
 		Scanner sc = new Scanner(System.in);
@@ -544,7 +545,7 @@ public class Empleado extends Persona implements Serializable {
 	public int cantidadTotal() {
 		return Empleado.lstEmpleado.size();
 	}
-	
+
 	public void mostrarTotal() {
 		for (Empleado e : Empleado.lstEmpleado) {
 			System.out.println("---> Nombre: " + e.getNombre() + "\n   Cedula: " + e.getCedula() + " Salario: "
@@ -573,10 +574,11 @@ public class Empleado extends Persona implements Serializable {
 		global globalService = new global();
 		Scanner sc = new Scanner(System.in);
 		globalService.clearScr();
-		
-		//En este metodo se usa de ligadura dinamica en 2 ocaciones para hacer uso de los metodos de la clase Cliente
-		//y Empleado, que heredan de la clase abstract Persona.
-		
+
+		// En este metodo se usa de ligadura dinamica en 2 ocaciones para hacer uso de
+		// los metodos de la clase Cliente
+		// y Empleado, que heredan de la clase abstract Persona.
+
 		Persona p = Empleado.getLstEmpleado().get(0);
 		System.out.println("El Hotel POOderoso cuenta altualmente con:\n");
 		System.out.println("Total de empleados: " + p.cantidadTotal());
@@ -614,7 +616,7 @@ public class Empleado extends Persona implements Serializable {
 						+ fechaIniAux.get(Calendar.YEAR);
 				String string2 = fechaFinAux.get(Calendar.DATE) + "/" + (fechaFinAux.get(Calendar.MONTH) + 1) + "/"
 						+ fechaFinAux.get(Calendar.YEAR);
-				
+
 				System.out.println("---> Numero de reserva: " + r.getId() + " Cliente: " + r.getCliente().getNombre()
 						+ "\n    Fecha de reserva: Desde: " + string1 + " Hasta: " + string2);
 			}
