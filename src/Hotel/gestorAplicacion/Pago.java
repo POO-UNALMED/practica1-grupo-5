@@ -1,3 +1,6 @@
+/* Esta clase es la encargada de crear los resúmenes de todo lo relacionado con el pago
+sea de las deudas que tiene los clientes con el hotel o la nómina de los empleados del hotel*/
+
 package gestorAplicacion;
 
 import java.io.File;
@@ -15,8 +18,11 @@ import java.util.Scanner;
 import uiMain.MenuController;
 import uiMain.global;
 
+
 public class Pago implements Serializable {
 
+	// Definición de atributos
+	
 	private static final long serialVersionUID = 1L;
 	private double valor;
 	private boolean temporadaAlta;
@@ -28,13 +34,17 @@ public class Pago implements Serializable {
 	private static double caja;
 	public static List<Pago> lstPago = new ArrayList<>();
 
+	// Contructores
+	
 	public Pago(double valor, boolean temporadaAlta, Reserva reserva) {
 		this.valor = valor;
 		this.temporadaAlta = temporadaAlta;
 		this.reserva = reserva;
 		Pago.lstPago.add(this);
 	}
-
+	
+	//Creación del menu de pago
+	
 	public static void menuPago() {
 		global globalServices = new global();
 		globalServices.clearScr();
@@ -69,6 +79,10 @@ public class Pago implements Serializable {
 		}
 	}
 
+	/* Método para calcular el pago que genera una reserva, para esto recibe un objeto de tipo reserva
+	 que contiene las fechas inicial y final de la reserva de la habitacion y un atributo booleano que
+	 indica si la temporada es alta(true) o baja(false)*/
+	
 	public static void crearPago(Reserva re, boolean temporada) {
 		global globalServices = new global();
 		int milisecondsByDay = 86400000;
@@ -82,6 +96,8 @@ public class Pago implements Serializable {
 		globalServices.GuardarSesion();
 	}
 
+	// Método para generar multa por cancelar una reserva
+	
 	public static void crearPagoMulta(Reserva re) {
 		global globalServices = new global();
 		re.setPago(new Pago(multa, false, re));
@@ -89,6 +105,8 @@ public class Pago implements Serializable {
 		globalServices.GuardarSesion();
 	}
 
+	//Eliminar pago cuando el cliente lo cancela(paga)
+	
 	public static void eliminarPagoRealizado(Pago p) {
 		int index = 0;
 		for (int i = 0; i < lstPago.size(); i++) {
@@ -100,6 +118,9 @@ public class Pago implements Serializable {
 		Pago.lstPago.remove(index);
 	}
 
+	/* Menú de cancelación de factura, para esto pide la cedula del cliente al que va a 
+	efectuar la factura y al final cambiar el atributo pazYSalvo a true*/
+	
 	@SuppressWarnings("resource")
 	public static void pagarFactura() {
 		DecimalFormat moneda = new DecimalFormat("###,###");
@@ -110,7 +131,7 @@ public class Pago implements Serializable {
 		System.out.println();
 		boolean confirma = false;
 		while (!confirma) {
-			System.out.println("Ingrese la cedula del cliente: (Ex: 1001366265)");
+			System.out.println("Ingrese la cédula del cliente: (Ex: 1001366265)");
 			int ced = sc.nextInt();
 			boolean aux = false;
 			if (Cliente.clienteExist(ced)) {
@@ -182,6 +203,8 @@ public class Pago implements Serializable {
 		}
 	}
 
+	//Método para pagar la nómina de los empleados del hotel
+	
 	@SuppressWarnings("resource")
 	public static void pagarEmpleados() {
 		global globalServices = new global();
@@ -257,6 +280,8 @@ public class Pago implements Serializable {
 		Pago.Guardar();
 	}
 
+	//Método para generar resumen de pagos pendientes
+	
 	@SuppressWarnings("resource")
 	public static void mostrarPagosPendientes() {
 		DecimalFormat moneda = new DecimalFormat("###,###");
@@ -313,6 +338,8 @@ public class Pago implements Serializable {
 			Pago.menuPago();
 		}
 	}
+	
+	// Método para mostrar el flujo de caja del hotel
 
 	@SuppressWarnings("resource")
 	public static void caja() {
@@ -336,6 +363,8 @@ public class Pago implements Serializable {
 	public static void ingresoCaja(double valor) {
 		Pago.caja += valor;
 	}
+	
+	//Método que muestra el resumen de la factura para ser entregada a un cliente
 
 	public void imprimeFactura(int num) {
 		DecimalFormat moneda = new DecimalFormat("###,###");
@@ -372,6 +401,8 @@ public class Pago implements Serializable {
 		}
 		globalServices.GuardarSesion();
 	}
+	
+	//Método para guardar cambios en la base de datos de Pago
 
 	public static boolean Guardar() {
 		ObjectOutputStream oos;
@@ -389,6 +420,8 @@ public class Pago implements Serializable {
 		return !error;
 	}
 
+	//Método para cargar los datos almacenados en la base de datos de Pago
+	
 	@SuppressWarnings("unchecked")
 	public static boolean Cargar() {
 		ObjectInputStream ois;
@@ -411,6 +444,8 @@ public class Pago implements Serializable {
 		}
 		return !error;
 	}
+	
+	//Métodos get y set de atributos
 
 	public static double getPagos() {
 		return pagos;
